@@ -1,0 +1,72 @@
+{
+	"pages": [ //pages数组中第一项表示应用启动页，参考：https://uniapp.dcloud.io/collocation/pages
+		{
+			"path": "pages/visitingcard/index"
+		},
+		{
+			"path": "pages/concernedscholars/index",
+			"style": {
+				"navigationBarTitleText": "uni-app"
+			}
+		},
+		{
+			"path": "pages/claimresults/index",
+			"style": {
+				"navigationBarTitleText": "uni-app"
+			}
+		},
+		{
+			"path": "pages/claimresults/trainingRecord/index",
+			"style": {
+				"navigationBarTitleText": "uni-app"
+			}
+		},
+		{
+			"path": "pages/claimresults/myInfo/index",
+			"style": {
+				"navigationBarTitleText": "uni-app"
+			}
+		},
+		{
+			"path": "pages/visitingcard/details/index",
+			"style": {
+				"navigationBarTitleText": "uni-app"
+			}
+		},
+		{
+			"path": "pages/search/index",
+			"style": {
+				"navigationBarTitleText": "uni-app"
+			}
+		}
+    ],
+	"globalStyle": {
+		"navigationBarTextStyle": "black",
+		"navigationBarTitleText": "uni-app",
+		"navigationBarBackgroundColor": "#F8F8F8",
+		"backgroundColor": "#F8F8F8"
+	},
+	"tabBar": {
+		"color": "#7A7E83",
+		"selectedColor": "#316b7a",
+		"borderStyle": "black",
+		"backgroundColor": "#ffffff",
+		"list": [{
+			"pagePath": "pages/visitingcard/index",
+			"text": "我的名片",
+			"iconPath": "static/tab-1.png",
+			"selectedIconPath": "static/tab-1-active.png"
+		}, {
+			"pagePath": "pages/concernedscholars/index",
+			"text": "关注学者",
+			"iconPath": "static/tab-2.png",
+			"selectedIconPath": "static/tab-2-active.png"
+		}, {
+			"pagePath": "pages/claimresults/index",
+			"text": "成果认领",
+			"iconPath": "static/tab-3.png",
+			"selectedIconPath": "static/tab-3-active.png"
+		}]
+	},
+	"uniIdRouter": {}
+}
