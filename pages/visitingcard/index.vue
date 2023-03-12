@@ -1,23 +1,28 @@
 <template>
 	<view class="container">
 		<view>
-			<u-modal :show="show" :title="title">
+			<u-modal :show="show" :title="title" @confirm="confirm">
 				<view>
 					<u-form :model="userInfo" ref="form1">
-						<u-form-item>
-							<u--input placeholder="请输入工号" border="bottom" v-model="userInfo.snNo"></u--input>
+						<u-form-item borderBottom>
+							<u--input placeholder="请输入工号" v-model="userInfo.snNo"></u--input>
 						</u-form-item>
 					</u-form>
 				</view>
 			</u-modal>
-			<u-button @click="show = true">打开</u-button>
 		</view>
+		<BasicInfo></BasicInfo>
+		<view class="content">1111</view>
 	</view>
 </template>
 
 <script>
-	import Api from "@/server/index.js";
+	import Api from "@/server/index.js"
+	import BasicInfo from './basic_info.vue'
 	export default {
+		components: {
+			BasicInfo,
+		},
 		data() {
 			return {
 				baseList: [],
@@ -36,6 +41,10 @@
 
 		},
 		methods: {
+			confirm() {
+				this.show = !this.show;
+				console.log(this.userInfo)
+			},
 			click(name) {
 				this.$refs.uToast.success(name)
 				uni.navigateTo({
@@ -70,12 +79,5 @@
 
 	.container {
 		height: 100vh;
-		display: flex;
-		justify-content: center;
-		align-items: center;
-	}
-
-	.item {
-		padding: 10px;
 	}
 </style>
