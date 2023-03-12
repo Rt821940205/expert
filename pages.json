@@ -4,33 +4,20 @@
 			"path": "pages/visitingcard/index"
 		},
 		{
-			"path": "pages/concernedscholars/index",
-			"style": {
-				"navigationBarTitleText": "uni-app"
-			}
+			"path": "pages/concernedscholars/index"
 		},
 		{
-			"path": "pages/claimresults/index",
-			"style": {
-				"navigationBarTitleText": "uni-app"
-			}
+			"path": "pages/claimresults/index"
 		},
 		{
-			"path": "pages/claimresults/trainingRecord/index",
-			"style": {
-				"navigationBarTitleText": "uni-app"
-			}
+			"path": "pages/claimresults/trainingRecord/index"
 		},
 		{
-			"path": "pages/claimresults/myInfo/index",
-			"style": {
-				"navigationBarTitleText": "uni-app"
-			}
+			"path": "pages/claimresults/myInfo/index"
 		}
     ],
 	"globalStyle": {
-		"navigationBarTextStyle": "black",
-		"navigationBarTitleText": "uni-app",
+		"navigationStyle": "custom",
 		"navigationBarBackgroundColor": "#F8F8F8",
 		"backgroundColor": "#F8F8F8"
 	},
