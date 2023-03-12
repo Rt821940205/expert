@@ -17,32 +17,12 @@
 			<view class="header_c_r">
 				<view class="CN_name">张玉兴</view>
 				<view class="EN_name">zhang yu xing</view>
-				<view class="insi_list">
+				<view class="isni">ISNI: 04284</view>
+				<!-- <view class="insi_list">
 					<text class="isni">ISNI: 04284</text>
 					<view class="list">
-						<u-tag text="标签" size="mini" borderColor="rgba(255, 255, 255, 0.3)"
-							bgColor="rgba(255, 255, 255, 0.3)">
-						</u-tag>
-						<u-tag text="标签" size="mini" borderColor="rgba(255, 255, 255, 0.3)"
-							bgColor="rgba(255, 255, 255, 0.3)">
-						</u-tag>
-						<u-tag text="标签" size="mini" borderColor="rgba(255, 255, 255, 0.3)"
-							bgColor="rgba(255, 255, 255, 0.3)">
-						</u-tag>
-						<u-tag text="标签" size="mini" borderColor="rgba(255, 255, 255, 0.3)"
-							bgColor="rgba(255, 255, 255, 0.3)">
-						</u-tag>
-						<u-tag text="标签" size="mini" borderColor="rgba(255, 255, 255, 0.3)"
-							bgColor="rgba(255, 255, 255, 0.3)">
-						</u-tag>
-						<u-tag text="标签" size="mini" borderColor="rgba(255, 255, 255, 0.3)"
-							bgColor="rgba(255, 255, 255, 0.3)">
-						</u-tag>
-						<u-tag text="标签" size="mini" borderColor="rgba(255, 255, 255, 0.3)"
-							bgColor="rgba(255, 255, 255, 0.3)">
-						</u-tag>
 					</view>
-				</view>
+				</view> -->
 			</view>
 		</view>
 		<view class="header_b">
@@ -69,7 +49,8 @@
 
 <style lang="scss">
 	.header {
-		background-color: #909399;
+		background: -webkit-linear-gradient(bottom left, #316B7A, #85ABB3);
+		background: linear-gradient(to top right, #316B7A, #85ABB3);
 		padding: 44rpx 36rpx;
 
 		.header_t {
@@ -110,7 +91,7 @@
 			}
 
 			.header_c_r {
-				font-weight: bold;
+				// font-weight: bold;
 				color: #FFFFFF;
 
 				.CN_name {
@@ -118,6 +99,10 @@
 				}
 
 				.EN_name {
+					font-size: 20rpx;
+				}
+				
+				.isni {
 					font-size: 20rpx;
 				}
 

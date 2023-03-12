@@ -1,5 +1,4 @@
-//基础Api
-const BASE_API = "http://dev.heidutech.com:18681"
+const BASE_API = process.env.NODE_ENV === 'development' ? '/' : '/'
 export {
 	BASE_API
 }

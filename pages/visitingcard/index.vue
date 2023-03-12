@@ -35,7 +35,7 @@
 			}
 		},
 		mounted() {
-			// this.getData()
+			this.getData()
 		},
 		created() {
 
@@ -53,12 +53,8 @@
 			},
 			getData() {
 				var data = {}
-				Api.getList(data).then(res => {
-					console.log(res, 'res')
-					if (res.status === 200) {
-						this.baseList = res.data
-						this.loading = false
-					}
+				Api.getUserByUserNo({userNo: "03974"}).then(res => {
+					// console.log(res, 'res')
 				}).catch(error => {
 					console.log(error);
 				});

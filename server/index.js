@@ -42,5 +42,10 @@ export default {
 	//1.获取学校列表
 	getCollageList(data) {
 		return request.post("/api/wx-user/collageList", data);
-	}
+	},
+	
+	getUserByUserNo(data) {
+		// 传入的data对象  {ip:'xxxxxx'}; 
+		return request.post("/getUserByUserNo", data);
+	},
 }
