@@ -2,7 +2,7 @@
   <view class="search-container">
     <view class="search-box">
       <u-search
-        placeholder="请输入关键字"
+        placeholder="请输入内容"
         v-model="keyword"
         :clearabled="true"
         bgColor="#fffff00"
@@ -63,36 +63,42 @@ export default {
   justify-content: center;
   padding-bottom: 4rpx;
   ::v-deep .search-box {
-    width: 410rpx;
+    // width: 410rpx;
     text-align: center;
-    .u-search__content {
-      border-bottom: 2rpx solid #a0a9b8 !important;
+    .uni-input-input {
+      border-bottom: 4rpx solid rgb(49, 107, 122) !important;
       border-radius: 0 !important;
       padding-left: 0;
+    }
+    .u-icon__icon {
+      span {
+        color: rgb(49, 107, 122);
+      }
     }
 
     .search-list {
       .search-list-item {
-        font-size: 22rpx;
-        font-weight: 500;
-        color: #a0a9b8;
+        color: rgb(49, 107, 122);
         line-height: 59rpx;
+        font-size: $uni-font-size-base;
+        font-weight: bolder;
       }
     }
 
     .search-notfound {
-      font-size: 22rpx;
-      font-weight: 500;
-      color: #014099;
+      color: rgb(49, 107, 122);
       line-height: 59rpx;
+      font-size: $uni-font-size-base;
+      font-weight: bolder;
     }
     .search-tofind {
       padding: 24rpx 37rpx;
       border: 2px solid #6a7d7e;
       font-size: 22rpx;
       font-weight: 500;
-      color: #050504;
+      color: #316b7a;
       line-height: 52rpx;
+      font-size: $uni-font-size-base;
     }
   }
 }

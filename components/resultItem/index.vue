@@ -3,7 +3,6 @@
     <view class="resultItem-index">
       <text>{{ index }}</text>
     </view>
-
     <view class="resultItem-left">
       <u-form labelPosition="left">
         <u-form-item label="标题">
@@ -38,16 +37,20 @@
       <text
         class="right-text"
         @click.stop="handleClaim"
+        v-if="showBtns.includes('claim')"
       >认领</text>
       <text
         class="right-text"
         @click.stop="handleDetail"
+        v-if="showBtns.includes('detail')"
       >详情</text>
       <text
         class="right-text"
-        @click.stop="handleSign"
+        @click.stop="handleView"
+        v-if="showBtns.includes('view')"
       >标为已查看</text>
     </view>
+
   </view>
 </template>
 
@@ -63,6 +66,13 @@ export default {
       type: String | Number,
       required: true,
     },
+    showBtns: {
+      type: Object,
+      required: false,
+      default: () => {
+        return ["claim", "detail"];
+      },
+    },
   },
   data() {
     return {};
@@ -71,44 +81,42 @@ export default {
   methods: {
     // 认领
     handleClaim() {
-      console.log("认领");
+      this.$emit("claim");
+      uni.navigateTo({
+        url: "/pages/claim/claim",
+      });
     },
     //  详细
     handleDetail() {
-      console.log("详细");
+      this.$emit("detail");
+      uni.navigateTo({
+        url: "/pages/claim-detail/claim-detail",
+      });
     },
-    // 标记
-    handleSign() {
-      console.log("标记");
+    // 标为已经
+    handleView() {
+      this.$emit("view");
     },
   },
-  watch: {},
-
-  // 组件周期函数--监听组件挂载完毕
-  mounted() {},
-  // 组件周期函数--监听组件数据更新之前
-  beforeUpdate() {},
-  // 组件周期函数--监听组件数据更新之后
-  updated() {},
-  // 组件周期函数--监听组件激活(显示)
-  activated() {},
-  // 组件周期函数--监听组件停用(隐藏)
-  deactivated() {},
-  // 组件周期函数--监听组件销毁之前
-  beforeDestroy() {},
 };
 </script>
 
 <style scoped lang="scss">
 .resultItem-container {
   position: relative;
-  border: 3rpx solid #6a7d7e;
-  padding: 19rpx 89rpx 34rpx 47rpx;
+  border: 3rpx solid #316b7a;
+  padding: 24rpx 24rpx 6rpx 60rpx;
+  background: linear-gradient(
+    to bottom right,
+    rgba(75, 195, 226, 0.2) 0%,
+    rgba(255, 255, 255, 1) 30%
+  );
 
   .resultItem-index {
     position: absolute;
     left: 10rpx;
-    right: 20rpx;
+    font-size: $uni-font-size-base;
+    color: #316b7a;
   }
 
   ::v-deep .u-text {
@@ -122,7 +130,7 @@ export default {
   }
 
   ::v-deep .resultItem-left {
-    font-size: 20rpx !important;
+    font-size: $uni-font-size-sm !important;
     .u-form-item__body {
       padding: 0;
     }
@@ -130,7 +138,7 @@ export default {
 
   ::v-deep .resultItem-right {
     position: absolute;
-    top: 10rpx;
+    top: 24rpx;
     right: 20rpx;
     display: flex;
     flex-direction: column;
@@ -140,8 +148,8 @@ export default {
     .right-text {
       font-size: 22rpx;
       font-weight: 500;
-      color: #014099;
-      line-height: 59rpx;
+      color: $base-color;
+      // line-height: 59rpx;
     }
   }
 }

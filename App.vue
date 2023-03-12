@@ -5,6 +5,7 @@
 		},
 		onShow: function() {
 			console.log('App Show1111')
+			
 		},
 		onHide: function() {
 			console.log('App Hide')

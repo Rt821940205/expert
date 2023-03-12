@@ -15,9 +15,9 @@
       <u-text
         text="成果认领"
         align="center"
-        color="#050504"
         size="36rpx"
         lineHeight="93rpx"
+        class="title"
       ></u-text>
     </view>
 
@@ -25,15 +25,15 @@
     <u-tabs
       :list="list"
       :current="tabIndex"
-      active-color="#194DA5"
-      lineColor="#194DA5"
-      lineWidth="50"
+      active-color="#316B7A"
+      lineColor="#85ABB3"
+      lineWidth="100"
       :inactiveStyle="{
-				color:'#A0A9B8',
+				color:'#85ABB3',
 				fontSize: '24rpx'
       }"
       :activeStyle="{
-				color: '#050504',
+				color: '#316B7A',
 				fontSize: '24rpx'
 			}"
       @change="tabChange"
@@ -52,48 +52,30 @@
           v-for="(tab, index) in list.length"
           :key="index"
         >
-          <!-- 查找 -->
-          <seach-input
-            v-if="isSearch"
-            @onSearch="handleSearch"
-          ></seach-input>
-          <!-- 列表 -->
-          <block v-else>
-            <u-list @scrolltolower="scrolltolower">
-              <u-list-item
-                v-for="(item, index) in 100"
-                :key="index"
-              >
-                <result-item
-                  class="reslut-item"
-                  :detail="{
-                  title:'膜活性肽强化多功能复合微粒基因载体的构建及',
-                  type:'项目',
-                  time:'2012',
-                  author:'王文英'
-                }"
-                  :index="index + 1"
-                >
-                  {{ index }}
-                </result-item>
-              </u-list-item>
-            </u-list>
+          <view v-if="index == 0">
+            <tab0 />
+          </view>
+          <view v-else-if="index == 1">
+            <tab0 />
+          </view>
+          <view v-else>
+            <tab2 />
+          </view>
 
-          </block>
         </swiper-item>
       </swiper>
     </view>
-
   </view>
 </template>
 
 <script>
-import seachInput from "../../components/seachInput/index.vue";
-import resultItem from "../../components/resultItem/index.vue";
+import tab0 from "@/components/tab0";
+import tab2 from "@/components/tab2";
+import Api from "@/server/index.js";
 export default {
   components: {
-    seachInput,
-    resultItem,
+    tab2,
+    tab0,
   },
   data() {
     return {
@@ -109,14 +91,21 @@ export default {
         },
       ]),
       tabIndex: 0,
-      isLoading: false,
-      isSearch: true,
     };
   },
   onLoad() {
-    this.loadmore();
+    this.getUserByUserNo({ userNo: "05030" });
   },
   methods: {
+    getUserByUserNo(params) {
+      Api.getUserByUserNo(params)
+        .then((res) => {
+          console.log(res, "res");
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    },
     tabChange(tab) {
       this.tabIndex = tab.index;
       this.isSearch = true;
@@ -126,16 +115,7 @@ export default {
       this.tabIndex = e.detail.current;
       this.isSearch = true;
     },
-    scrolltolower() {
-      this.loadmore();
-    },
-    loadmore() {},
     getList() {},
-    // 搜索
-    handleSearch(val) {
-      // 1. 调用搜索接口
-      this.isSearch = false;
-    },
   },
 };
 </script>
@@ -148,8 +128,21 @@ page {
   display: flex;
   flex-direction: column;
   height: 100%;
+  padding: 0 50rpx;
 
   ::v-deep {
+    .title {
+      border-bottom: 1px solid;
+      border-image: linear-gradient(
+          270deg,
+          rgba(255, 255, 255, 1),
+          rgba(49, 107, 122, 1)
+        )
+        1 1;
+      span {
+        color: $base-color;
+      }
+    }
     .u-tabs__wrapper__nav {
       justify-content: space-between;
       .u-tabs__wrapper__nav__item {
@@ -159,7 +152,7 @@ page {
 
     .swiper-container {
       flex: 1;
-      padding: 39rpx 16rpx 39rpx 33rpx;
+      // padding: 39rpx 0 39rpx 0;
 
       .swiper-box {
         height: 100%;
