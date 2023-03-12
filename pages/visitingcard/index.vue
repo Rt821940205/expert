@@ -11,17 +11,22 @@
 				</view>
 			</u-modal>
 		</view>
-		<BasicInfo></BasicInfo>
-		<view class="content">1111</view>
+		<BasicInfo :basicInfo="basicInfo" :eUserName="eUserName" :researchDirection="researchDirection" />
+		<AchievementList :achievementList="achievementList" :achievementPageList="achievementPageList" />
 	</view>
 </template>
 
 <script>
 	import Api from "@/server/index.js"
 	import BasicInfo from './basic_info.vue'
+	import AchievementList from './achievement_list.vue'
+	import {
+		dictionary
+	} from '@/utils/dic.js'
 	export default {
 		components: {
 			BasicInfo,
+			AchievementList
 		},
 		data() {
 			return {
@@ -32,6 +37,13 @@
 				userInfo: {
 					snNo: '',
 				},
+				basicInfo: {
+
+				},
+				eUserName: [],
+				researchDirection: [],
+				achievementList: [],
+				achievementPageList: []
 			}
 		},
 		mounted() {
@@ -51,13 +63,60 @@
 					url: `/pages/functionintroduction/details/index?id=${name}`
 				})
 			},
-			getData() {
-				var data = {}
-				Api.getUserByUserNo({userNo: "03974"}).then(res => {
-					// console.log(res, 'res')
-				}).catch(error => {
-					console.log(error);
-				});
+			async getData() {
+				try {
+					const res1 = await Api.getUserByUserNo({
+						userNo: "03974"
+					})
+					if (res1.code === 1) {
+						const {
+							data,
+							data: {
+								eUserName,
+								researchDirection
+							}
+						} = res1
+						this.basicInfo = data
+						this.eUserName = JSON.parse(eUserName).map(i => i.name)
+						this.researchDirection = JSON.parse(researchDirection)
+					}
+					const res2 = await Api.getUserResourceNum({
+						userId: res1.code
+					})
+					if (res2.code === 1) {
+						const {
+							data,
+						} = res2
+						this.achievementList = data.map(a => ({
+							name: dictionary[a.resourceCode],
+							badge: {
+								value: a.num,
+							}
+						}))
+						this.getList()
+					}
+				} catch (e) {
+					console.log(e)
+				}
+			},
+			async getList() {
+				try {
+					const res = await Api.getUserResourcePage({
+						userId: "35",
+						resourceCode: "I",
+						orderByType: 1,
+						pageNo: 1,
+						pageSize: 100
+					})
+					if (res.code === 1) {
+						const {
+							data
+						} = res
+						this.achievementPageList = data
+					}
+				} catch (e) {
+					console.log(e)
+				}
 			}
 		}
 	}
@@ -73,7 +132,5 @@
 		/* #endif */
 	}
 
-	.container {
-		height: 100vh;
-	}
+	.container {}
 </style>

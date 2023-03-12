@@ -45,7 +45,14 @@ export default {
 	},
 	
 	getUserByUserNo(data) {
-		// 传入的data对象  {ip:'xxxxxx'}; 
 		return request.post("/getUserByUserNo", data);
+	},
+	
+	getUserResourceNum(data) {
+		return request.post("/getUserResourceNum", data);
+	},
+	
+	getUserResourcePage(data) {
+		return request.post("/getUserResourcePage", data);
 	},
 }

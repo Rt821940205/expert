@@ -12,39 +12,73 @@
 		</view>
 		<view class="header_c">
 			<view class="header_c_l">
-				<image src="@/static/home/user-header.png"></image>
+				<image :src="basicInfo.userImg" v-if="basicInfo.userImg" />
+				<image v-if="!basicInfo.userImg" src="@/static/home/default-user-header.png"></image>
 			</view>
 			<view class="header_c_r">
-				<view class="CN_name">张玉兴</view>
-				<view class="EN_name">zhang yu xing</view>
-				<view class="isni">ISNI: 04284</view>
-				<!-- <view class="insi_list">
-					<text class="isni">ISNI: 04284</text>
-					<view class="list">
+				<view class="name">
+					<view class="CN_name">{{basicInfo.userName}}</view>
+					<view class="EN_name">
+						<picker :value="0" :range="eUserName">
+							<text class="name_text">{{eUserName.length > 0 && eUserName[0]}}</text>
+							<image src="@/static/home/down_arrow.png" />
+						</picker>
 					</view>
-				</view> -->
+				</view>
+				<view class="com_text">ISNI: {{basicInfo.userNo}}</view>
+				<view class="com_text">{{basicInfo.jobTitle}}</view>
+				<view class="com_text">{{basicInfo.subject}}</view>
 			</view>
 		</view>
 		<view class="header_b">
 			<view class="list">
-				<u-tag text="标签" size="mini" bgColor="rgba(255, 255, 255, 0.3)"></u-tag>
-				<u-tag text="标签" size="mini" bgColor="rgba(255, 255, 255, 0.3)"></u-tag>
-				<u-tag text="标签" size="mini" bgColor="rgba(255, 255, 255, 0.3)"></u-tag>
-				<u-tag text="标签" size="mini" bgColor="rgba(255, 255, 255, 0.3)"></u-tag>
-				<u-tag text="标签" size="mini" bgColor="rgba(255, 255, 255, 0.3)"></u-tag>
-				<u-tag text="标签" size="mini" bgColor="rgba(255, 255, 255, 0.3)"></u-tag>
-				<u-tag text="标签" size="mini" bgColor="rgba(255, 255, 255, 0.3)"></u-tag>
-				<u-tag text="标签" size="mini" bgColor="rgba(255, 255, 255, 0.3)"></u-tag>
-				<u-tag text="标签" size="mini" bgColor="rgba(255, 255, 255, 0.3)"></u-tag>
-				<u-tag text="标签" size="mini" bgColor="rgba(255, 255, 255, 0.3)"></u-tag>
-				<u-tag text="标签" size="mini" bgColor="rgba(255, 255, 255, 0.3)"></u-tag>
-				<u-tag text="标签" size="mini" bgColor="rgba(255, 255, 255, 0.3)"></u-tag>
+				<u-tag v-for="item in researchDirection" :key="item" :text="item" size="mini" bgColor="rgba(255, 255, 255, 0.3)"
+					border-color="transparent" shape="circle"></u-tag>
 			</view>
 		</view>
 	</view>
 </template>
 
 <script>
+	export default {
+		props: {
+			basicInfo: {
+				type: Object,
+				default: function() {
+					return {}
+				}
+			},
+			eUserName: {
+				type: Array,
+				default: function() {
+					return []
+				}
+			},
+			researchDirection: {
+				type: Array,
+				default: function() {
+					return []
+				}
+			},
+		},
+		data() {
+			return {
+				aaa: ''
+			}
+		},
+		watch: {
+			basicInfo: {
+				handler(cur, pre) {
+					// console.log(cur, pre)
+				},
+				immediate: true,
+				deep: true
+			}
+		},
+		onLoad() {
+			console.log(this.eUserName)
+		},
+	}
 </script>
 
 <style lang="scss">
@@ -78,67 +112,67 @@
 		}
 
 		.header_c {
-			margin-top: 50rpx;
+			margin-top: 20rpx;
 			display: flex;
+			align-items: center;
 
 			.header_c_l {
 				margin-right: 35rpx;
 
 				image {
-					width: 84rpx;
-					height: 88rpx;
+					width: 150rpx;
+					height: 160rpx;
 				}
 			}
 
 			.header_c_r {
-				// font-weight: bold;
 				color: #FFFFFF;
 
-				.CN_name {
-					font-size: 32rpx;
-				}
-
-				.EN_name {
-					font-size: 20rpx;
-				}
-				
-				.isni {
-					font-size: 20rpx;
-				}
-
-				.insi_list {
+				.name {
 					display: flex;
 					align-items: center;
 
-					.isni {
-						width: 180rpx;
-						font-size: 20rpx;
+					.CN_name {
+						font-size: 32rpx;
+						margin-right: 40rpx;
 					}
 
-					.list {
+					.EN_name {
 						display: flex;
-						width: 360rpx;
-						overflow-y: scroll;
+						align-items: center;
 
-						>view {
+						.name_text {
+							font-size: 32rpx;
 							margin-right: 10rpx;
 						}
+
+						image {
+							width: 20rpx;
+							height: 20rpx;
+						}
 					}
+				}
+
+				.com_text {
+					font-size: 24rpx;
+					margin-bottom: 5rpx;
 				}
 			}
 		}
 
 		.header_b {
 			width: 100%;
-			margin-top: 50rpx;
+			margin-top: 20rpx;
 
 			.list {
 				display: flex;
 				flex-wrap: wrap;
+				height: 200rpx;
+				overflow-y: scroll;
 
 				>view {
-					margin-right: 10rpx;
-					margin-bottom: 6rpx;
+					margin-right: 20rpx;
+					margin-bottom: 10rpx;
 				}
 			}
 		}
