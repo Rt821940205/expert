@@ -67,7 +67,7 @@ export default {
       required: true,
     },
     showBtns: {
-      type: Object,
+      type: Array,
       required: false,
       default: () => {
         return ["claim", "detail"];
