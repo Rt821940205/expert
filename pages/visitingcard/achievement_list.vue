@@ -4,7 +4,7 @@
 			<u-tabs :list="achievementList"></u-tabs>
 		</view>
 		<view class="list">
-			<view class="list_item" v-for="(item, index) in achievementPageList">
+			<view class="list_item" v-for="(item, index) in achievementPageList" @click="goAchmentDetail(item)">
 				<view class="item_header">
 					<view class="item_header_l">{{index + 1}}</view>
 					<view class="item_header_c">
@@ -24,6 +24,7 @@
 </template>
 
 <script>
+	import Api from "@/server/index.js"
 	export default {
 		props: {
 			achievementList: {
@@ -39,10 +40,20 @@
 				}
 			}
 		},
+		methods: {
+			goAchmentDetail(item) {
+				const {
+					resource_id,
+				} = item
+				uni.navigateTo({
+					url: `/pages/compage/achment-detail?id=${resource_id}`
+				})
+			}
+		}
 	}
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
 	.container {
 		.tabs {
 			display: flex;

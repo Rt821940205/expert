@@ -51,8 +51,11 @@ export default {
   getUserResourceNum(data) {
     return request.post("/getUserResourceNum", data);
   },
-
   getUserResourcePage(data) {
+    return request.post("/getUserResourcePage", data);
+  },
+  //获取成果详情
+  getResourceById(data) {
     return request.post("/getUserResourcePage", data);
   },
   // 我的关注

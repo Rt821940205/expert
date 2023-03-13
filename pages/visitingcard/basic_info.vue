@@ -81,7 +81,7 @@
 	}
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
 	.header {
 		background: -webkit-linear-gradient(bottom left, #316B7A, #85ABB3);
 		background: linear-gradient(to top right, #316B7A, #85ABB3);

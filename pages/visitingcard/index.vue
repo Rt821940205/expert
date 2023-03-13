@@ -1,18 +1,18 @@
 <template>
 	<view class="container">
-		<view>
-			<u-modal :show="show" :title="title" @confirm="confirm">
-				<view>
-					<u-form :model="userInfo" ref="form1">
-						<u-form-item borderBottom>
-							<u--input placeholder="请输入工号" v-model="userInfo.snNo"></u--input>
-						</u-form-item>
-					</u-form>
-				</view>
-			</u-modal>
+		<u-modal :show="show" :title="title" @confirm="confirm">
+			<view>
+				<u-form :model="userInfo">
+					<u-form-item borderBottom>
+						<u--input placeholder="请输入工号" v-model="userInfo.userNo"></u--input>
+					</u-form-item>
+				</u-form>
+			</view>
+		</u-modal>
+		<view v-show="!show">
+			<BasicInfo :basicInfo="basicInfo" :eUserName="eUserName" :researchDirection="researchDirection" />
+			<AchievementList :achievementList="achievementList" :achievementPageList="achievementPageList" />
 		</view>
-		<BasicInfo :basicInfo="basicInfo" :eUserName="eUserName" :researchDirection="researchDirection" />
-		<AchievementList :achievementList="achievementList" :achievementPageList="achievementPageList" />
 	</view>
 </template>
 
@@ -32,10 +32,10 @@
 			return {
 				baseList: [],
 				loading: true,
-				show: false,
+				show: true,
 				title: '请输入工号',
 				userInfo: {
-					snNo: '',
+					userNo: '03974',
 				},
 				basicInfo: {
 
@@ -47,7 +47,7 @@
 			}
 		},
 		mounted() {
-			this.getData()
+
 		},
 		created() {
 
@@ -55,7 +55,7 @@
 		methods: {
 			confirm() {
 				this.show = !this.show;
-				console.log(this.userInfo)
+				this.getData(this.userInfo)
 			},
 			click(name) {
 				this.$refs.uToast.success(name)
@@ -63,30 +63,35 @@
 					url: `/pages/functionintroduction/details/index?id=${name}`
 				})
 			},
-			async getData() {
+			async getData(params) {
 				try {
-					const res1 = await Api.getUserByUserNo({
-						userNo: "03974"
-					})
-					if (res1.code === 1) {
+					const res = await Api.getUserByUserNo(params)
+					if (res.code === 1) {
 						const {
 							data,
 							data: {
 								eUserName,
-								researchDirection
+								researchDirection,
+								id
 							}
-						} = res1
+						} = res
+						uni.setStorageSync('userId', id)
 						this.basicInfo = data
 						this.eUserName = JSON.parse(eUserName).map(i => i.name)
 						this.researchDirection = JSON.parse(researchDirection)
 					}
-					const res2 = await Api.getUserResourceNum({
-						userId: res1.code
-					})
-					if (res2.code === 1) {
+					this.getCatalogueList()
+				} catch (e) {
+					console.log(e)
+				}
+			},
+			async getCatalogueList() {
+				try {
+					const res = await Api.getUserResourceNum({})
+					if (res.code === 1) {
 						const {
 							data,
-						} = res2
+						} = res
 						this.achievementList = data.map(a => ({
 							name: dictionary[a.resourceCode],
 							badge: {
@@ -102,7 +107,6 @@
 			async getList() {
 				try {
 					const res = await Api.getUserResourcePage({
-						userId: "35",
 						resourceCode: "I",
 						orderByType: 1,
 						pageNo: 1,
@@ -122,7 +126,7 @@
 	}
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
 	.grid-text {
 		font-size: 14px;
 		color: #909399;

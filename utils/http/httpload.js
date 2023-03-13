@@ -13,15 +13,15 @@ const http = new Request({
 
 //请求拦截器
 http.interceptors.request.use((config) => { // 可使用async await 做异步操作
-	// const token = uni.getStorageSync('token');
+	const userId = uni.getStorageSync('userId');
 	// if (token) {
 	// 	config.header = {
 	// 		"Authorization": 'Bearer ' + token
 	// 	}
 	// }
-	if (config.method === 'POST') {
-		config.data = JSON.stringify(config.data);
-	}
+	config.data = Object.assign(config.data, {
+		userId
+	})
 	return config
 }, error => {
 	return Promise.resolve(error)

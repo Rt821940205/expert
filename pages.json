@@ -29,6 +29,12 @@
 				"navigationBarTitleText": "",
 				"navigationStyle": "custom"
 			}
+		},
+		{
+			"path": "pages/compage/achment-detail",
+			"style": {
+				"navigationBarTitleText": "成果详情"
+			}
 		}
 	],
 	"globalStyle": {
