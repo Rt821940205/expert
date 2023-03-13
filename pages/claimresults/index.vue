@@ -59,7 +59,7 @@
             <tab0 />
           </view>
           <view v-else>
-            <tab2 />
+            <tab2 isSearch />
           </view>
 
         </swiper-item>
@@ -94,7 +94,6 @@ export default {
     };
   },
   onLoad() {
-    this.getUserByUserNo({ userNo: "05030" });
   },
   methods: {
     getUserByUserNo(params) {

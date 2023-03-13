@@ -10,22 +10,27 @@
 			"path": "pages/claimresults/index"
 		},
 		{
-			"path" : "pages/claim-detail/claim-detail",
-			"style" :                                                                                    
-			{
-					"navigationBarTitleText": "成果详情",
-					"navigationStyle": "custom"
+			"path": "pages/claim-detail/claim-detail",
+			"style": {
+				"navigationBarTitleText": "成果详情",
+				"navigationStyle": "custom"
 			}
-	},
-	{
-		"path" : "pages/claim/claim",
-		"style" :                                                                                    
+		},
 		{
+			"path": "pages/claim/claim",
+			"style": {
 				"navigationBarTitleText": "成果认领",
 				"navigationStyle": "custom"
+			}
+		},
+		{
+			"path": "pages/visitingcard2/index",
+			"style": {
+				"navigationBarTitleText": "",
+				"navigationStyle": "custom"
+			}
 		}
-}
-    ],
+	],
 	"globalStyle": {
 		"navigationStyle": "custom",
 		"navigationBarBackgroundColor": "#F8F8F8",
@@ -36,22 +41,26 @@
 		"selectedColor": "#316b7a",
 		"borderStyle": "black",
 		"backgroundColor": "#ffffff",
-		"list": [{
-			"pagePath": "pages/visitingcard/index",
-			"text": "我的名片",
-			"iconPath": "static/tab-1.png",
-			"selectedIconPath": "static/tab-1-active.png"
-		}, {
-			"pagePath": "pages/concernedscholars/index",
-			"text": "关注学者",
-			"iconPath": "static/tab-2.png",
-			"selectedIconPath": "static/tab-2-active.png"
-		}, {
-			"pagePath": "pages/claimresults/index",
-			"text": "成果认领",
-			"iconPath": "static/tab-3.png",
-			"selectedIconPath": "static/tab-3-active.png"
-		}]
+		"list": [
+			{
+				"pagePath": "pages/visitingcard/index",
+				"text": "我的名片",
+				"iconPath": "static/tab-1.png",
+				"selectedIconPath": "static/tab-1-active.png"
+			},
+			{
+				"pagePath": "pages/concernedscholars/index",
+				"text": "关注学者",
+				"iconPath": "static/tab-2.png",
+				"selectedIconPath": "static/tab-2-active.png"
+			},
+			{
+				"pagePath": "pages/claimresults/index",
+				"text": "成果认领",
+				"iconPath": "static/tab-3.png",
+				"selectedIconPath": "static/tab-3-active.png"
+			}
+		]
 	},
 	"uniIdRouter": {}
 }

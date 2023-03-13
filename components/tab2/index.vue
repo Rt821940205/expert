@@ -2,7 +2,7 @@
   <view class="tab3-container">
     <!-- 查找 -->
     <seach-input
-      v-if="isSearch"
+      v-if="currentSearch"
       @onSearch="handleSearch"
     ></seach-input>
     <!-- 列表 -->
@@ -45,10 +45,16 @@ import resultItem from "@/components/resultItem/index.vue";
 
 export default {
   components: { seachInput, resultItem },
+  props: {
+    isSearch: {
+      type: Boolean,
+      default: true,
+    },
+  },
   data() {
     return {
       isLoading: false,
-      isSearch: true,
+      currentSearch: this.isSearch,
       searchData: new Array(10),
     };
   },
@@ -61,14 +67,14 @@ export default {
     // 搜索
     handleSearch(val) {
       // 1. 调用搜索接口
-      this.isSearch = false;
+      this.currentSearch = false;
     },
   },
 };
 </script>
 
 <style scoped lang="scss">
-.tab-container {
+.tab3-container {
   padding: 39rpx 0 39rpx 0;
 }
 </style>
