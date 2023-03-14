@@ -11,7 +11,7 @@
 		</u-modal>
 		<view v-show="!show">
 			<BasicInfo :basicInfo="basicInfo" :eUserName="eUserName" :researchDirection="researchDirection" />
-			<AchievementList :achievementList="achievementList" :achievementPageList="achievementPageList" />
+			<AchievementList :achievementList="achievementList" :achievementPageList="achievementPageList" @getList="getList" />
 		</view>
 	</view>
 </template>
@@ -35,7 +35,7 @@
 				show: true,
 				title: '请输入工号',
 				userInfo: {
-					userNo: '03974',
+					userNo: '00168',
 				},
 				basicInfo: {
 
@@ -93,21 +93,23 @@
 							data,
 						} = res
 						this.achievementList = data.map(a => ({
+							resourceCode: a.resourceCode,
 							name: dictionary[a.resourceCode],
 							badge: {
 								value: a.num,
 							}
 						}))
-						this.getList()
+						this.getList(data[0].resourceCode)
 					}
 				} catch (e) {
 					console.log(e)
 				}
 			},
-			async getList() {
+			async getList(resourceCode) {
+				this.achievementPageList = []
 				try {
 					const res = await Api.getUserResourcePage({
-						resourceCode: "I",
+						resourceCode,
 						orderByType: 1,
 						pageNo: 1,
 						pageSize: 100

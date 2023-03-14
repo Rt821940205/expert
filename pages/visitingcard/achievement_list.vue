@@ -1,10 +1,11 @@
 <template>
 	<view class="container">
 		<view class="tabs">
-			<u-tabs :list="achievementList"></u-tabs>
+			<u-tabs :list="achievementList" @click="click"></u-tabs>
 		</view>
 		<view class="list">
-			<view class="list_item" v-for="(item, index) in achievementPageList" @click="goAchmentDetail(item)">
+			<view class="list_item" v-for="(item, index) in achievementPageList" key="index"
+				@click="goAchmentDetail(item)">
 				<view class="item_header">
 					<view class="item_header_l">{{index + 1}}</view>
 					<view class="item_header_c">
@@ -26,6 +27,11 @@
 <script>
 	import Api from "@/server/index.js"
 	export default {
+		data() {
+			return {
+				loading: true
+			}
+		},
 		props: {
 			achievementList: {
 				type: Array,
@@ -41,14 +47,18 @@
 			}
 		},
 		methods: {
+			click(item) {
+				this.$emit('getList', item.resourceCode)
+			},
 			goAchmentDetail(item) {
 				const {
 					resource_id,
+					resource_code
 				} = item
 				uni.navigateTo({
-					url: `/pages/compage/achment-detail?id=${resource_id}`
+					url: `/pages/compage/achment-detail?id=${resource_id}&code=${resource_code}`
 				})
-			}
+			},
 		}
 	}
 </script>
@@ -64,7 +74,7 @@
 			margin-top: 20rpx;
 
 			.list_item {
-				padding: 30rpx 60rpx 60rpx;
+				padding: 30rpx 40rpx 60rpx 60rpx;
 				background: -webkit-linear-gradient(top left, rgba(75, 195, 226, 0.2) 0%, white 30%);
 				background: linear-gradient(to bottom right, rgba(75, 195, 226, 0.2) 0%, white 30%);
 
@@ -72,10 +82,12 @@
 					display: flex;
 					justify-content: space-between;
 
-					.item_header_l {}
+					.item_header_l {
+						flex: 1;
+					}
 
 					.item_header_c {
-						padding: 0 40rpx;
+						flex: 9;
 						font-size: 28rpx;
 
 						.header_c_tit {
@@ -95,6 +107,9 @@
 					}
 
 					.item_header_r {
+						display: flex;
+						justify-content: flex-end;
+						flex: 2;
 						font-size: 28rpx;
 						color: #AD1528;
 					}
