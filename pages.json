@@ -10,23 +10,9 @@
 			"path": "pages/claimresults/index"
 		},
 		{
-			"path": "pages/claim-detail/claim-detail",
+			"path": "pages/compage/claim-detail",
 			"style": {
 				"navigationBarTitleText": "成果详情",
-				"navigationStyle": "custom"
-			}
-		},
-		{
-			"path": "pages/claim/claim",
-			"style": {
-				"navigationBarTitleText": "成果认领",
-				"navigationStyle": "custom"
-			}
-		},
-		{
-			"path": "pages/visitingcard2/index",
-			"style": {
-				"navigationBarTitleText": "",
 				"navigationStyle": "custom"
 			}
 		},

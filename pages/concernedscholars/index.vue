@@ -111,7 +111,7 @@ export default {
 
       uni.navigateTo({
         url:
-          "/pages/visitingcard2/index?id=" +
+          "/pages/visitingcard/index?id=" +
           sItem.id +
           "&buddyId=" +
           sItem.buddyId,

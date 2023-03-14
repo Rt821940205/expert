@@ -6,8 +6,8 @@
       width="245rpx"
       height="49rpx"
       :style="{
-          marginLeft: '35rpx',
-          marginTop: '58rpx'
+        marginLeft: '35rpx',
+        marginTop: '58rpx',
       }"
       class="test"
     ></u-image>
@@ -29,15 +29,15 @@
       lineColor="#85ABB3"
       lineWidth="80"
       :inactiveStyle="{
-				color:'#85ABB3',
-				fontSize: '24rpx'
+        color: '#85ABB3',
+        fontSize: '24rpx',
       }"
       :activeStyle="{
-				color: '#316B7A',
-				fontSize: '24rpx'
-			}"
+        color: '#316B7A',
+        fontSize: '24rpx',
+      }"
       :itemStyle="{
-        height:'60rpx'
+        height: '60rpx',
       }"
       @change="tabChange"
     ></u-tabs>
@@ -56,15 +56,14 @@
           :key="index"
         >
           <view v-if="index == 0">
-            <tab0 />
+            <Achievementviewed />
           </view>
           <view v-else-if="index == 1">
-            <tab0 />
+            <Achievementnotviewed />
           </view>
           <view v-else>
-            <tab2 isSearch />
+            <Achievementsearch isSearch />
           </view>
-
         </swiper-item>
       </swiper>
     </view>
@@ -72,13 +71,15 @@
 </template>
 
 <script>
-import tab0 from "@/components/tab0";
-import tab2 from "@/components/tab2";
+import Achievementviewed from "./achievementviewed.vue";
+import Achievementnotviewed from "./achievementnotviewed";
+import Achievementsearch from "./achievementsearch";
 import Api from "@/server/index.js";
 export default {
   components: {
-    tab2,
-    tab0,
+    Achievementviewed,
+    Achievementnotviewed,
+    Achievementsearch,
   },
   data() {
     return {
