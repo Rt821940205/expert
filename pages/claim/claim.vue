@@ -6,7 +6,7 @@
       </view>
       <view class="claim_information">
         <view class="claim_text">成果信息</view>
-        <view class="claim_title">Regulating electrode-electrolyte interphases and eliminating hydrogen fluoride to boost electrochemical performances of Li/NCM811 batteries</view>
+        <view class="claim_title">{{ content.title }}</view>
         <view class="claim_box">
           <view>类型：</view>
           <view>成果</view>
@@ -17,11 +17,11 @@
         </view>
         <view class="claim_box">
           <view>时间：</view>
-          <view>2023</view>
+          <view>{{ content.year }}</view>
         </view>
         <view class="claim_box">
           <view>作者：</view>
-          <view>Sen, J; Xin, X; Yin, JY; Wu, HH; Zhu, XQ; Guan, HT; Lai, W; Kang, X; Lan, YL; Zhang, LH; Yang, Q; Gao, YF</view>
+          <view>{{ content.participant }}</view>
         </view>
       </view>
 
@@ -55,6 +55,7 @@
 
 <script>
 import tNav from "@/components/tNav/tNav.vue";
+import Api from "@/server/index.js";
 export default {
   components: { tNav },
   data() {
@@ -63,6 +64,18 @@ export default {
       code: "",
       value: "自然科学",
     };
+  },
+  onload() {},
+  created() {
+    this.getList({
+      id: "bd2e691b-ea92-0ae0-cafd-bab64debc453",
+    });
+  },
+  methods: {
+    async getList(id) {
+      const { data } = await Api.getResourceById(id);
+      this.content = data
+    },
   },
 };
 </script>

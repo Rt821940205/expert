@@ -102,7 +102,24 @@ export default {
   data() {
     return {
       title: "picker",
-      array: [{ name: "全部", resourceCode: "" }],
+      array: [
+        { name: "全部", resourceCode: "" },
+        { name: "成果", resourceCode: "A" },
+        { name: "图书", resourceCode: "B" },
+        { name: "会议", resourceCode: "C" },
+        { name: "学位论文", resourceCode: "D" },
+        { name: "EI", resourceCode: "E" },
+        { name: "SCI", resourceCode: "I" },
+        { name: "期刊", resourceCode: "J" },
+        { name: "项目", resourceCode: "O" },
+        { name: "专利", resourceCode: "P" },
+        { name: "其他", resourceCode: "Q" },
+        { name: "报告", resourceCode: "R" },
+        { name: "标准", resourceCode: "S" },
+        { name: "团队", resourceCode: "T" },
+        { name: "SCOPUS", resourceCode: "U" },
+        { name: "活动", resourceCode: "Y" },
+      ],
       //A-成果 B-图书 C-会议 D-学位论文 E-EI I-SCI J-期刊 O-项目 P-专利 Q-其他 R-报告 S-标准 T-团队 U-SCOPUS Y-活动
       index: 0,
       indexYear: 0,
@@ -186,11 +203,12 @@ export default {
 .claimDate {
   color: #316b7a;
   font-size: $uni-font-size-base;
-  padding: 40rpx 26rpx 0 26rpx;
+  padding: $uni-spacing-row-base;
   &_selcet {
     display: flex;
     justify-content: space-between;
-    margin: 0 30rpx 30rpx 0;
+    margin-bottom: $uni-spacing-col-sm;
+    margin-right: $uni-spacing-col-sm;
     .uni-input {
       text-decoration: underline;
       position: relative;
@@ -199,7 +217,7 @@ export default {
       content: "";
       position: absolute;
       top: 39%;
-      right: -22px;
+      right: -22rpx;
       width: 0;
       height: 0;
       border-left: 5px solid transparent;
@@ -208,7 +226,7 @@ export default {
     }
   }
   .uni-list-cell-db {
-    margin-left: 40rpx;
+    margin-left: $uni-spacing-col-base;
   }
   .alldis {
     display: flex;

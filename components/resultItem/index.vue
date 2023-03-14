@@ -83,7 +83,7 @@ export default {
     handleClaim() {
       this.$emit("claim");
       uni.navigateTo({
-        url: "/pages/claim/claim",
+        url: "/pages/claim/claim?id=",
       });
     },
     //  详细

@@ -56,7 +56,7 @@ export default {
   },
   //获取成果详情
   getResourceById(data) {
-    return request.post("/getUserResourcePage", data);
+    return request.post("/getResourceById", data);
   },
   // 我的关注
   getUserBuddyPage(data) {
@@ -75,5 +75,8 @@ export default {
   },
   delUserBuddyPage(data) {
     return request.post("/delUserBuddyPage", data);
+  },
+  getNewResourceNumPage(data) {
+    return request.post("/getNewResourceNumPage", data);
   },
 };

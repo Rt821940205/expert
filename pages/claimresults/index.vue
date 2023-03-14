@@ -27,7 +27,7 @@
       :current="tabIndex"
       active-color="#316B7A"
       lineColor="#85ABB3"
-      lineWidth="100"
+      lineWidth="80"
       :inactiveStyle="{
 				color:'#85ABB3',
 				fontSize: '24rpx'
@@ -36,6 +36,9 @@
 				color: '#316B7A',
 				fontSize: '24rpx'
 			}"
+      :itemStyle="{
+        height:'60rpx'
+      }"
       @change="tabChange"
     ></u-tabs>
 
@@ -93,8 +96,7 @@ export default {
       tabIndex: 0,
     };
   },
-  onLoad() {
-  },
+  onLoad() {},
   methods: {
     getUserByUserNo(params) {
       Api.getUserByUserNo(params)
@@ -127,7 +129,8 @@ page {
   display: flex;
   flex-direction: column;
   height: 100%;
-  padding: 0 50rpx;
+  padding: $uni-spacing-row-base $uni-spacing-col-base;
+  padding-top: $uni-spacing-col-sm;
 
   ::v-deep {
     .title {
