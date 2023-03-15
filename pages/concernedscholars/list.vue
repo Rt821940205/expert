@@ -71,7 +71,6 @@ export default {
       justify-content: flex-end;
       align-items: center;
       height: 72rpx;
-      font-family: PingFangSC-Light, sans-serif;
       text-align: right;
       color: $base-color;
       view:first-child {
@@ -103,27 +102,17 @@ export default {
           justify-content: flex-start;
           align-items: flex-end;
           view:first-child {
-            font-family: PingFangSC-Medium, sans-serif;
             font-size: $uni-font-size-lm;
             flex: 1;
           }
-          view:nth-child(2) {
-            font-family: PingFangSC-Light, sans-serif;
+          view:nth-child(2), view:nth-child(3),  view:last-child {
             font-size: $uni-font-size-sm;
             flex: 1;
           }
-          view:nth-child(3) {
-            font-family: PingFangSC-Light, sans-serif;
-            font-size: $uni-font-size-sm;
-            flex: 1;
-          }
-          view:last-child {
+          view:last-child   {
             display: -webkit-box;
             -webkit-box-oriet: vertical;
             -webkit-line-clap: 4;
-            font-family: PingFangSC-Light, sans-serif;
-            font-size: $uni-font-size-sm;
-            flex: 1;
           }
         }
       }

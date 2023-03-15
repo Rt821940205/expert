@@ -77,7 +77,7 @@ export default {
           uni.setStorageSync("userId", id);
           this.basicInfo = data;
           this.eUserName = JSON.parse(eUserName).map((i) => i.name);
-          this.researchDirection = JSON.parse(researchDirection);
+          this.researchDirection =  Object.freeze(JSON.parse(researchDirection)) ;
         }
         this.getCatalogueList();
       } catch (e) {
