@@ -4,7 +4,7 @@
 			<u-tabs :list="achievementList" @click="click"></u-tabs>
 		</view>
 		<view class="list">
-			<view class="list_item" v-for="(item, index) in achievementPageList" :key="item.id"
+			<view class="list_item" v-for="(item, index) in achievementPageList" :key="index"
 				@click="goAchmentDetail(item)">
 				<view class="item_header">
 					<view class="item_header_l">{{index + 1}}</view>
@@ -83,11 +83,11 @@
 					justify-content: space-between;
 
 					.item_header_l {
-						width: 6%;
+						flex: 1;
 					}
 
 					.item_header_c {
-						width: 79%;
+						flex: 9;
 						font-size: 28rpx;
 
 						.header_c_tit {
@@ -101,10 +101,6 @@
 						}
 
 						.com_text {
-							text-overflow: -o-ellipsis-lastline;
-							overflow: hidden;
-							text-overflow: ellipsis;
-							width: 100%;
 							font-size: 20rpx;
 							margin-top: 20rpx;
 						}
@@ -113,7 +109,7 @@
 					.item_header_r {
 						display: flex;
 						justify-content: flex-end;
-						width: 15%;
+						flex: 2;
 						font-size: 28rpx;
 						color: #AD1528;
 					}

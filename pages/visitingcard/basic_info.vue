@@ -5,9 +5,9 @@
         <image src="@/static/home/logo@2x.png"></image>
       </view>
       <view class="header_t_r">
-        <image src="@/static/home/share.png"></image>
-        <image src="@/static/home/QRcode.png"></image>
-        <image src="@/static/home/update.png"></image>
+        <image src="@/static/home/share.png" @click.stop="handleShare"></image>
+        <image src="@/static/home/QRcode.png" @click.stop="handleQcode"></image>
+        <image src="@/static/home/update.png" @click.stop="handleUpdate"></image>
       </view>
     </view>
     <view class="header_c">
@@ -78,6 +78,24 @@ export default {
       aaa: "",
     };
   },
+  methods:{
+    handleShare(){
+      // basicInfo
+      uni.navigateTo({
+        url: "/pages/compage/share",
+      });
+    },
+    handleQcode(){
+      uni.navigateTo({
+        url: "/pages/compage/qcode?sn=" + this.basicInfo.userNo,
+      });
+    },
+    handleUpdate(){
+      uni.navigateTo({
+        url: "/pages/compage/modify-data",
+      });
+    }
+  },
   watch: {
     basicInfo: {
       handler(cur, pre) {
@@ -97,7 +115,7 @@ export default {
 .header {
   background: -webkit-linear-gradient(bottom left, #316b7a, #85abb3);
   background: linear-gradient(to top right, #316b7a, #85abb3);
-  padding: $zgd-logo-padding;
+  padding: 44rpx 36rpx;
 
   .header_t {
     display: flex;
@@ -106,8 +124,8 @@ export default {
 
     .header_t_l {
       image {
-        width: $zgd-logo-w;
-        height: $zgd-logo-h;
+        width: 245rpx;
+        height: 50rpx;
       }
     }
 

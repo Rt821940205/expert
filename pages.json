@@ -21,8 +21,31 @@
 			"style": {
 				"navigationBarTitleText": "成果详情"
 			}
+		},
+		{
+			"path": "pages/compage/share",
+			"style": {
+				"navigationBarTitleText": "",
+				"enablePullDownRefresh": false
+			}
+		},
+		{
+			"path": "pages/compage/qcode",
+			"style": {
+				"navigationBarTitleText": "",
+				"enablePullDownRefresh": false
+			}
 		}
-	],
+	    ,{
+            "path" : "pages/compage/modify-data",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "",
+                "enablePullDownRefresh": false
+            }
+            
+        }
+    ],
 	"globalStyle": {
 		"navigationStyle": "custom",
 		"navigationBarBackgroundColor": "#F8F8F8",

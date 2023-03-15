@@ -75,8 +75,9 @@ export default {
     init() {
       this.updateFollowList();
     },
+    //
     async updateFollowList() {
-      const { data } = await Api.getUserBuddyPage();
+      const { data } = await Api.getUserBuddyPage({});
       this.list = data;
     },
     async searchDaniu() {
@@ -92,7 +93,7 @@ export default {
     },
     async toFollow(id) {
       await Api.addUserBuddy({
-        buddyUserId: id,
+        buddyUserId: id
       });
       uni.showToast({
         title: "关注成功",
@@ -121,15 +122,12 @@ export default {
 <style lang="scss" scoped>
 .app {
   .header {
-    height: $uni-img-size-lg;
-    padding: $uni-spacing-col-lg $uni-spacing-row-base $uni-spacing-row-sm;
+    padding: $zgd-logo-padding;
     .logo {
-      height: $uni-img-size-lg;
-      font-size: 0;
       image {
-        width: 300rpx;
-        height:$uni-img-size-lg;
-      }
+      width: $zgd-logo-w;
+      height: $zgd-logo-h;
+    }
     }
   }
   .search-bar {

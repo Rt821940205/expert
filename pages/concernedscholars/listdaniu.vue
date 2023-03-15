@@ -86,30 +86,16 @@ export default {
           flex-flow: column nowrap;
           justify-content: flex-start;
           align-items: flex-end;
-
           view:first-child {
-            font-family: PingFangSC-Medium, sans-serif;
             font-size: $uni-font-size-lm;
             flex: 1;
           }
 
-          view:nth-child(2) {
-            font-family: PingFangSC-Light, sans-serif;
+          view:nth-child(2), view:nth-child(3), view:last-child {
             font-size: $uni-font-size-sm;
             flex: 1;
           }
 
-          view:nth-child(3) {
-            font-family: PingFangSC-Light, sans-serif;
-            font-size: $uni-font-size-sm;
-            flex: 1;
-          }
-
-          view:last-child {
-            font-family: PingFangSC-Light, sans-serif;
-            font-size: $uni-font-size-sm;
-            flex: 1;
-          }
         }
       }
     }
