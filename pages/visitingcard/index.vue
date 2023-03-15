@@ -44,7 +44,7 @@ export default {
       show: true,
       title: "请输入工号",
       userInfo: {
-        userNo: "00168",
+        userNo: "00261",
       },
       basicInfo: {},
       eUserName: [],
@@ -113,7 +113,7 @@ export default {
         });
         if (res.code === 1) {
           const { data } = res;
-          this.achievementPageList = data;
+          this.achievementPageList = Object.freeze(data);
         }
       } catch (e) {
         console.log(e);

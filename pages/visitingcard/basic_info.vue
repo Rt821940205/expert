@@ -97,7 +97,7 @@ export default {
 .header {
   background: -webkit-linear-gradient(bottom left, #316b7a, #85abb3);
   background: linear-gradient(to top right, #316b7a, #85abb3);
-  padding: 44rpx 36rpx;
+  padding: $zgd-logo-padding;
 
   .header_t {
     display: flex;
@@ -106,8 +106,8 @@ export default {
 
     .header_t_l {
       image {
-        width: 245rpx;
-        height: 50rpx;
+        width: $zgd-logo-w;
+        height: $zgd-logo-h;
       }
     }
 

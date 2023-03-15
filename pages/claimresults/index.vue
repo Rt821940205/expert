@@ -1,16 +1,13 @@
 <template>
-  <view class="u-page">
-    <u-image
+  <view class="container">
+    <!-- <u-image
       :showLoading="true"
       src="/static/schoolBadge.png"
       width="245rpx"
       height="49rpx"
-      :style="{
-        marginLeft: '35rpx',
-        marginTop: '58rpx',
-      }"
       class="test"
-    ></u-image>
+    ></u-image> -->
+    <view class="header"><image src="/static/schoolBadge.png"></image></view>
     <view>
       <u-text
         text="成果认领"
@@ -123,8 +120,14 @@ export default {
 </script>
 
 <style scoped lang="scss">
-page {
-  height: 100%;
+.container {
+  .header {
+    padding: $zgd-logo-padding;
+    image {
+      width: $zgd-logo-w;
+      height: $zgd-logo-h;
+    }
+  }
 }
 .u-page {
   display: flex;
