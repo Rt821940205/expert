@@ -75,11 +75,8 @@ export default {
     init() {
       this.updateFollowList();
     },
-    //
     async updateFollowList() {
-      const { data } = await Api.getUserBuddyPage({
-        userId: "35",
-      });
+      const { data } = await Api.getUserBuddyPage();
       this.list = data;
     },
     async searchDaniu() {
@@ -89,15 +86,12 @@ export default {
         return;
       }
       const { data } = await Api.findScholarByUserId({
-        userId: "35",
         keyWords: this.theme,
       });
-      console.log("data", data);
       this.daniuList = data;
     },
     async toFollow(id) {
       await Api.addUserBuddy({
-        userId: "35",
         buddyUserId: id,
       });
       uni.showToast({
@@ -106,9 +100,6 @@ export default {
       this.updateFollowList();
     },
     toItem(sItem) {
-      console.log("buddyId: " + JSON.stringify(sItem.buddyId));
-      console.log("id: " + JSON.stringify(sItem.id));
-
       uni.navigateTo({
         url:
           "/pages/visitingcard/index?id=" +
@@ -130,14 +121,14 @@ export default {
 <style lang="scss" scoped>
 .app {
   .header {
-    height: 64rpx;
-    padding: 86rpx 50rpx 8rpx 50rpx;
+    height: $uni-img-size-lg;
+    padding: $uni-spacing-col-lg $uni-spacing-row-base $uni-spacing-row-sm;
     .logo {
-      height: 64rpx;
+      height: $uni-img-size-lg;
       font-size: 0;
       image {
         width: 300rpx;
-        height: 64rpx;
+        height:$uni-img-size-lg;
       }
     }
   }
@@ -154,19 +145,18 @@ export default {
       margin-left: 40rpx;
 
       input {
-        font-size: 28rpx;
+        font-size: $uni-font-size-base;
         height: 60rpx;
-        margin-left: 10rpx;
-        margin-right: 10rpx;
+        margin-left: $uni-spacing-row-lg;
       }
     }
     .button-view {
-      margin-left: 10rpx;
-      margin-right: 40rpx;
+      margin-left: $uni-spacing-row-base;
+      margin-right: $uni-spacing-row-base;
       height: 60rpx;
       width: 20%;
       button {
-        font-size: 28rpx;
+        font-size: $uni-font-size-base;
         width: 100%;
         line-height: 60rpx;
         background-color: $base-color;
@@ -176,7 +166,7 @@ export default {
   .seegment-view {
     justify-content: center;
     align-content: center;
-    margin-top: 20rpx;
+    margin-top: $uni-spacing-col-base;
     display: flex;
     gap: $uni-spacing-row-base;
     height: 60rpx;
@@ -185,7 +175,7 @@ export default {
     button {
       margin-left: 0rpx;
       margin-right: 0rpx;
-      font-size: 28rpx;
+      font-size: $uni-font-size-base;
       line-height: 60rpx;
       width: 45%;
       border: 2rpx solid $base-color;

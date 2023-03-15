@@ -29,7 +29,6 @@
       </view>
     </view>
   </view>
-  </view>
 </template>
 <script>
 export default {
@@ -52,36 +51,15 @@ export default {
 <style lang="scss" scoped>
 .list {
   .list-item {
-    &__chart {
-      display: flex;
-      justify-content: flex-end;
-      align-items: center;
-      height: 72rpx;
-      font-family: PingFangSC-Light, sans-serif;
-      text-align: right;
-      color: $base-color;
-
-      view:first-child {
-        flex: 1;
-        font-size: $uni-font-size-hg;
-      }
-
-      view:last-child {
-        width: 50rpx;
-        font-size: $uni-font-size-lg;
-      }
-    }
-
     &__info {
-      margin-top: 20rpx;
-      background: rgba(220, 221, 222, 0.26);
-      margin-bottom: 20rpx;
-
+      margin-top: $uni-spacing-col-lg;
+      margin-bottom: $uni-spacing-col-lg;
+      background: $uni-bg-card-1;
+     
       .top {
         height: 232rpx;
         display: flex;
-        padding: 30rpx 30rpx 0rpx 30rpx;
-
+        padding:$uni-spacing-col-base $uni-spacing-row-base ;
         .left {
           button {
             color: white;
@@ -93,12 +71,12 @@ export default {
             color: black;
             background: white;
           }
-          width: 168rpx;
+          width: $uni-img-size-hg;
           font-size: 0;
 
           image {
-            height: 168rpx;
-            width: 168rpx;
+            height: $uni-img-size-hg;
+            width: $uni-img-size-hg;
           }
         }
 
@@ -133,19 +111,6 @@ export default {
             flex: 1;
           }
         }
-      }
-
-      .bottom {
-        padding-bottom: 15rpx;
-
-        text {
-          color: $contrast-color;
-          font-size: $uni-font-size-sm;
-          transform: scale(0.8);
-          transform-origin: 0;
-        }
-
-        text-align: right;
       }
     }
   }

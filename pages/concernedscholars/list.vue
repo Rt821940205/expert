@@ -54,7 +54,6 @@ export default {
         const name = JSON.parse(value)[0].name;
         return name;
       } catch (e) {
-        //TODO handle the exception
         return " 1";
       }
     },
@@ -85,18 +84,16 @@ export default {
       }
     }
     &__info {
-      background: rgba(220, 221, 222, 0.26);
-      margin-bottom: 20rpx;
+      background: $uni-bg-card-1;
+      margin-bottom: $uni-spacing-row-base;
       .top {
-        height: 168rpx;
         display: flex;
-        padding: 30rpx 30rpx 0rpx 30rpx;
+        padding:$uni-spacing-col-base $uni-spacing-row-base ;
         .left {
-          width: 168rpx;
-          font-size: 0;
+          width: $uni-img-size-hg;
           image {
-            height: 168rpx;
-            width: 168rpx;
+            height: $uni-img-size-hg;
+            width:$uni-img-size-hg;
           }
         }
         .right {
@@ -124,22 +121,11 @@ export default {
             display: -webkit-box;
             -webkit-box-oriet: vertical;
             -webkit-line-clap: 4;
-            overflow: hidden;
             font-family: PingFangSC-Light, sans-serif;
             font-size: $uni-font-size-sm;
             flex: 1;
           }
         }
-      }
-      .bottom {
-        padding-bottom: 15rpx;
-        text {
-          color: $contrast-color;
-          font-size: $uni-font-size-sm;
-          transform: scale(0.8);
-          transform-origin: 0;
-        }
-        text-align: right;
       }
     }
   }
