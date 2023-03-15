@@ -1,5 +1,5 @@
 <template>
-  <view class="tab0-container">
+  <view class="achievementviewed">
     <view class="claimDate">
       <view class="claimDate_selcet">
         <view class="alldis">
@@ -12,10 +12,7 @@
               :range-key="'year'"
               @change="bindDateChange"
             >
-              <view
-                v-if="yearList.length > 0"
-                class="uni-input"
-              >
+              <view v-if="yearList.length > 0" class="uni-input">
                 {{ yearList[indexYear].year }}
               </view>
             </picker>
@@ -32,7 +29,7 @@
               @change="bindPickerChange"
             >
               <view class="uni-input">
-                {{ array[index].name ? array[index].name   : array[index] }}
+                {{ array[index].name ? array[index].name : array[index] }}
               </view>
             </picker>
           </view>
@@ -40,8 +37,8 @@
       </view>
       <view class="all_Claim alldis">
         <text
-          v-for="(item,index) in btnList"
-          v-show="item.type == 'claimAll' ? allClaim : !allClaim "
+          v-for="(item, index) in btnList"
+          v-show="item.type == 'claimAll' ? allClaim : !allClaim"
           :key="index"
           @click="allCliam(item.type)"
         >
@@ -49,44 +46,31 @@
         </text>
       </view>
     </view>
-
-    <view>
-      <u-list
-        @scrolltolower="scrolltolower"
-        v-if="searchData.length >0 "
-      >
-        <u-list-item
-          v-for="(item, index) in searchData.length"
-          :key="index"
-        >
+    <view class="claimList">
+      <u-list @scrolltolower="scrolltolower" v-if="searchData.length > 0">
+        <u-list-item v-for="(item, index) in searchData.length" :key="index">
           <result-item
             class="reslut-item"
             :detail="{
-                      title:'膜活性肽强化多功能复合微粒基因载体的构建及',
-                      type:'项目',
-                      time:'2012',
-                      author:'王文英'
-                    }"
+              title: '膜活性肽强化多功能复合微粒基因载体的构建及',
+              type: '项目',
+              time: '2012',
+              author: '王文英',
+            }"
             :index="index + 1"
           >
             {{ index }}
           </result-item>
         </u-list-item>
       </u-list>
-      <view
-        class="noListTips"
-        v-if='searchData.length === 0'
-      >
+      <view class="noListTips" v-if="searchData.length === 0">
         未检索到符合条件的成果，请重试
       </view>
-
     </view>
   </view>
 </template>
 
 <script>
-// import API from "@/apis";
-// import { getWordByChart } from "@/utils/index";
 import resultItem from "@/components/resultItem/index.vue";
 
 export default {
@@ -120,7 +104,6 @@ export default {
         { name: "SCOPUS", resourceCode: "U" },
         { name: "活动", resourceCode: "Y" },
       ],
-      //A-成果 B-图书 C-会议 D-学位论文 E-EI I-SCI J-期刊 O-项目 P-专利 Q-其他 R-报告 S-标准 T-团队 U-SCOPUS Y-活动
       index: 0,
       indexYear: 0,
       allClaim: true,
@@ -190,7 +173,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.tab0-container {
+.achievementviewed {
   ::v-deep {
     .uni-scroll-view-content {
       > view {
@@ -203,11 +186,11 @@ export default {
 .claimDate {
   color: #316b7a;
   font-size: $uni-font-size-base;
-  padding: $uni-spacing-row-base;
+  margin-bottom: $uni-spacing-row-base;
   &_selcet {
     display: flex;
     justify-content: space-between;
-    margin-bottom: $uni-spacing-col-sm;
+    margin-bottom: $uni-spacing-col-lg;
     margin-right: $uni-spacing-col-sm;
     .uni-input {
       text-decoration: underline;
@@ -236,5 +219,8 @@ export default {
     color: #316b7a;
     justify-content: space-between;
   }
+}
+
+.claimList {
 }
 </style>

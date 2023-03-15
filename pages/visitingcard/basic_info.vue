@@ -175,6 +175,7 @@ export default {
   .header_b {
     width: 100%;
     margin-top: 20rpx;
+    padding-bottom: 20rpx;
 
     .list {
       display: flex;
