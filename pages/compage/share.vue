@@ -23,7 +23,7 @@ import tNav from '@/components/tNav/tNav'
 <style lang="scss">
 .container{
 	.header{
-		padding: $zgd-nav-padding;
+		padding: $zgd-logo-padding;
 	}
 }
 

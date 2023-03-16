@@ -1,7 +1,10 @@
 <template>
   <view class="app">
     <view class="header">
-      <tNav title="我的二维码" color="white" />
+      <tNav
+        title="我的二维码"
+        color="white"
+      />
     </view>
     <view class="content">
       <view class="content-info">
@@ -13,16 +16,16 @@
             <image :src="userInfo.userImg" />
           </view>
           <view>
-            <view
-              ><text>{{ userInfo.userName }}</text
-              >{{ getEName(userInfo.eUserName) }}</view
-            >
+            <view><text>{{ userInfo.userName }}</text>{{ getEName(userInfo.eUserName) }}</view>
             <view>{{ userInfo.jobTitle }}</view>
             <view>{{ userInfo.subject }}</view>
           </view>
         </view>
         <view class="QrCode">
-          <div id="qrCode" ref="qrCodeDiv" />
+          <div
+            id="qrCode"
+            ref="qrCodeDiv"
+          />
         </view>
       </view>
     </view>
@@ -59,14 +62,12 @@ export default {
       const { data } = await Api.getUserByUserNo(params);
       this.userInfo = data;
     },
-
     getEName(eNames) {
       if (eNames) {
         const _eNames = JSON.parse(eNames);
         return _eNames.find((item) => !!item.isSelect).name;
       }
     },
-
     bindQRCode() {
       new QRCode(this.$refs.qrCodeDiv, {
         text: "http://dev.heidutech.com:14281/#/?sn=" + this.userInfo.userNo,
@@ -89,18 +90,15 @@ export default {
     rgba(49, 107, 122, 1)
   );
   .header {
-    // height: 64rpx;
-    padding: $zgd-nav-padding;
+    padding: $zgd-logo-padding;
   }
   .content {
-    padding: 0 50rpx 0 50rpx;
-    margin-top: 40rpx;
+    padding: 0 $uni-spacing-col-hg;
+    margin-top: $uni-spacing-col-hg;
     .content-info {
-      padding: 50rpx;
+      padding: $uni-spacing-col-hg;
       background: white;
       .logo {
-        height: 64rpx;
-        font-size: 0;
         image {
           width: $zgd-logo-w;
           height: $zgd-logo-h;
@@ -110,45 +108,47 @@ export default {
         display: flex;
         flex-flow: row nowrap;
         border-bottom: 1rpx solid #85abb3;
-        margin-top: 50rpx;
-        padding-bottom: 60rpx;
+        margin-top: $uni-spacing-col-hg;
+        padding-bottom: $uni-spacing-col-hg;
         &__pic {
-          width: 160rpx;
-          font-size: 0;
           image {
-            width: 160rpx;
-            height: 160rpx;
+            width: $uni-img-size-hg;
+            height: $uni-img-size-hg;
           }
         }
         > view:last-child {
           display: flex;
           flex-flow: column nowrap;
-          margin-left: 34rpx;
+          margin-left: $uni-spacing-row-lg;
           view {
             flex: 1;
             font-size: $uni-font-size-lg;
           }
           text {
             font-size: $uni-font-size-hg;
-            font-family: PingFangSC-Medium, sans-serif;
-            margin-right: 20rpx;
+            margin-right: $uni-spacing-row-base;
           }
         }
       }
       .QrCode {
-        padding: 76rpx;
-        text-align: center;
+        padding: $uni-img-size-lm;
       }
     }
   }
   .des {
-    margin-top: 50rpx;
+    margin-top: $uni-spacing-col-hg;
     color: white;
     text-align: center;
     font-size: $uni-font-size-lg;
     view:last-child {
-      margin-top: 20rpx;
+      margin-top: $uni-spacing-col-lg;
     }
   }
+}
+</style>
+<style>
+uni-page-body,
+page {
+  height: 100%;
 }
 </style>
