@@ -44,7 +44,11 @@
 </template>
 <script>
 import Api from "@/server/index.js";
+<<<<<<< HEAD
 import tkiQrcode from "@/components/tki-qrcode/tki-qrcode.vue";
+=======
+// import QRCode from "qrcodejs2";
+>>>>>>> 711abf25e2a221dbf0a044b5ba4ae796feb7e192
 export default {
   components: {
     tkiQrcode,
