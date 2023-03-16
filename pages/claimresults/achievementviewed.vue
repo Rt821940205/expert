@@ -142,7 +142,7 @@ export default {
         const res = await Api.getNewResourceNumPage(params);
         if (res.code === 1) {
           const { data } = res;
-          this.list = data.map(r => ({...r, type: dictionary[r.resourceCode]}));
+          this.list = Object.freeze(data).map(r => ({...r, type: dictionary[r.resourceCode]}));
         }
       } catch (e) {
         console.log(e);

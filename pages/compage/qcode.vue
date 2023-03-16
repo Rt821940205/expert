@@ -1,10 +1,7 @@
 <template>
   <view class="app">
     <view class="header">
-      <tNav
-        title="我的二维码"
-        color="white"
-      />
+      <tNav title="我的二维码" color="white" />
     </view>
     <view class="content">
       <view class="content-info">
@@ -16,7 +13,10 @@
             <image :src="userInfo.userImg" />
           </view>
           <view>
-            <view><text>{{ userInfo.userName }}</text>{{ getEName(userInfo.eUserName) }}</view>
+            <view
+              ><text>{{ userInfo.userName }}</text
+              >{{ getEName(userInfo.eUserName) }}</view
+            >
             <view>{{ userInfo.jobTitle }}</view>
             <view>{{ userInfo.subject }}</view>
           </view>
@@ -44,11 +44,7 @@
 </template>
 <script>
 import Api from "@/server/index.js";
-<<<<<<< HEAD
 import tkiQrcode from "@/components/tki-qrcode/tki-qrcode.vue";
-=======
-// import QRCode from "qrcodejs2";
->>>>>>> 711abf25e2a221dbf0a044b5ba4ae796feb7e192
 export default {
   components: {
     tkiQrcode,
@@ -62,7 +58,7 @@ export default {
       unit: "px",
       background: "#316B7A",
       foreground: "#ffffff",
-      pdground:'#ffffff'
+      pdground: "#ffffff",
     };
   },
   onLoad(option) {
@@ -106,21 +102,19 @@ export default {
 };
 </script>
 <style lang="scss" scoped>
+.uni-page-body, page {
+  height: 100%;
+}
 .app {
   height: 100%;
-  background: linear-gradient(
-    to bottom,
-    #85abb3,
-    #316b7a
-  );
+  background: linear-gradient(to bottom, #85abb3, #316b7a);
   .header {
-    padding: $zgd-logo-padding;
+    padding: $zgd-arrow-padding;
   }
   .content {
-    padding: 0 $uni-spacing-col-hg;
-    margin-top: $uni-spacing-col-hg;
+    padding: $zgd-content-padding;
     .content-info {
-      padding: $uni-spacing-col-hg;
+      padding: $uni-spacing-col-lm;
       background: white;
       .logo {
         image {
@@ -158,27 +152,20 @@ export default {
         padding: $uni-img-size-lm 0;
         text-align: center;
 
-       ::v-deep    .tki-qrcode uni-image{
-        border: 5rpx solid $main-color;
-        padding: 25rpx;
+        ::v-deep .tki-qrcode uni-image {
+          border: 5rpx solid $main-color;
+          padding: 25rpx;
         }
       }
     }
   }
   .des {
-    margin-top: $uni-spacing-col-hg;
     color: white;
     text-align: center;
     font-size: $uni-font-size-lg;
-    view:last-child {
-      margin-top: $uni-spacing-col-lg;
+    >view {
+      margin-top: 20rpx;
     }
   }
-}
-</style>
-<style>
-uni-page-body,
-page {
-  height: 100%;
 }
 </style>
