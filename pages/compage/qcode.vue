@@ -21,10 +21,17 @@
             <view>{{ userInfo.subject }}</view>
           </view>
         </view>
-        <view class="QrCode">
-          <div
-            id="qrCode"
-            ref="qrCodeDiv"
+        <view class="qrimg">
+          <tki-qrcode
+            ref="qrcode"
+            :cid="cid"
+            :val="val"
+            :size="size"
+            :unit="unit"
+            :background="background"
+            :foreground="foreground"
+            :pdground="pdground"
+            @result="qrR"
           />
         </view>
       </view>
@@ -37,16 +44,29 @@
 </template>
 <script>
 import Api from "@/server/index.js";
+<<<<<<< HEAD
+import tkiQrcode from "@/components/tki-qrcode/tki-qrcode.vue";
+=======
 // import QRCode from "qrcodejs2";
+>>>>>>> 711abf25e2a221dbf0a044b5ba4ae796feb7e192
 export default {
+  components: {
+    tkiQrcode,
+  },
   data() {
     return {
       userInfo: {},
-      sn: "",
+      cid: "qcode1",
+      val: "",
+      size: 200,
+      unit: "px",
+      background: "#316B7A",
+      foreground: "#ffffff",
+      pdground:'#ffffff'
     };
   },
   onLoad(option) {
-    this.sn = option.sn;
+    this.val = option.sn;
   },
   async mounted() {
     await this.init();
@@ -58,7 +78,7 @@ export default {
       await this.getUserByUserNo();
     },
     async getUserByUserNo() {
-      const params = { userNo: this.sn };
+      const params = { userNo: this.val };
       const { data } = await Api.getUserByUserNo(params);
       this.userInfo = data;
     },
@@ -69,14 +89,18 @@ export default {
       }
     },
     bindQRCode() {
-      new QRCode(this.$refs.qrCodeDiv, {
-        text: "http://dev.heidutech.com:14281/#/?sn=" + this.userInfo.userNo,
-        width: 200,
-        height: 200,
-        colorDark: "#316B7A",
-        colorLight: "#ffffff",
-        correctLevel: QRCode.CorrectLevel.L,
-      });
+      this.$refs.qrcode._makeCode();
+      // new QRCode(this.$refs.qrCodeDiv, {
+      //   text: "http://dev.heidutech.com:14281/#/?sn=" + this.userInfo.userNo,
+      //   width: 200,
+      //   height: 200,
+      //   colorDark: "#316B7A",
+      //   colorLight: "#ffffff",
+      //   correctLevel: QRCode.CorrectLevel.L,
+      // });
+    },
+    qrR(...args) {
+      console.log(args);
     },
   },
 };
@@ -86,8 +110,8 @@ export default {
   height: 100%;
   background: linear-gradient(
     to bottom,
-    rgba(133, 171, 179, 1),
-    rgba(49, 107, 122, 1)
+    #85abb3,
+    #316b7a
   );
   .header {
     padding: $zgd-logo-padding;
@@ -122,16 +146,22 @@ export default {
           margin-left: $uni-spacing-row-lg;
           view {
             flex: 1;
-            font-size: $uni-font-size-lg;
+            font-size: $uni-font-size-base;
           }
           text {
-            font-size: $uni-font-size-hg;
+            font-size: $uni-font-size-lm;
             margin-right: $uni-spacing-row-base;
           }
         }
       }
-      .QrCode {
-        padding: $uni-img-size-lm;
+      .qrimg {
+        padding: $uni-img-size-lm 0;
+        text-align: center;
+
+       ::v-deep    .tki-qrcode uni-image{
+        border: 5rpx solid $main-color;
+        padding: 25rpx;
+        }
       }
     }
   }
