@@ -37,7 +37,7 @@
 </template>
 <script>
 import Api from "@/server/index.js";
-import QRCode from "qrcodejs2";
+// import QRCode from "qrcodejs2";
 export default {
   data() {
     return {
