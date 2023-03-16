@@ -10,13 +10,6 @@
 			"path": "pages/claimresults/index"
 		},
 		{
-			"path": "pages/compage/claim-detail",
-			"style": {
-				"navigationBarTitleText": "成果详情",
-				"navigationStyle": "custom"
-			}
-		},
-		{
 			"path": "pages/compage/achment-detail",
 			"style": {
 				"navigationBarTitleText": "成果详情"

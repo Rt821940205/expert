@@ -89,9 +89,6 @@ export default {
     //  详细
     handleDetail() {
       this.$emit("detail");
-      uni.navigateTo({
-        url: "/pages/claim-detail/claim-detail",
-      });
     },
     // 标为已经
     handleView() {
