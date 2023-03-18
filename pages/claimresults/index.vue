@@ -65,7 +65,9 @@
           :achievementListNo="achievementListNo"
           @findNewResourceNumByYear="findNewResourceNumByYear"
         />
-        <view v-if="!loading && achievementListNo.length == 0" class="noListTips"
+        <view
+          v-if="!loading && achievementListNo.length == 0"
+          class="noListTips"
           >未检索到符合条件的成果，请重试</view
         >
       </view>
@@ -115,7 +117,7 @@ export default {
       achievementListNo: [],
       loading: false,
       pageNo: 1,
-      pageSize: 5,
+      pageSize: 10,
     };
   },
   mounted() {
@@ -126,9 +128,13 @@ export default {
   },
   methods: {
     tabChange(index) {
+      if(this.tabIndex == index) {
+        return
+      }
       this.tabIndex = index;
       if (index != 2) {
         this.type = index + 1;
+        this.pageNo = 1;
         this.findNewResourceNumPage();
       }
     },
@@ -184,7 +190,9 @@ export default {
           }));
           if (data.length > 0) {
             this.achievementList =
-              pageNo === 1 ? arr : [...this.achievementList, ...arr];
+              pageNo === 1
+                ? Object.freeze(arr)
+                : Object.freeze([...this.achievementList, ...arr]);
           } else {
             // this.$refs.uToast.show("已无更多成果");
             console.log("已无更多成果");
@@ -279,7 +287,7 @@ export default {
           position: absolute;
           width: 150rpx;
           height: 4rpx;
-          background-color: $base-color;
+          background-color: $main-color;
           left: 50%;
           bottom: -20rpx;
           margin-left: -75rpx;

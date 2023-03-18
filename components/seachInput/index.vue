@@ -11,16 +11,10 @@
       >
       </u-search>
       <view class="search-list">
-        <view class="search-list-item">
-          搜索历史
-        </view>
+        <view class="search-list-item"> 搜索历史 </view>
       </view>
-      <view class="search-notfound">
-        搜索不到您的成果？
-      </view>
-      <view class="search-tofind">
-        点击此处在系统补全您的成果
-      </view>
+      <view class="search-notfound"> 搜索不到您的成果？ </view>
+      <view class="search-tofind"> 点击此处在系统补全您的成果 </view>
     </view>
   </view>
 </template>
@@ -37,7 +31,7 @@ export default {
   computed: {},
   methods: {
     onSearch() {
-      this.$emit("onSearch");
+      this.$emit("onSearch", this.keyword);
     },
   },
   watch: {},

@@ -5,7 +5,7 @@
       v-for="(tab, index) in tabs"
       :key="index"
       @click="tabChange(index)"
-    >{{ tab.name }}
+      >{{ tab.name }}
     </view>
   </view>
 </template>
@@ -51,7 +51,7 @@ export default {
       position: absolute;
       width: 150rpx;
       height: 4rpx;
-      background-color: $main-color;
+      background-color: $base-color;
       left: 50%;
       bottom: -20rpx;
       margin-left: -75rpx;
