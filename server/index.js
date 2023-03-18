@@ -80,4 +80,12 @@ export default {
   getNewResourceNumPage(data) {
     return request.post("/getNewResourceNumPage", data);
   },
+  //成果认领列表年份
+  getNewResourceNumByYear(data) {
+    return request.post("/getNewResourceNumByYear", data);
+  },
+  //成果认领列表类别
+  getNewResourceNumByType(data) {
+    return request.post("/getNewResourceNumByType", data);
+  },
 };

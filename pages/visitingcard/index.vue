@@ -44,7 +44,7 @@ export default {
       show: true,
       title: "请输入工号",
       userInfo: {
-        userNo: "00262",
+        userNo: "00562",
       },
       basicInfo: {},
       eUserName: [],
