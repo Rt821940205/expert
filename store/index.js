@@ -1,5 +1,6 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
+import getters from './getter.js'
 
 Vue.use(Vuex)
 
@@ -16,5 +17,6 @@ context.keys().forEach(key => {
 export default new Vuex.Store({
     modules: {
         ...moduleStores
-    }
+    },
+    getters
 })

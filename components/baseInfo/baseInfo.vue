@@ -1,6 +1,6 @@
 <template>
   <view class="basicInfo">
-    <view>以下信息来自校数据中心，若有误可进行编辑或者联系学校信息办。</view>
+    <view class="title">以下信息来自校数据中心，若有误可进行编辑或者联系学校信息办。</view>
     <view>
       <view>姓名</view>
       <view>{{ form.userName }}</view>
@@ -21,10 +21,11 @@
       <view>学校邮箱</view>
       <view>{{ form.email }}</view>
     </view>
-    <view>
+    <view class="last-item">
       <view>联系地址</view>
       <view>{{ form.address }}</view>
     </view>
+
   </view>
 </template>
 <script>
@@ -42,10 +43,10 @@ export default {
   flex-flow: column nowrap;
   margin-top: 36rpx;
   padding: 22rpx 8rpx 22rpx 8rpx;
-  > view:first-child {
+  .title {
     color: $base-color;
     font-size: $uni-font-size-base;
-    margin-bottom: 24rpx;
+    margin-bottom: $uni-spacing-col-base;
   }
   view:not(:first-child):not(:last-child):not(:nth-child(5)) {
     height: 108rpx;
@@ -61,7 +62,7 @@ export default {
       color: $base-chart-color;
     }
   }
-  > view:nth-child(5) {
+  view:nth-child(5) {
     flex: 1;
     display: flex;
     justify-content: space-between;
@@ -82,7 +83,7 @@ export default {
       align-items: center;
     }
   }
-  > view:last-child {
+  .last-item {
     flex: 1;
     display: flex;
     justify-content: space-between;

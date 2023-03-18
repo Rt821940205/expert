@@ -11,13 +11,13 @@
       ></tabs>
       <view>
         <view v-if="tabIndex == 0">
-          <baseInfo></baseInfo>
+          <baseInfo />
         </view>
         <view v-else-if="tabIndex == 1">
-          <extrInfo></extrInfo>
+          <extrInfo />
         </view>
         <view v-else>
-          222
+          <extra-resum />
         </view>
       </view>
     </view>
@@ -29,6 +29,7 @@ import tNav from "@/components/tNav/tNav";
 import tabs from "@/components/tabs/tabs";
 import baseInfo from "@/components/baseInfo/baseInfo";
 import extrInfo from "@/components/extrInfo/extrInfo";
+import extraResum from "@/components/extraResum/extraResum";
 
 export default {
   components: {
@@ -36,10 +37,11 @@ export default {
     baseInfo,
     tabs,
     extrInfo,
+    extraResum,
   },
   data() {
     return {
-      tabs: [{ name: "基本信息" }, { name: "完善信息" }, { name: "基本简历" }],
+      tabs: [{ name: "基本信息" }, { name: "完善信息" }, { name: "完善履历" }],
       tabIndex: 0,
     };
   },
@@ -54,7 +56,7 @@ export default {
 <style lang="scss">
 .container {
   .header {
-    padding: $zgd-logo-padding;
+    padding: $zgd-arrow-padding;
   }
   .content {
     padding: $zgd-content-padding;

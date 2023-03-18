@@ -1,6 +1,10 @@
 <template>
   <view class="container">
-    <u-modal :show="show" :title="title" @confirm="confirm">
+    <u-modal
+      :show="show"
+      :title="title"
+      @confirm="confirm"
+    >
       <view>
         <u-form :model="userInfo">
           <u-form-item borderBottom>
@@ -14,9 +18,10 @@
     </u-modal>
     <view v-show="!show">
       <BasicInfo
-        :basicInfo="basicInfo"
+        :basicInfo="userInfo"
         :eUserName="eUserName"
         :researchDirection="researchDirection"
+        @update:ename="eNamesChange"
       />
       <AchievementList
         :achievementList="achievementList"
@@ -46,7 +51,6 @@ export default {
       userInfo: {
         userNo: "00562",
       },
-      basicInfo: {},
       eUserName: [],
       researchDirection: [],
       achievementList: [],
@@ -59,6 +63,7 @@ export default {
     confirm() {
       this.show = !this.show;
       this.getData(this.userInfo);
+      this.$store.dispatch("setSnNo", this.userInfo.userNo);
     },
     click(name) {
       this.$refs.uToast.success(name);
@@ -75,10 +80,11 @@ export default {
             data: { eUserName, researchDirection, id },
           } = res;
           uni.setStorageSync("userId", id);
-          this.$store.dispatch('setUser', data)
-          this.basicInfo = data;
+          this.$store.dispatch("setUser", data);
+
+          this.userInfo = data;
           this.eUserName = JSON.parse(eUserName).map((i) => i.name);
-          this.researchDirection =  Object.freeze(JSON.parse(researchDirection)) ;
+          this.researchDirection = Object.freeze(JSON.parse(researchDirection));
         }
         this.getCatalogueList();
       } catch (e) {
@@ -118,6 +124,21 @@ export default {
         }
       } catch (e) {
         console.log(e);
+      }
+    },
+    async eNamesChange(value) {
+      const eNames = JSON.parse(this.userInfo.eUserName);
+      eNames.forEach((item) =>
+        item.name === value ? (item.isSelect = 1) : (item.isSelect = 0)
+      );
+      // console.log("eNames", eNames);
+      this.userInfo.eUserName = JSON.stringify(eNames);
+      const ret = await Api.updateUserByUserNo(this.userInfo);
+      if (ret) {
+        uni.showToast({
+          title: "修改默认英文名成功",
+          icon: "none",
+        });
       }
     },
   },
