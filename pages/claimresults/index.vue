@@ -1,17 +1,15 @@
 <template>
   <view class="app">
-    <view class="header"><image src="/static/schoolBadge.png"></image></view>
+    <view class="header">
+      <image src="/static/schoolBadge.png"></image>
+    </view>
     <view class="content">
       <view class="title">成果认领</view>
-      <view class="tabs">
-        <view
-          :class="{ active: tabIndex === index, 'tabs-item': true }"
-          v-for="(item, index) in list"
-          :key="index"
-          @click="tabChange(index)"
-          >{{ item.name }}
-        </view>
-      </view>
+      <tabs
+        @tabChange="tabChange"
+        :tabs="list"
+        :tabIndex="tabIndex"
+      ></tabs>
       <view class="swiper-container">
         <view v-if="tabIndex == 0">
           <Achievementviewed />
