@@ -1,0 +1,186 @@
+<template>
+  <view class="app">
+    <view class="header">
+      <tNav title="补充信息 - 英文名" />
+    </view>
+    <view class="content">
+      <view class="content__view">
+        <view>已添加：</view>
+        <view
+          v-for="item in eUserNames"
+          :key="item.name"
+        >
+          <view>{{ item.name }}</view>
+          <view>
+            <u-icon
+              v-if="!item.isSelect"
+              name="close"
+              color="#316B7A"
+              size="18"
+              @click.stop="remove"
+            />
+          </view>
+        </view>
+        <view>
+          <view
+            class="search"
+            v-if="showInput"
+          >
+            <view>
+              <u--input
+                class="search-input"
+                v-model="newUserName"
+                placeholder="请输入内容"
+              ></u--input>
+            </view>
+            <view
+              class="search-btn"
+              @click="confirm"
+            >
+              确定
+            </view>
+          </view>
+          <u-icon
+            v-else
+            name="plus"
+            size="18"
+            color="#316B7A"
+            @click="add"
+          />
+        </view>
+      </view>
+    </view>
+  </view>
+</template>
+  <script>
+import Api from "@/server/index.js";
+import { mapState, mapGetters } from "vuex";
+export default {
+  data() {
+    return {
+      newUserName: "",
+      showInput: false,
+      eUserNames: [],
+    };
+  },
+  computed: {
+    ...mapState({
+      form: (state) => state.home.user,
+    }),
+    ...mapGetters({
+      tags: "eUserName",
+    }),
+  },
+  watch: {
+    tags: {
+      handler(newVal) {
+        this.eUserNames = newVal;
+      },
+      immediate: true,
+      deep: true,
+    },
+  },
+  methods: {
+    add() {
+      this.showInput = !this.showInput;
+    },
+    async confirm() {
+      if (this.newUserName) {
+        //英文名字不能为中文
+        const isEnglish = /[^A-Za-z]/g.test(this.newUserName);
+        if (isEnglish) {
+          return uni.showToast({
+            title: "请输入英文",
+            icon: "none",
+            duration: 3000,
+          });
+        }
+        if (this.eUserNames.find((item) => item.name === this.newUserName)) {
+          return uni.showToast({
+            title: "名字重复",
+            icon: "none",
+          });
+        }
+        this.eUserNames.push({
+          name: this.newUserName,
+          isSelect: 0,
+        });
+        this.newUserName = "";
+        this.show = !this.show;
+        this.form.eUserName = JSON.stringify(this.eUserNames);
+        const ret = Api.updateUserByUserNo(this.form);
+        if (ret) {
+          uni.showToast({
+            title: "保存成功",
+            icon: "none",
+          });
+        }
+      }
+    },
+    async remove(item) {
+      const index = this.eUserNames.findIndex(
+        (sItem) => sItem.name === item.name
+      );
+      this.eUserNames.splice(index, 1);
+      this.form.eUserName = JSON.stringify(this.eUserNames);
+      const ret = await Api.updateUserByUserNo(this.form);
+      if (ret) {
+        uni.showToast({
+          title: "删除成功",
+          icon: "none",
+        });
+      }
+    },
+  },
+};
+</script>
+  <style lang="scss" scoped>
+.app {
+  .header {
+    padding: $zgd-arrow-padding;
+  }
+  .content {
+    padding: 0 50rpx 0 50rpx;
+    margin-top: 22rpx;
+    &__view {
+      border: 1px solid $base-border-color;
+      padding: 22rpx 24rpx 22rpx 24rpx;
+      > view:first-child {
+        color: $base-color;
+        font-size: $uni-font-size-base;
+        margin-bottom: 24rpx;
+      }
+      > view:not(:first-child):not(:last-child) {
+        display: flex;
+        font-size: $uni-font-size-base;
+        margin-bottom: 9rpx;
+        > view:last-child {
+          margin-left: 40rpx;
+        }
+      }
+      > view:last-child {
+        margin-top: 5rpx;
+      }
+      .search {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        color: $base-color;
+        font-size: $uni-font-size-base;
+
+        .search-input {
+          width: 200rpx;
+        }
+        .search-btn {
+          flex: 1;
+          margin-left: 40rpx;
+        }
+      }
+    }
+    .search-input {
+      border-bottom: 1px solid $base-color;
+      border-radius: 0;
+    }
+  }
+}
+</style>

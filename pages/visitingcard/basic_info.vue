@@ -5,14 +5,26 @@
         <image src="@/static/home/logo@2x.png"></image>
       </view>
       <view class="header_t_r">
-        <image src="@/static/home/share.png" @click.stop="handleShare"></image>
-        <image src="@/static/home/QRcode.png" @click.stop="handleQcode"></image>
-        <image src="@/static/home/update.png" @click.stop="handleUpdate"></image>
+        <image
+          src="@/static/home/share.png"
+          @click.stop="handleShare"
+        ></image>
+        <image
+          src="@/static/home/QRcode.png"
+          @click.stop="handleQcode"
+        ></image>
+        <image
+          src="@/static/home/update.png"
+          @click.stop="handleUpdate"
+        ></image>
       </view>
     </view>
     <view class="header_c">
       <view class="header_c_l">
-        <image :src="basicInfo.userImg" v-if="basicInfo.userImg" />
+        <image
+          :src="basicInfo.userImg"
+          v-if="basicInfo.userImg"
+        />
         <image
           v-if="!basicInfo.userImg"
           src="@/static/home/default-user-header.png"
@@ -22,7 +34,11 @@
         <view class="name">
           <view class="CN_name">{{ basicInfo.userName }}</view>
           <view class="EN_name">
-            <picker :value="0" :range="eUserName">
+            <picker
+              :value="0"
+              :range="eUserName"
+              @change="eNamesChange"
+            >
               <text class="name_text">{{
                 eUserName.length > 0 && eUserName[0]
               }}</text>
@@ -75,31 +91,41 @@ export default {
   },
   data() {
     return {
-      aaa: "",
+      index: 0,
     };
   },
-  methods:{
-    handleShare(){
+  methods: {
+    handleShare() {
       // basicInfo
       uni.navigateTo({
         url: "/pages/compage/share",
       });
     },
-    handleQcode(){
+    handleQcode() {
       uni.navigateTo({
         url: "/pages/compage/qcode?sn=" + this.basicInfo.userNo,
       });
     },
-    handleUpdate(){
+    handleUpdate() {
       uni.navigateTo({
         url: "/pages/compage/modify-data",
       });
-    }
+    },
+    eNamesChange(e) {
+      this.$emit("update:ename", this.eUserName[e.target.value]);
+    },
   },
   watch: {
     basicInfo: {
-      handler(cur, pre) {
-        // console.log(cur, pre)
+      handler(newName, oleName) {
+        if (!!newName.eUserName) {
+          // const eNames = JSON.parse(newName.eUserName);
+          // const index = eNames.findIndex((item) => !!item.isSelect);
+          // this.index = index;
+          // const removed = eNames.splice(index, 1);
+          // eNames.unshift(removed[0]);
+          // this.eNames = eNames.map((item) => item.name);
+        }
       },
       immediate: true,
       deep: true,

@@ -3,7 +3,7 @@ const store = {
 		user: {},
 		snNo: '',
 		share: false,
-		accessToken:''
+		accessToken: ''
 	},
 	mutations: {
 		async setUser(state, user) {
@@ -15,21 +15,29 @@ const store = {
 		async setShare(state, share) {
 			state.share = share
 		},
-		async setAccessToken(state,accessToken) {
+		async setAccessToken(state, accessToken) {
 			state.accessToken = accessToken
 		}
 	},
 	actions: {
-		setUser: ({ commit }, user) => {
+		setUser: ({
+			commit
+		}, user) => {
 			commit('setUser', user)
 		},
-		setSnNo: ({ commit }, snNo) => {
+		setSnNo: ({
+			commit
+		}, snNo) => {
 			commit('setSnNo', snNo)
 		},
-		setShare: ({ commit }, share) => {
+		setShare: ({
+			commit
+		}, share) => {
 			commit('setShare', share)
 		},
-		setAccessToken: ({ commit }, accessToken) => {
+		setAccessToken: ({
+			commit
+		}, accessToken) => {
 			commit('setAccessToken', accessToken)
 		}
 	}

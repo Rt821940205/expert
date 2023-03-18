@@ -80,4 +80,17 @@ export default {
   getNewResourceNumPage(data) {
     return request.post("/getNewResourceNumPage", data);
   },
+  // 修改名片
+  updateUserByUserNo(data) {
+    return request.post("/updateUserByUserNo", data);
+  },
+  getResearchDirection(data) {
+    return request.post("/getResearchDirection", data);
+  },
+  getScholarResume(data) {
+    return request.post("/getScholarResume", data);
+  },
+  addScholarResume(data) {
+    return request.post("/addScholarResume", data);
+  }
 };

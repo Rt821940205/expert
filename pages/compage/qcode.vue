@@ -31,7 +31,6 @@
             :background="background"
             :foreground="foreground"
             :pdground="pdground"
-            @result="qrR"
           />
         </view>
       </view>
@@ -86,18 +85,7 @@ export default {
     },
     bindQRCode() {
       this.$refs.qrcode._makeCode();
-      // new QRCode(this.$refs.qrCodeDiv, {
-      //   text: "http://dev.heidutech.com:14281/#/?sn=" + this.userInfo.userNo,
-      //   width: 200,
-      //   height: 200,
-      //   colorDark: "#316B7A",
-      //   colorLight: "#ffffff",
-      //   correctLevel: QRCode.CorrectLevel.L,
-      // });
-    },
-    qrR(...args) {
-      console.log(args);
-    },
+    }
   },
 };
 </script>
