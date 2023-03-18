@@ -80,17 +80,12 @@ export default {
   getNewResourceNumPage(data) {
     return request.post("/getNewResourceNumPage", data);
   },
-  // 修改名片
-  updateUserByUserNo(data) {
-    return request.post("/updateUserByUserNo", data);
+  //成果认领列表年份
+  getNewResourceNumByYear(data) {
+    return request.post("/getNewResourceNumByYear", data);
   },
-  getResearchDirection(data) {
-    return request.post("/getResearchDirection", data);
+  //成果认领列表类别
+  getNewResourceNumByType(data) {
+    return request.post("/getNewResourceNumByType", data);
   },
-  getScholarResume(data) {
-    return request.post("/getScholarResume", data);
-  },
-  addScholarResume(data) {
-    return request.post("/addScholarResume", data);
-  }
 };
