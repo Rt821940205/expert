@@ -71,6 +71,7 @@ export default {
       color: #316b7a;
       font-size: $uni-font-size-lg;
       font-weight: 500;
+      line-height: 25px;
     }
 
     .detail_right {

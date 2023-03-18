@@ -47,24 +47,29 @@
       </view>
     </view>
     <view class="claimList">
-      <u-list @scrolltolower="scrolltolower" v-if="searchData.length > 0">
-        <u-list-item v-for="(item, index) in searchData.length" :key="index">
-          <result-item
-            class="reslut-item"
-            :detail="{
-              title: '膜活性肽强化多功能复合微粒基因载体的构建及',
-              type: '项目',
-              time: '2012',
-              author: '王文英',
-            }"
-            :index="index + 1"
-          >
-            {{ index }}
-          </result-item>
-        </u-list-item>
-      </u-list>
-      <view class="noListTips" v-if="searchData.length === 0">
-        未检索到符合条件的成果，请重试
+      <view class="result_item" v-for="(item, index) in list" :key="item.id">
+        <view class="result_index">{{ index + 1 }}</view>
+        <view class="result_content">
+          <view class="result_row">
+            <view>标题</view>
+            <view>{{ item.title }}</view>
+            <view>认领</view>
+          </view>
+          <view class="result_row">
+            <view>类型</view>
+            <view>{{ item.type }}</view>
+          </view>
+          <view class="result_row">
+            <view>时间</view>
+            <view>{{ item.year }}</view>
+            <view style="bottom: 75%" @click="goAchmentDetail(item)">详情</view>
+          </view>
+          <view class="result_row">
+            <view>作者</view>
+            <view>{{ item.creator }}</view>
+            <view>标为已查看</view>
+          </view>
+        </view>
       </view>
     </view>
   </view>
@@ -72,6 +77,8 @@
 
 <script>
 import resultItem from "@/components/resultItem/index.vue";
+import Api from "@/server/index.js";
+import { dictionary } from "@/utils/dic.js";
 
 export default {
   components: { resultItem },
@@ -85,7 +92,6 @@ export default {
   },
   data() {
     return {
-      title: "picker",
       array: [
         { name: "全部", resourceCode: "" },
         { name: "成果", resourceCode: "A" },
@@ -112,115 +118,137 @@ export default {
         { name: "确认", type: "claimComit" },
         { name: "本页全选", type: "allselcet" },
       ],
-      searchData: new Array(10),
+
+      list: [],
     };
+  },
+  mounted() {
+    this.findNewResourceNumByYear({
+      type: "1",
+      year: "2020",
+      resourceCode: "",
+      pageSize: 10,
+      pageNo: 1,
+    });
   },
   watch: {
     yearList: function () {
-      this.getType();
+      // this.getType();
     },
   },
   methods: {
-    allCliam(type) {
-      type == "claimAll"
-        ? (this.allClaim = false)
-        : type == "allselcet"
-        ? (this.allClaim = false)
-        : (this.allClaim = true);
-      uni.$emit("claim", type);
+    async findNewResourceNumByYear(params) {
+      try {
+        const res = await Api.getNewResourceNumPage(params);
+        if (res.code === 1) {
+          const { data } = res;
+          this.list = Object.freeze(data).map(r => ({...r, type: dictionary[r.resourceCode]}));
+        }
+      } catch (e) {
+        console.log(e);
+      }
     },
-    allselcet() {
-      uni.$emit("allselcet", true);
-    },
-    bindPickerChange: function (e) {
-      this.index = e.target.value;
-      uni.$emit("selcetPick", this.array[e.target.value].resourceCode);
-    },
-    bindDateChange: function (e) {
-      this.indexYear = e.target.value;
-      this.array = [{ name: "全部", resourceCode: "" }];
-      this.getType(this.yearList[e.target.value].year);
-      uni.$emit("selcetData", this.yearList[e.target.value].year);
-    },
-    async getType(value) {
-      const params = { year: value };
-      const ret = await API.home.getNewResourceNumByType(params);
-      let retlist = ret
-        .filter((re) => {
-          return re.resourceCode != null;
-        })
-        .map((item) => (item.name = getWordByChart(item.resourceCode)));
-      this.array = this.array.concat(retlist);
-      this.$forceUpdate();
-    },
-    async getYear() {
-      uni.showLoading({
-        title: "加载中",
-        mask: true,
+    goAchmentDetail(item) {
+      const { id, resourceCode } = item;
+      uni.navigateTo({
+        url: `/pages/compage/achment-detail?id=${id}&code=${resourceCode}`,
       });
-      const params = { year: 50 };
-      let ret = await API.home.getNewResourceNumByYear(params);
-      this.yearList = ret;
-      uni.hideLoading();
-      this.$forceUpdate();
     },
-    scrolltolower() {
-      this.loadmore();
-    },
-    loadmore() {},
   },
 };
 </script>
 
 <style lang="scss" scoped>
 .achievementviewed {
-  ::v-deep {
-    .uni-scroll-view-content {
-      > view {
-        padding-bottom: 250px !important;
+  .claimDate {
+    color: #316b7a;
+    font-size: $uni-font-size-base;
+    margin-bottom: $uni-spacing-row-base;
+    &_selcet {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: $uni-spacing-col-lg;
+      margin-right: $uni-spacing-col-sm;
+      .uni-input {
+        text-decoration: underline;
+        position: relative;
+      }
+      .uni-input::after {
+        content: "";
+        position: absolute;
+        top: 39%;
+        right: -22rpx;
+        width: 0;
+        height: 0;
+        border-left: 5px solid transparent;
+        border-right: 5px solid transparent;
+        border-top: 6px solid #316b7a;
+      }
+    }
+    .uni-list-cell-db {
+      margin-left: $uni-spacing-col-base;
+    }
+    .alldis {
+      display: flex;
+    }
+    .all_Claim {
+      font-size: $uni-font-size-base;
+      color: #316b7a;
+      justify-content: space-between;
+    }
+  }
+
+  .claimList {
+    .result_item {
+      border: 1px $main-color solid;
+      padding: 20rpx;
+      background: -webkit-linear-gradient(
+        top left,
+        rgba(75, 195, 226, 0.2) 0%,
+        white 30%
+      );
+      background: linear-gradient(
+        to bottom right,
+        rgba(75, 195, 226, 0.2) 0%,
+        white 30%
+      );
+      display: flex;
+      margin-bottom: 15rpx;
+      .result_index {
+        width: 5%;
+        font-size: $uni-font-size-base;
+        color: $base-color;
+      }
+      .result_content {
+        width: 95%;
+        .result_row {
+          display: flex;
+          font-size: $uni-font-size-base;
+          margin-bottom: 20rpx;
+          position: relative;
+          &:last-child {
+            margin-bottom: 0;
+          }
+          > view:nth-child(1) {
+            width: 15%;
+          }
+          > view:nth-child(2) {
+            width: 60%;
+            font-weight: bolder;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+          }
+          > view:nth-child(3) {
+            position: absolute;
+            width: 25%;
+            color: $base-color;
+            right: 0;
+            text-align: right;
+          }
+        }
       }
     }
   }
-}
-
-.claimDate {
-  color: #316b7a;
-  font-size: $uni-font-size-base;
-  margin-bottom: $uni-spacing-row-base;
-  &_selcet {
-    display: flex;
-    justify-content: space-between;
-    margin-bottom: $uni-spacing-col-lg;
-    margin-right: $uni-spacing-col-sm;
-    .uni-input {
-      text-decoration: underline;
-      position: relative;
-    }
-    .uni-input::after {
-      content: "";
-      position: absolute;
-      top: 39%;
-      right: -22rpx;
-      width: 0;
-      height: 0;
-      border-left: 5px solid transparent;
-      border-right: 5px solid transparent;
-      border-top: 6px solid #316b7a;
-    }
-  }
-  .uni-list-cell-db {
-    margin-left: $uni-spacing-col-base;
-  }
-  .alldis {
-    display: flex;
-  }
-  .all_Claim {
-    font-size: $uni-font-size-base;
-    color: #316b7a;
-    justify-content: space-between;
-  }
-}
-
-.claimList {
 }
 </style>

@@ -76,6 +76,7 @@ export default {
   delUserBuddyPage(data) {
     return request.post("/delUserBuddyPage", data);
   },
+  //成果认领列表
   getNewResourceNumPage(data) {
     return request.post("/getNewResourceNumPage", data);
   },
