@@ -68,8 +68,7 @@ export default {
 <style lang="scss" scoped>
 .container {
   .tabs {
-    display: flex;
-    justify-content: center;
+    padding: 20rpx 60rpx;
   }
 
   .list {
@@ -93,11 +92,11 @@ export default {
         justify-content: space-between;
 
         .item_header_l {
-          width: 5%;
+          width: 10%;
         }
 
         .item_header_c {
-          width: 80%;
+          width: 75%;
           font-size: 28rpx;
 
           .header_c_tit {
