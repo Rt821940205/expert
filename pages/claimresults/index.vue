@@ -123,6 +123,7 @@ export default {
       year: "",
       resourceCode: "",
       searchName: "",
+      historyKeyword: uni.getStorageSync("historyKeyword") || [],
     };
   },
   mounted() {
@@ -247,7 +248,9 @@ export default {
       const searchName = this.trim(val);
       if (!!searchName) {
         this.searchName = searchName;
-        this.findNewResourceNumPage();
+        // this.findNewResourceNumPage();
+        this.historyKeyword.push(searchName)
+        uni.setStorageSync("historyKeyword", this.historyKeyword);
       }
     },
   },
