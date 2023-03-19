@@ -10,20 +10,27 @@
         @search="onSearch"
       >
       </u-search>
-      <view v-if="!showHistory" class="search-history" @click="showHistoryKeyword">搜索历史</view>
-      <view v-else class="list">
-        <u-tag
-          v-for="(item, index) in historyKeyword"
-          :key="index"
-          :text="item"
-          size="mini"
-          border-color="#316b7a"
-          color="#316b7a"
-          plain
-          shape="circle"
-        ></u-tag>
+      <view
+        v-if="!showHistory"
+        class="search-history"
+        @click="showHistoryKeyword"
+        >搜索历史</view
+      >
+      <view v-else>
+        <view class="list">
+          <u-tag
+            v-for="(item, index) in historyKeyword"
+            :key="index"
+            :text="item"
+            size="mini"
+            border-color="#316b7a"
+            color="#316b7a"
+            plain
+          ></u-tag>
+        </view>
+        <view class="search-clear" @click="clearAll">清空历史记录</view>
       </view>
-      <view class="search-notfound">搜索不到您的成果？ </view>
+      <view class="search-notfound">搜索不到您的成果？</view>
       <view class="search-tofind" @click="show = true"
         >点击此处在系统补全您的成果</view
       >
@@ -81,6 +88,8 @@ export default {
     trim,
     onSearch() {
       this.$emit("onSearch", this.keyword);
+      this.historyKeyword.push(this.keyword);
+      uni.setStorageSync("historyKeyword", this.historyKeyword);
     },
     async findCompleteResource(params) {
       try {
@@ -96,6 +105,11 @@ export default {
     },
     showHistoryKeyword() {
       this.showHistory = true;
+    },
+    clearAll() {
+      this.historyKeyword = [];
+      uni.setStorageSync("historyKeyword", this.historyKeyword);
+      this.showHistory = false;
     },
     confirm() {
       const { email } = this;
@@ -113,18 +127,10 @@ export default {
       this.findCompleteResource(params);
     },
   },
-  watch: {
-    historyKeyword: {
-      handler(newVal) {
-        console.log(newVal)
-      },
-      immediate: true,
-    },
-  },
 
   // 组件周期函数--监听组件挂载完毕
   mounted() {
-    console.log(uni.getStorageSync("historyKeyword"))
+    console.log(uni.getStorageSync("historyKeyword"));
   },
   // 组件周期函数--监听组件数据更新之前
   beforeUpdate() {},
@@ -163,39 +169,41 @@ export default {
         z-index: 10080 !important;
       }
     }
-
-    .search-history {
+  }
+  .search-history {
+    color: $base-color;
+    line-height: 59rpx;
+    font-size: $uni-font-size-base;
+    font-weight: bolder;
+    margin-top: $uni-spacing-col-sm;
+  }
+  .search-clear {
+    color: $main-color;
+    font-size: $uni-font-size-sm;
+  }
+  .search-notfound {
+    color: $base-color;
+    line-height: 59rpx;
+    font-size: $uni-font-size-base;
+    font-weight: bolder;
+    margin-top: $uni-spacing-col-hg;
+  }
+  .search-tofind {
+    width: 400rpx;
+    height: 80rpx;
+    line-height: 80rpx;
+    border: 4rpx solid $base-color;
+    font-weight: bold;
+    color: $base-color;
+    font-size: $uni-font-size-base;
+    margin: $uni-spacing-col-sm auto;
+  }
+  .completion_content {
+    padding: $uni-spacing-col-lg;
+    .completion_p {
       color: $base-color;
-      line-height: 59rpx;
       font-size: $uni-font-size-base;
-      font-weight: bolder;
-      margin-top: $uni-spacing-col-sm;
-    }
-
-    .search-notfound {
-      color: $base-color;
-      line-height: 59rpx;
-      font-size: $uni-font-size-base;
-      font-weight: bolder;
-      margin-top: $uni-spacing-col-hg;
-    }
-    .search-tofind {
-      width: 400rpx;
-      height: 80rpx;
-      line-height: 80rpx;
-      border: 4rpx solid $base-color;
-      font-weight: bold;
-      color: $base-color;
-      font-size: $uni-font-size-base;
-      margin: $uni-spacing-col-sm auto;
-    }
-    .completion_content {
-      padding: $uni-spacing-col-lg;
-      .completion_p {
-        color: $base-color;
-        font-size: $uni-font-size-base;
-        margin: $uni-spacing-col-base 0;
-      }
+      margin: $uni-spacing-col-base 0;
     }
   }
   .list {

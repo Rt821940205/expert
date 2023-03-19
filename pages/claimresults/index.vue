@@ -42,7 +42,7 @@
             v-for="(item, index) in btnList"
             v-show="item.type == 'claimAll' ? allClaim : !allClaim"
             :key="index"
-            @click="allCliam(item.type)"
+            @click="handleAllCliam(item.type)"
           >
             {{ item.name }}
           </text>
@@ -50,8 +50,12 @@
       </view>
       <view v-if="tabIndex == 0">
         <AchievementListPage
+          ref="child"
           :achievementList="achievementList"
+          :type="type"
           @findNewResourceNumByYear="findNewResourceNumByYear"
+          @findAddNewResource="findAddNewResource"
+          @findSetResourceSearch="findSetResourceSearch"
         />
         <view v-if="loading" class="swiper-loading"
           ><u-loading-icon></u-loading-icon
@@ -62,8 +66,11 @@
       </view>
       <view v-else-if="tabIndex == 1">
         <AchievementListPage
+          ref="child"
           :achievementList="achievementList"
+          :type="type"
           @findNewResourceNumByYear="findNewResourceNumByYear"
+          @findAddNewResource="findAddNewResource"
         />
         <view v-if="loading" class="swiper-loading"
           ><u-loading-icon></u-loading-icon
@@ -76,6 +83,7 @@
         <Achievementsearch
           :achievementList="achievementList"
           @hadleSearchName="hadleSearchName"
+          @findAddNewResource="findAddNewResource"
         />
         <view v-if="loading" class="swiper-loading"
           ><u-loading-icon></u-loading-icon
@@ -99,17 +107,18 @@ export default {
   data() {
     return {
       tabIndex: 0,
+      allClaim: true,
+      btnList: [
+        { name: "批量认领", type: "claimAll" },
+        { name: "确认", type: "claimComit" },
+        { name: "取消", type: "claimCancal" },
+        { name: "本页全选", type: "allselcet" },
+      ],
       type: 1,
       tabs: [
         { name: "未查看成果" },
         { name: "已查看成果" },
         { name: "搜索成果" },
-      ],
-      allClaim: true,
-      btnList: [
-        { name: "批量认领", type: "claimAll" },
-        { name: "确认", type: "claimComit" },
-        { name: "本页全选", type: "allselcet" },
       ],
       showYear: false,
       yearList: [],
@@ -123,7 +132,6 @@ export default {
       year: "",
       resourceCode: "",
       searchName: "",
-      historyKeyword: uni.getStorageSync("historyKeyword") || [],
     };
   },
   mounted() {
@@ -145,6 +153,28 @@ export default {
       if (index != 2) {
         this.findNewResourceNumPage();
       }
+    },
+    handleAllCliam(type) {
+      this.allClaim =
+        type == "claimAll" ? false : type == "claimCancal" ? true : false;
+      this.showAllClaim(type);
+    },
+    showAllClaim(type) {
+      switch (type) {
+        case "claimAll":
+          this.$refs.child.handleListStatus(type);
+          break;
+        case "claimComit":
+          break;
+        case "claimCancal":
+          break;
+        case "allselcet":
+          break;
+      }
+    },
+    refresh() {
+      this.pageNo = 1;
+      this.findNewResourceNumPage();
     },
     async findNewResourceNumByYear(params) {
       try {
@@ -199,7 +229,7 @@ export default {
       try {
         const res = await Api.getNewResourceNumPage(params);
         if (res.code === 1) {
-          const { data } = res;
+          const { data, totel } = res;
           let arr = data.map((r) => ({
             ...r,
             type: dictionary[r.resourceCode],
@@ -210,6 +240,10 @@ export default {
                 ? Object.freeze(arr)
                 : Object.freeze([...this.achievementList, ...arr]);
           } else {
+            //总条数为0时 数组为空
+            if (totel == 0) {
+              this.achievementList = data;
+            }
             console.log("已无更多成果");
           }
         }
@@ -217,6 +251,32 @@ export default {
         console.log(e);
       } finally {
         this.loading = false;
+      }
+    },
+    async findAddNewResource(data) {
+      const params = {
+        resourceIdList: data,
+      };
+      try {
+        const res = await Api.addNewResource(params);
+        if (res.code === 1) {
+          this.refresh();
+        }
+      } catch (e) {
+        console.log(e);
+      }
+    },
+    async findSetResourceSearch(data) {
+      const params = {
+        resourceId: data,
+      };
+      try {
+        const res = await Api.setResourceSearch(params);
+        if (res.code === 1) {
+          this.refresh();
+        }
+      } catch (e) {
+        console.log(e);
       }
     },
     handleYearChange(e) {
@@ -248,21 +308,16 @@ export default {
       const searchName = this.trim(val);
       if (!!searchName) {
         this.searchName = searchName;
-        // this.findNewResourceNumPage();
-        this.historyKeyword.push(searchName)
-        uni.setStorageSync("historyKeyword", this.historyKeyword);
+        this.findNewResourceNumPage();
       }
     },
   },
-  //下拉刷新
   onPullDownRefresh() {
     if (this.achievementList.length > 0) {
-      this.pageNo = 1;
-      this.findNewResourceNumPage();
+      this.refresh();
     }
     uni.stopPullDownRefresh();
   },
-  //上拉加载更多
   onReachBottom() {
     if (!this.loading) {
       this.pageNo++;
@@ -332,7 +387,7 @@ export default {
       .alldis {
         display: flex;
         align-items: center;
-        width: 40%;
+        width: 38%;
         margin-bottom: $uni-spacing-row-base;
         > text:nth-child(1) {
           margin-right: 30rpx;
@@ -363,10 +418,11 @@ export default {
       .uni-list-cell-db {
         margin-left: $uni-spacing-col-base;
       }
-
       .all_Claim {
+        width: 100%;
         font-size: $uni-font-size-base;
         color: #316b7a;
+        justify-content: space-between;
       }
     }
     .swiper-loading {

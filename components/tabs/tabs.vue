@@ -46,6 +46,7 @@ export default {
   .active {
     color: $base-color;
     position: relative;
+    font-weight: bold;
     &::after {
       content: "";
       position: absolute;
