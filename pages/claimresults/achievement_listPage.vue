@@ -62,9 +62,14 @@ export default {
     return {
       operation: "",
       list: [],
+      achievementList1: achievementList
     };
   },
-  watch: {},
+  watch: {
+    achievementList:function(newVal, oldVal){
+      this.achievementList1 = newVal
+    }
+  },
   mounted() {
     // this.list = this.achievementList;
   },
