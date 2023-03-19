@@ -49,7 +49,7 @@
         </view>
       </view>
       <view v-if="tabIndex == 0">
-        <Achievementviewed
+        <AchievementListPage
           :achievementList="achievementList"
           @findNewResourceNumByYear="findNewResourceNumByYear"
         />
@@ -61,34 +61,39 @@
         >
       </view>
       <view v-else-if="tabIndex == 1">
-        <Achievementnotviewed
-          :achievementListNo="achievementListNo"
+        <AchievementListPage
+          :achievementList="achievementList"
           @findNewResourceNumByYear="findNewResourceNumByYear"
         />
-        <view
-          v-if="!loading && achievementListNo.length == 0"
-          class="noListTips"
+        <view v-if="loading" class="swiper-loading"
+          ><u-loading-icon></u-loading-icon
+        ></view>
+        <view v-if="!loading && achievementList.length == 0" class="noListTips"
           >未检索到符合条件的成果，请重试</view
         >
       </view>
       <view v-else>
-        <Achievementsearch isSearch />
+        <Achievementsearch
+          :achievementList="achievementList"
+          @hadleSearchName="hadleSearchName"
+        />
+        <view v-if="loading" class="swiper-loading"
+          ><u-loading-icon></u-loading-icon
+        ></view>
       </view>
-      <u-toast ref="uToast"></u-toast>
     </view>
   </view>
 </template>
 
 <script>
-import Achievementviewed from "./achievementviewed.vue";
-import Achievementnotviewed from "./achievementnotviewed";
-import Achievementsearch from "./achievementsearch";
+import AchievementListPage from "./achievement_listPage";
+import Achievementsearch from "./achievement_search";
 import { dictionary } from "@/utils/dic.js";
+import { trim } from "@/utils/common.js";
 import Api from "@/server/index.js";
 export default {
   components: {
-    Achievementviewed,
-    Achievementnotviewed,
+    AchievementListPage,
     Achievementsearch,
   },
   data() {
@@ -108,16 +113,16 @@ export default {
       ],
       showYear: false,
       yearList: [],
-      year: "",
       showResourceCode: false,
-      resourceCode: "",
       currentResourceName: "",
       resourceList: [],
       achievementList: [],
-      achievementListNo: [],
       loading: false,
       pageNo: 1,
       pageSize: 10,
+      year: "",
+      resourceCode: "",
+      searchName: "",
     };
   },
   mounted() {
@@ -127,14 +132,16 @@ export default {
     this.findNewResourceNumByType({});
   },
   methods: {
+    trim,
     tabChange(index) {
-      if(this.tabIndex == index) {
-        return
+      if (this.tabIndex == index) {
+        return;
       }
+      this.achievementList = [];
       this.tabIndex = index;
+      this.type = index + 1;
+      this.pageNo = 1;
       if (index != 2) {
-        this.type = index + 1;
-        this.pageNo = 1;
         this.findNewResourceNumPage();
       }
     },
@@ -171,15 +178,23 @@ export default {
     },
     async findNewResourceNumPage() {
       this.loading = true;
-      const { year, resourceCode, pageNo, pageSize, type } = this;
-      const params = {
-        pageSize,
-        type,
-        year,
-        resourceCode,
-        pageNo,
-      };
-      console.log(pageNo);
+      const { year, resourceCode, pageNo, pageSize, type, searchName } = this;
+      //type == 1 || 2 筛选列表    3 搜索
+      const params =
+        type === 3
+          ? {
+              pageNo,
+              pageSize,
+              searchName,
+              type,
+            }
+          : {
+              pageNo,
+              pageSize,
+              resourceCode,
+              type,
+              year,
+            };
       try {
         const res = await Api.getNewResourceNumPage(params);
         if (res.code === 1) {
@@ -194,7 +209,6 @@ export default {
                 ? Object.freeze(arr)
                 : Object.freeze([...this.achievementList, ...arr]);
           } else {
-            // this.$refs.uToast.show("已无更多成果");
             console.log("已无更多成果");
           }
         }
@@ -229,17 +243,28 @@ export default {
       this.achievementList = [];
       this.findNewResourceNumPage();
     },
+    hadleSearchName(val) {
+      const searchName = this.trim(val);
+      if (!!searchName) {
+        this.searchName = searchName;
+        this.findNewResourceNumPage();
+      }
+    },
   },
   //下拉刷新
   onPullDownRefresh() {
-    this.pageNo = 1;
-    this.findNewResourceNumPage();
+    if (this.achievementList.length > 0) {
+      this.pageNo = 1;
+      this.findNewResourceNumPage();
+    }
     uni.stopPullDownRefresh();
   },
   //上拉加载更多
   onReachBottom() {
-    this.pageNo++;
-    this.findNewResourceNumPage();
+    if (!this.loading) {
+      this.pageNo++;
+      this.findNewResourceNumPage();
+    }
   },
 };
 </script>

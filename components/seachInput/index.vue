@@ -10,11 +10,32 @@
         @search="onSearch"
       >
       </u-search>
-      <view class="search-list">
-        <view class="search-list-item"> 搜索历史 </view>
-      </view>
-      <view class="search-notfound"> 搜索不到您的成果？ </view>
-      <view class="search-tofind"> 点击此处在系统补全您的成果 </view>
+      <view class="search-history">搜索历史</view>
+      <view class="search-notfound">搜索不到您的成果？ </view>
+      <view class="search-tofind" @click="show = true"
+        >点击此处在系统补全您的成果</view
+      >
+      <u-modal
+        :show="show"
+        :title="title"
+        :content="content"
+        :showCancelButton="true"
+        @cancel="show = false"
+        confirmColor="#316b7a"
+      >
+        <view class="completion_content">
+          <text class="completion_p"
+            >请填入您的联系邮箱，系统将发送成果补全页面链接至您的邮箱</text
+          >
+          <u--input
+            placeholder="请输入邮箱"
+            border="surround"
+            v-model="email"
+            @change="change"
+          ></u--input>
+          <text class="completion_p">链接有效期：72小时</text>
+        </view>
+      </u-modal>
     </view>
   </view>
 </template>
@@ -22,10 +43,20 @@
 <script>
 export default {
   name: "seachInput",
-  props: {},
+  props: {
+    achievementList: {
+      type: Array,
+      default: function () {
+        return [];
+      },
+    },
+  },
   data() {
     return {
       keyword: "",
+      show: false,
+      title: "成果补全",
+      email: "",
     };
   },
   computed: {},
@@ -57,42 +88,52 @@ export default {
   justify-content: center;
   padding-bottom: 4rpx;
   ::v-deep .search-box {
-    // width: 410rpx;
+    width: 80%;
     text-align: center;
     .uni-input-input {
-      border-bottom: 4rpx solid rgb(49, 107, 122) !important;
+      border-bottom: 4rpx solid $base-color !important;
       border-radius: 0 !important;
       padding-left: 0;
     }
-    .u-icon__icon {
+    .u-search__action {
       span {
-        color: rgb(49, 107, 122);
+        color: $base-color;
+        font-weight: bold;
       }
     }
 
-    .search-list {
-      .search-list-item {
-        color: rgb(49, 107, 122);
-        line-height: 59rpx;
-        font-size: $uni-font-size-base;
-        font-weight: bolder;
-      }
-    }
-
-    .search-notfound {
-      color: rgb(49, 107, 122);
+    .search-history {
+      color: $base-color;
       line-height: 59rpx;
       font-size: $uni-font-size-base;
       font-weight: bolder;
+      margin-top: $uni-spacing-col-sm;
+    }
+
+    .search-notfound {
+      color: $base-color;
+      line-height: 59rpx;
+      font-size: $uni-font-size-base;
+      font-weight: bolder;
+      margin-top: $uni-spacing-col-hg;
     }
     .search-tofind {
-      padding: 24rpx 37rpx;
-      border: 2px solid #6a7d7e;
-      font-size: 22rpx;
-      font-weight: 500;
-      color: #316b7a;
-      line-height: 52rpx;
+      width: 400rpx;
+      height: 80rpx;
+      line-height: 80rpx;
+      border: 4rpx solid $base-color;
+      font-weight: bold;
+      color: $base-color;
       font-size: $uni-font-size-base;
+      margin: $uni-spacing-col-sm auto;
+    }
+    .completion_content {
+      padding: $uni-spacing-col-lg;
+      .completion_p {
+        color: $base-color;
+        font-size: $uni-font-size-base;
+        text-align: left;
+      }
     }
   }
 }
