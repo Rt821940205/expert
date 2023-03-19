@@ -1,8 +1,8 @@
 <template>
-  <view class="claimList">
+  <view class="claim_list">
     <view
       class="result_item"
-      v-for="(item, index) in achievementListNo"
+      v-for="(item, index) in achievementList"
       :key="item.id"
     >
       <view class="result_index">{{ index + 1 }}</view>
@@ -37,19 +37,7 @@ import resultItem from "@/components/resultItem/index.vue";
 export default {
   components: { resultItem },
   props: {
-    yearList: {
-      type: Array,
-      default: () => {
-        return [];
-      },
-    },
-    typeList: {
-      type: Array,
-      default: () => {
-        return [];
-      },
-    },
-    achievementListNo: {
+    achievementList: {
       type: Array,
       default: function () {
         return [];
@@ -82,10 +70,10 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.claimList {
+.claim_list {
   .result_item {
     border: 1px $base-color solid;
-    padding: 20rpx;
+    padding: $uni-spacing-row-lg;
     background: -webkit-linear-gradient(
       top left,
       rgba(75, 195, 226, 0.2) 0%,
@@ -99,12 +87,12 @@ export default {
     display: flex;
     margin-bottom: 15rpx;
     .result_index {
-      width: 5%;
+      width: 8%;
       font-size: $uni-font-size-base;
       color: $base-color;
     }
     .result_content {
-      width: 95%;
+      width: 92%;
       .result_row {
         display: flex;
         font-size: $uni-font-size-base;
