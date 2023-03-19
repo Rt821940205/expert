@@ -107,5 +107,8 @@ export default {
   },
   delScholarResume(data) {
     return request.post("/delScholarResume", data);
+  },
+  delUserResource(data) {
+    return request.post("/delUserResource", data);
   }
 };

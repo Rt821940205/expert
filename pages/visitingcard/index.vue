@@ -27,6 +27,7 @@
         :achievementList="achievementList"
         :achievementPageList="achievementPageList"
         @getList="getList"
+        @sortByTime="sortByTime"
       />
     </view>
   </view>
@@ -55,6 +56,7 @@ export default {
       researchDirection: [],
       achievementList: [],
       achievementPageList: [],
+      orderByType: 1, //  -- 排列顺序（1-时间倒序，2-时间正序）
     };
   },
   mounted() {},
@@ -109,12 +111,16 @@ export default {
         console.log(e);
       }
     },
+    sortByTime() {
+      this.orderByType == 1 ? (this.orderByType = 2) : (this.orderByType = 1);
+      this.getList();
+    },
     async getList(resourceCode) {
       this.achievementPageList = [];
       try {
         const res = await Api.getUserResourcePage({
           resourceCode,
-          orderByType: 1,
+          orderByType: this.orderByType,
           pageNo: 1,
           pageSize: 100,
         });

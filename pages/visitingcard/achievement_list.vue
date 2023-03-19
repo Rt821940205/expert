@@ -1,7 +1,21 @@
 <template>
   <view class="container">
+    <view class="container-title">
+      <view>
+        我的成果（{{ total }}）
+      </view>
+      <view
+        class="right"
+        @click.stop="toList"
+      >
+        成果管理
+      </view>
+    </view>
     <view class="tabs">
-      <u-tabs :list="achievementList" @click="click"></u-tabs>
+      <u-tabs
+        :list="achievementList"
+        @click="click"
+      ></u-tabs>
     </view>
     <view class="list">
       <view
@@ -26,6 +40,24 @@
         </view>
         <view class="item_footer">查看原文</view>
       </view>
+      <view class="achment-operate">
+        <view>
+          <image
+            v-show="showUpImg"
+            src="@/static/home/arrow-up.png"
+          />
+          <image
+            v-show="!showUpImg"
+            src="@/static/home/arrow-down.png"
+          />
+        </view>
+        <view>
+          <image
+            src="@/static/home/time_new.png"
+            @click="sortByTime"
+          />
+        </view>
+      </view>
     </view>
   </view>
 </template>
@@ -36,6 +68,7 @@ export default {
   data() {
     return {
       loading: true,
+      showUpImg: true,
     };
   },
   props: {
@@ -52,6 +85,14 @@ export default {
       },
     },
   },
+  computed: {
+    total() {
+      return this.achievementList.reduce(
+        (pre, next) => pre + +next.badge.value,
+        0
+      );
+    },
+  },
   methods: {
     keyWordTran,
     click(item) {
@@ -63,19 +104,42 @@ export default {
         url: `/pages/compage/achment-detail?id=${resource_id}&code=${resource_code}`,
       });
     },
+    sortByTime() {
+      this.showUpImg = !this.showUpImg;
+      this.$emit("sortByTime");
+    },
+    toList() {
+      uni.navigateTo({
+        url: "/pages/compage/achmentList",
+      });
+    },
   },
 };
 </script>
 
 <style lang="scss" scoped>
 .container {
+  .container-title {
+    display: flex;
+    justify-content: space-between;
+    height: 88rpx;
+    line-height: 88rpx;
+    padding: 0 50rpx;
+    view {
+      flex: 1;
+    }
+    .right {
+      text-align: right;
+    }
+  }
+
   .tabs {
     padding: 20rpx 60rpx;
   }
 
   .list {
     margin-top: 20rpx;
-
+    position: relative;
     .list_item {
       padding: 30rpx 40rpx 60rpx 60rpx;
       background: -webkit-linear-gradient(
@@ -138,6 +202,22 @@ export default {
         display: flex;
         justify-content: flex-end;
         color: #316b7a;
+      }
+    }
+
+    .achment-operate {
+      display: flex;
+      position: absolute;
+      top: 0;
+      right: $uni-spacing-row-sm;
+      gap: 10rpx;
+
+      view {
+        flex: 1;
+        image {
+          width: $uni-img-size-sm;
+          height: $uni-img-size-sm;
+        }
       }
     }
   }
