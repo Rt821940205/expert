@@ -10,7 +10,19 @@
         @search="onSearch"
       >
       </u-search>
-      <view class="search-history">搜索历史</view>
+      <view v-if="!showHistory" class="search-history" @click="showHistoryKeyword">搜索历史</view>
+      <view v-else class="list">
+        <u-tag
+          v-for="(item, index) in historyKeyword"
+          :key="index"
+          :text="item"
+          size="mini"
+          border-color="#316b7a"
+          color="#316b7a"
+          plain
+          shape="circle"
+        ></u-tag>
+      </view>
       <view class="search-notfound">搜索不到您的成果？ </view>
       <view class="search-tofind" @click="show = true"
         >点击此处在系统补全您的成果</view
@@ -18,29 +30,31 @@
       <u-modal
         :show="show"
         :title="title"
-        :content="content"
         :showCancelButton="true"
         @cancel="show = false"
+        @confirm="confirm"
         confirmColor="#316b7a"
       >
         <view class="completion_content">
-          <text class="completion_p"
-            >请填入您的联系邮箱，系统将发送成果补全页面链接至您的邮箱</text
+          <view class="completion_p"
+            >请填入您的联系邮箱，系统将发送成果补全页面链接至您的邮箱</view
           >
           <u--input
             placeholder="请输入邮箱"
             border="surround"
             v-model="email"
-            @change="change"
           ></u--input>
-          <text class="completion_p">链接有效期：72小时</text>
+          <view class="completion_p">链接有效期：72小时</view>
         </view>
       </u-modal>
+      <u-toast ref="uToast"></u-toast>
     </view>
   </view>
 </template>
 
 <script>
+import Api from "@/server/index.js";
+import { checkEmail, trim } from "@/utils/common.js";
 export default {
   name: "seachInput",
   props: {
@@ -57,18 +71,61 @@ export default {
       show: false,
       title: "成果补全",
       email: "",
+      historyKeyword: uni.getStorageSync("historyKeyword") || [],
+      showHistory: false,
     };
   },
   computed: {},
   methods: {
+    checkEmail,
+    trim,
     onSearch() {
       this.$emit("onSearch", this.keyword);
     },
+    async findCompleteResource(params) {
+      try {
+        const res = await Api.completeResource(params);
+        if (res.code === 1) {
+          this.$refs.uToast.show({ message: res.msg });
+        }
+      } catch (e) {
+        console.log(e);
+      } finally {
+        this.show = false;
+      }
+    },
+    showHistoryKeyword() {
+      this.showHistory = true;
+    },
+    confirm() {
+      const { email } = this;
+      if (!this.checkEmail(email)) {
+        this.$refs.uToast.show({
+          type: "error",
+          message: "请输入正确的邮箱账号",
+        });
+        return;
+      }
+      const params = {
+        content: " ",
+        email: this.trim(email),
+      };
+      this.findCompleteResource(params);
+    },
   },
-  watch: {},
+  watch: {
+    historyKeyword: {
+      handler(newVal) {
+        console.log(newVal)
+      },
+      immediate: true,
+    },
+  },
 
   // 组件周期函数--监听组件挂载完毕
-  mounted() {},
+  mounted() {
+    console.log(uni.getStorageSync("historyKeyword"))
+  },
   // 组件周期函数--监听组件数据更新之前
   beforeUpdate() {},
   // 组件周期函数--监听组件数据更新之后
@@ -99,6 +156,11 @@ export default {
       span {
         color: $base-color;
         font-weight: bold;
+      }
+    }
+    .u-toast {
+      > view {
+        z-index: 10080 !important;
       }
     }
 
@@ -132,8 +194,18 @@ export default {
       .completion_p {
         color: $base-color;
         font-size: $uni-font-size-base;
-        text-align: left;
+        margin: $uni-spacing-col-base 0;
       }
+    }
+  }
+  .list {
+    display: flex;
+    flex-wrap: wrap;
+    margin-top: $uni-spacing-col-lm;
+
+    > view {
+      margin-right: 20rpx;
+      margin-bottom: 10rpx;
     }
   }
 }
