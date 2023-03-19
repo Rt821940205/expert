@@ -1,27 +1,27 @@
 <template>
   <view class="basicInfo">
     <view class="title">以下信息来自校数据中心，若有误可进行编辑或者联系学校信息办。</view>
-    <view>
+    <view class="basicInfo-item">
       <view>姓名</view>
       <view>{{ form.userName }}</view>
     </view>
-    <view>
+    <view class="basicInfo-item">
       <view>所在学校（部门）</view>
-      <view>{{ form.institute }}</view>
+      <view class="">{{ form.institute }}</view>
     </view>
-    <view>
+    <view class="basicInfo-item">
       <view>学科</view>
       <view>{{ form.subject }}</view>
     </view>
-    <view>
+    <view class="basicInfo-item">
       <view>手机号</view>
       <view>{{ form.phone }}</view>
     </view>
-    <view>
+    <view class="basicInfo-item">
       <view>学校邮箱</view>
       <view>{{ form.email }}</view>
     </view>
-    <view class="last-item">
+    <view class="basicInfo-item last-item">
       <view>联系地址</view>
       <view>{{ form.address }}</view>
     </view>
@@ -48,53 +48,22 @@ export default {
     font-size: $uni-font-size-base;
     margin-bottom: $uni-spacing-col-base;
   }
-  view:not(:first-child):not(:last-child):not(:nth-child(5)) {
-    height: 108rpx;
-    line-height: 108rpx;
+
+  .basicInfo-item {
     display: flex;
     justify-content: space-between;
-    border-bottom: 1px dashed $base-border-color;
-    > view:first-child {
-      font-size: $uni-font-size-base;
-    }
+    font-size: $uni-font-size-base;
+    margin-bottom: $uni-spacing-col-lm;
+    border-bottom: 2rpx dashed $base-border-color;
     > view:last-child {
-      font-size: $uni-font-size-base;
-      color: $base-chart-color;
+      text-align: right;
+      width: 60%;
+      @include ellipsis();
     }
   }
-  view:nth-child(5) {
-    flex: 1;
-    display: flex;
-    justify-content: space-between;
-    min-height: 108rpx;
-    border-bottom: 1px dashed $base-border-color;
-    > view:first-child {
-      font-size: $uni-font-size-base;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-    }
-    > view:last-child {
-      font-size: $uni-font-size-base;
-      color: $base-chart-color;
-      width: 312rpx;
-      display: flex;
-      justify-content: flex-end;
-      align-items: center;
-    }
-  }
+
   .last-item {
-    flex: 1;
-    display: flex;
-    justify-content: space-between;
-    padding-top: 34rpx;
-    > view:first-child {
-      font-size: $uni-font-size-base;
-    }
-    > view:last-child {
-      font-size: $uni-font-size-base;
-      color: $base-chart-color;
-    }
+    border-bottom: none;
   }
 }
 </style>

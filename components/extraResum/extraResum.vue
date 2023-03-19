@@ -132,7 +132,7 @@
       />
       <view
         v-else
-        @click="save"
+        @click.stop="save"
       >
         确定
       </view>
@@ -231,6 +231,7 @@ export default {
       };
     },
     async save() {
+      // console.log("save");
       try {
         await this.$refs.form1.validate();
         const _form = JSON.parse(JSON.stringify(this.form));
@@ -238,7 +239,7 @@ export default {
         _form.yearTo = this.years[this.form.yearTo];
         _form.education = this.leavels[this.form.education];
         _form.kid = this.kid;
-
+        // console.log("addScholarResume");
         const { code } = await Api.addScholarResume(_form);
         if (code == 1) {
           await this.init();
@@ -255,13 +256,12 @@ export default {
         }
       } catch {}
     },
-
     async remove(item) {
       if (!item) {
         this.isShowCard = true;
       } else {
         const { id } = item;
-        const ret = await this.$api.home.delScholarResume({ id });
+        const ret = await Api.delScholarResume({ id });
         if (ret) {
           const currIndex = this.list.findIndex((sItem) => sItem.id === id);
           this.list.splice(currIndex, 1);

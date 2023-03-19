@@ -1,75 +1,80 @@
 <template>
   <view class="extraInfo">
     <view class="title">完善信息可帮助您拓展科研合作和精准学术文献推送。</view>
-    <view>
+    <view class="extraInfo-item1">
       <view>头像</view>
-      <view>
-        <image :src="form.userImg" />
+      <view class="extraInfo-left">
+        <view>
+          <image
+            class="extraInfo-item1-img"
+            :src="form.userImg"
+          />
+        </view>
+        <view>
+          <u-icon
+            name="arrow-right"
+            color="#316B7A"
+            size="18"
+            @click="toHeader"
+          />
+        </view>
       </view>
-      <view>
-        <u-icon
-          name="arrow-right"
-          color="#316B7A"
-          size="18"
-          @click="toHeader"
-        />
-      </view>
+
     </view>
-    <view>
+    <view class="extraInfo-item1 extraInfo-item2">
       <view>研究方向</view>
-      <view>{{ researchDirectionCount }}个</view>
-      <view>
-        <u-icon
-          name="arrow-right"
-          color="#316B7A"
-          size="18"
-          @click="toResearchDirection"
-        />
+      <view class="extraInfo-left">
+        <view>{{ researchDirectionCount }}个</view>
+        <view>
+          <u-icon
+            name="arrow-right"
+            color="#316B7A"
+            size="18"
+            @click="toResearchDirection"
+          />
+        </view>
       </view>
-      <text>补全研究方向，有助于为您推荐科研项目，拓展科研合作</text>
+      <text class="text">补全研究方向，有助于为您推荐科研项目，拓展科研合作</text>
     </view>
-    <view>
+    <view class="extraInfo-item1 extraInfo-item2">
       <view>英文名</view>
-      <view>{{ eUserNameCount }}个</view>
-      <view>
-        <u-icon
-          name="arrow-right"
-          color="#316B7A"
-          size="18"
-          @click="toEnglishName"
-        />
+      <view class="extraInfo-left">
+        <view>{{ eUserNameCount }}个</view>
+        <view>
+          <u-icon
+            name="arrow-right"
+            color="#316B7A"
+            size="18"
+            @click="toEnglishName"
+          />
+        </view>
       </view>
-      <text>补全使用英文名，有助于发现您更多的研究成果</text>
+      <text class="text">补全使用英文名，有助于发现您更多的研究成果</text>
     </view>
-    <view>
+    <view class="extraInfo-item1 nobottom">
       <view>个人简介</view>
-      <view v-if="!isShowProfile">
+      <view
+        v-if="!isShowProfile"
+        class="extraInfo-left"
+      >
         <view>{{ form.userDetail }}</view>
         <view class="btn">
           <image
+            class="extraInfo-img"
             src="@/static/common/update@2x.png"
             @click="toEditPersonalProfile"
           />
         </view>
       </view>
-      <view v-else>
-        <u--form
-          ref="form"
-          label-width="0"
-          :model="form"
-          :rules="rules"
-        >
-          <u-form-item
-            name="userDetail"
-            prop="userDetail"
-          >
-            <u--textarea
-              v-model="form.userDetail"
-              type="textarea"
-              placeholder="补全个人简历有助于您的学术交流和科研合作。"
-            />
-          </u-form-item>
-        </u--form>
+      <view
+        v-else
+        class="extraInfo-left"
+      >
+        <u--textarea
+          v-model="form.userDetail"
+          type="textarea"
+          placeholder="补全个人简历有助于您的学术交流和科研合作。"
+        />
         <view
           class="btn"
           @click.stop="confirm"
@@ -128,13 +133,14 @@ export default {
       this.isShowProfile = !this.isShowProfile;
     },
     async confirm() {
-      this.$refs.form
-        .validate()
-        .then(async (res) => {
-          //     // await API.home.updateUserByUserNo(this.form);
-          this.isShowProfile = !this.isShowProfile;
-        })
-        .catch((errors) => {});
+      // this.$refs.form
+      //   .validate()
+      //   .then(async (res) => {
+      //     console.log(this.form);
+      // await API.home.updateUserByUserNo(this.form);
+      this.isShowProfile = !this.isShowProfile;
+      // })
+      // .catch((errors) => {});
     },
   },
 };
@@ -150,55 +156,33 @@ export default {
     font-size: $uni-font-size-base;
     margin-bottom: $uni-spacing-col-base;
   }
-  > view:nth-child(2) {
-    height: 182rpx;
+  .extraInfo-item1 {
     display: flex;
-    flex-flow: row nowrap;
-    justify-content: center;
     align-items: center;
-    border-bottom: 1px dashed $base-border-color;
-    > view:first-child {
-      width: 108rpx;
-      font-size: $uni-font-size-base;
+    font-size: $uni-font-size-base;
+    border-bottom: 2rpx dashed $base-border-color;
+    margin-bottom: $uni-spacing-col-lm;
+    .extraInfo-left {
+      margin-left: auto;
+      display: flex;
+      align-items: center;
     }
-    > view:nth-child(2) {
-      flex: 1;
-      text-align: right;
-      font-size: 0;
-      image {
-        width: 130rpx;
-        height: 130rpx;
-      }
+    .extraInfo-item1-img {
+      width: $uni-img-size-lm;
+      height: $uni-img-size-lm;
     }
-    > view:last-child {
-      width: 60rpx;
-      text-align: center;
+
+    .extraInfo-img {
+      width: $uni-img-size-mini;
+      height: $uni-img-size-mini;
     }
   }
-  > view:nth-child(3),
-  > view:nth-child(4) {
-    display: flex;
-    flex-flow: row nowrap;
-    justify-content: flex-start;
-    align-items: center;
-    height: 104rpx;
+
+  .extraInfo-item2 {
     position: relative;
-    border-bottom: 1px dashed $base-border-color;
-    > view:first-child {
-      width: 118rpx;
-      font-family: PingFangSC-Medium, sans-serif;
-      font-size: $uni-font-size-base;
-    }
-    > view:nth-child(2) {
-      flex: 1;
-      text-align: right;
-      font-size: $uni-font-size-base;
-    }
-    > view:nth-child(3) {
-      width: 60rpx;
-      text-align: center;
-    }
-    > text {
+    padding-bottom: $uni-font-size-lg;
+
+    .text {
       position: absolute;
       left: 0;
       bottom: 0;
@@ -206,30 +190,8 @@ export default {
       color: $base-chart-color;
     }
   }
-  > view:last-child {
-    flex: 1;
-    display: flex;
-    justify-content: space-between;
-    padding-top: 34rpx;
-    > view:first-child {
-      font-family: PingFangSC-Medium, sans-serif;
-      font-size: $uni-font-size-base;
-    }
-    > view:last-child {
-      font-size: $uni-font-size-base;
-      color: $base-chart-color;
-      width: 602rpx;
-    }
-    .btn {
-      text-align: right;
-      margin-right: 30rpx;
-      font-size: $uni-font-size-base;
-      color: $base-color;
-      image {
-        width: 32rpx;
-        height: 32rpx;
-      }
-    }
+  .nobottom {
+    border-bottom: none;
   }
 }
 </style>

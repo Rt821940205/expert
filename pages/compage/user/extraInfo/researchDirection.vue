@@ -84,6 +84,7 @@ export default {
       if (!text) return;
       const { data } = await Api.getResearchDirection({ text });
       this.searchTags = data && data.map((item) => item.text);
+      console.log(this.searchTags);
     },
     selectInSearchTag(item) {
       return this.selectTags.includes(item);
@@ -111,9 +112,13 @@ export default {
           this.selectTags.push(this.search);
         }
       }
+      console.log(
+        JSON.stringify(this.selectTags),
+        "JSON.stringify(this.selectTags)"
+      );
       this.form.researchDirection = JSON.stringify(this.selectTags);
 
-      //   const ret = await Api.updateUserByUserNo(this.form);
+      const ret = await Api.updateUserByUserNo(this.form);
       //   if (ret) {
       //     uni.$emit("update");
       //     uni.showToast({
@@ -152,7 +157,7 @@ export default {
     &__view {
       border: 1px solid $base-border-color;
       padding: 22rpx 24rpx 22rpx 24rpx;
-      background: $base-background-color;
+      // background: $base-background-color;
       > view:first-child {
         color: $base-color;
         font-size: $uni-font-size-base;

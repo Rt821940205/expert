@@ -5,13 +5,14 @@
     </view>
     <view class="content">
       <view class="content__view">
-        <view>已添加：</view>
+        <view class="title">已添加：</view>
         <view
-          v-for="item in eUserNames"
-          :key="item.name"
+          v-for="(item, index) in eUserNames"
+          :key="index + item.name"
+          class="content-item"
         >
           <view>{{ item.name }}</view>
-          <view>
+          <view class="content-item-right">
             <u-icon
               v-if="!item.isSelect"
               name="close"
@@ -134,7 +135,7 @@ export default {
   },
 };
 </script>
-  <style lang="scss" scoped>
+<style lang="scss" scoped>
 .app {
   .header {
     padding: $zgd-arrow-padding;
@@ -145,29 +146,28 @@ export default {
     &__view {
       border: 1px solid $base-border-color;
       padding: 22rpx 24rpx 22rpx 24rpx;
-      > view:first-child {
+      .title {
         color: $base-color;
         font-size: $uni-font-size-base;
         margin-bottom: 24rpx;
       }
-      > view:not(:first-child):not(:last-child) {
+
+      .content-item {
         display: flex;
         font-size: $uni-font-size-base;
         margin-bottom: 9rpx;
-        > view:last-child {
+        .content-item-right {
           margin-left: 40rpx;
         }
       }
-      > view:last-child {
-        margin-top: 5rpx;
-      }
+
       .search {
         display: flex;
         justify-content: center;
         align-items: center;
         color: $base-color;
         font-size: $uni-font-size-base;
-
+        margin-top: 5rpx;
         .search-input {
           width: 200rpx;
         }

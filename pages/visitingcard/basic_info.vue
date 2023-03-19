@@ -6,10 +6,6 @@
       </view>
       <view class="header_t_r">
         <image
-          src="@/static/home/share.png"
-          @click.stop="handleShare"
-        ></image>
-        <image
           src="@/static/home/QRcode.png"
           @click.stop="handleQcode"
         ></image>
@@ -130,10 +126,7 @@ export default {
       immediate: true,
       deep: true,
     },
-  },
-  onLoad() {
-    console.log(this.eUserName);
-  },
+  }
 };
 </script>
 
@@ -158,11 +151,12 @@ export default {
     .header_t_r {
       width: 150rpx;
       display: flex;
-      justify-content: space-between;
+      justify-content: flex-end;
+      gap: $uni-spacing-row-base;
 
       image {
-        width: 28rpx;
-        height: 28rpx;
+        width: $uni-img-size-mini;
+        height: $uni-img-size-mini;
       }
     }
   }

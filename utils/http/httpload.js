@@ -1,4 +1,5 @@
 import Request from '@/uni_modules/uview-ui/libs/luch-request/index.js'
+import strore from '@/store/index.js'
 import {
 	BASE_API
 } from './url.js'
@@ -13,7 +14,8 @@ const http = new Request({
 
 //请求拦截器
 http.interceptors.request.use((config) => { // 可使用async await 做异步操作
-	const userId = uni.getStorageSync('userId');
+	const userId = strore.state.home.user.id || '';
+
 	// if (token) {
 	// 	config.header = {
 	// 		"Authorization": 'Bearer ' + token

@@ -81,7 +81,7 @@ export default {
           } = res;
           uni.setStorageSync("userId", id);
           this.$store.dispatch("setUser", data);
-
+          console.log(data, id);
           this.userInfo = data;
           this.eUserName = JSON.parse(eUserName).map((i) => i.name);
           this.researchDirection = Object.freeze(JSON.parse(researchDirection));

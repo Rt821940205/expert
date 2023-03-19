@@ -34,6 +34,7 @@ $uni-font-size-lm: 36rpx;
 $uni-font-size-hg: 40rpx;
 
 /* 图片尺寸 */
+$uni-img-size-mini: 28rpx;
 $uni-img-size-sm: 40rpx;
 $uni-img-size-base: 52rpx;
 $uni-img-size-lg: 64rpx;
@@ -90,3 +91,9 @@ $zgd-logo-h: 50rpx;
 $zgd-arrow-padding: 44rpx 20rpx 0rpx;
 
 $zgd-content-padding: 0rpx 36rpx;
+
+@mixin ellipsis() {
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}

@@ -88,4 +88,19 @@ export default {
   getNewResourceNumByType(data) {
     return request.post("/getNewResourceNumByType", data);
   },
+  getResearchDirection(data) {
+    return request.post("/getResearchDirection", data);
+  },
+  updateUserByUserNo(data) {
+    return request.post("/updateUserByUserNo", data);
+  },
+  getScholarResume(data) {
+    return request.post("/getScholarResume", data);
+  },
+  addScholarResume(data) {
+    return request.post("/addScholarResume", data);
+  },
+  delScholarResume(data) {
+    return request.post("/delScholarResume", data);
+  }
 };
