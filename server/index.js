@@ -88,6 +88,14 @@ export default {
   getNewResourceNumByType(data) {
     return request.post("/getNewResourceNumByType", data);
   },
+  //认领
+  addNewResource(data) {
+    return request.post("/addNewResource", data);
+  },
+  //标记为已查看
+  setResourceSearch(data) {
+    return request.post("/setResourceSearch", data);
+  },
   //邮箱成果补充
   completeResource(data) {
     return request.post("/completeResource", data);

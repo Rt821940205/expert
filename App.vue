@@ -14,6 +14,7 @@ export default {
 
 <style>
 /*每个页面公共css */
+@import url(/static/home/iconfont.css);
 scroll-view ::-webkit-scrollbar {
   display: none !important;
   width: 0 !important;

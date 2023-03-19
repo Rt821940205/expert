@@ -8,6 +8,7 @@
     <AchievementListPage
       :achievementList="achievementList"
       @findNewResourceNumByYear="findNewResourceNumByYear"
+      @findAddNewResource="findAddNewResource"
     />
   </view>
 </template>
