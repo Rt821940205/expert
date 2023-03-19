@@ -11,7 +11,7 @@
             v-for="item in selectTags"
             :key="item"
             :text="item"
-            style="display:inline-flex"
+            style="display: inline-flex"
             plain
             size="mini"
             closable
@@ -42,14 +42,12 @@
             :background="selectInSearchTag(item) ? '#316B7A' : ''"
           />
         </view>
-        <view @click.stop="save">
-          确定
-        </view>
+        <view @click.stop="save"> 确定 </view>
       </view>
     </view>
   </view>
 </template>
-  <script>
+<script>
 import Api from "@/server/index.js";
 import { mapState, mapGetters } from "vuex";
 export default {
@@ -113,12 +111,12 @@ export default {
         }
       }
       console.log(
-        JSON.stringify(this.selectTags),
+        this.selectTags,
         "JSON.stringify(this.selectTags)"
       );
-      this.form.researchDirection = JSON.stringify(this.selectTags);
+      this.form.researchDirection = this.selectTags;
 
-      const ret = await Api.updateUserByUserNo(this.form);
+      const ret = await Api.getNewResourceNumByType(this.form);
       //   if (ret) {
       //     uni.$emit("update");
       //     uni.showToast({
@@ -145,7 +143,7 @@ export default {
   },
 };
 </script>
-  <style lang="scss" scoped>
+<style lang="scss" scoped>
 .app {
   .header {
     height: 64rpx;

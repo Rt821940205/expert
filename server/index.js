@@ -91,6 +91,7 @@ export default {
   getResearchDirection(data) {
     return request.post("/getResearchDirection", data);
   },
+  //更新用户信息
   updateUserByUserNo(data) {
     return request.post("/updateUserByUserNo", data);
   },

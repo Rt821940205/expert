@@ -49,7 +49,7 @@ export default {
       show: true,
       title: "请输入工号",
       userInfo: {
-        userNo: "00562",
+        userNo: "00560",
       },
       eUserName: [],
       researchDirection: [],
