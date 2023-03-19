@@ -51,7 +51,6 @@
 import Api from "@/server/index.js";
 import { mapState, mapGetters } from "vuex";
 export default {
-  components: {},
   data() {
     return {
       selectTags: [],
@@ -110,35 +109,33 @@ export default {
           this.selectTags.push(this.search);
         }
       }
-      console.log(
-        this.selectTags,
-        "JSON.stringify(this.selectTags)"
-      );
+      console.log(this.selectTags, "JSON.stringify(this.selectTags)");
       this.form.researchDirection = this.selectTags;
 
-      const ret = await Api.getNewResourceNumByType(this.form);
-      //   if (ret) {
-      //     uni.$emit("update");
-      //     uni.showToast({
-      //       title: "保存成功",
-      //       icon: "none",
-      //     });
-      //     this.search = "";
-      //     this.searchTags = [];
-      //   }
+      const { code } = await Api.updateUserByUserNo(this.form);
+      if (code == 1) {
+        uni.$emit("update");
+        uni.showToast({
+          title: "保存成功",
+          icon: "none",
+        });
+        this.search = "";
+        this.searchTags = [];
+      }
     },
     async removeTag(item) {
       const index = this.selectTags.findIndex((sItem) => sItem === item);
       this.selectTags.splice(index, 1);
-      this.form.researchDirection = JSON.stringify(this.selectTags);
-      //   const ret = await Api.updateUserByUserNo(this.form);
-      //   if (ret) {
-      //     uni.$emit("update");
-      //     uni.showToast({
-      //       title: "删除成功",
-      //       icon: "none",
-      //     });
-      //   }
+      // this.form.researchDirection = JSON.stringify(this.selectTags);
+      this.form.researchDirection = this.selectTags;
+      const { code } = await Api.updateUserByUserNo(this.form);
+      if (code == 1) {
+        uni.$emit("update");
+        uni.showToast({
+          title: "删除成功",
+          icon: "none",
+        });
+      }
     },
   },
 };

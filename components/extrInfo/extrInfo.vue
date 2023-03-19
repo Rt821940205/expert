@@ -19,7 +19,6 @@
           />
         </view>
       </view>
-
     </view>
     <view class="extraInfo-item1 extraInfo-item2">
       <view>研究方向</view>
@@ -133,14 +132,8 @@ export default {
       this.isShowProfile = !this.isShowProfile;
     },
     async confirm() {
-      // this.$refs.form
-      //   .validate()
-      //   .then(async (res) => {
-      //     console.log(this.form);
-      // await API.home.updateUserByUserNo(this.form);
+      await Api.updateUserByUserNo(this.form);
       this.isShowProfile = !this.isShowProfile;
-      // })
-      // .catch((errors) => {});
     },
   },
 };

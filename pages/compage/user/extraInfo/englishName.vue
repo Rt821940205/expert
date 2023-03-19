@@ -18,7 +18,7 @@
               name="close"
               color="#316B7A"
               size="18"
-              @click.stop="remove"
+              @click="remove"
             />
           </view>
         </view>
@@ -108,14 +108,14 @@ export default {
         });
         this.newUserName = "";
         this.show = !this.show;
-        this.form.eUserName = JSON.stringify(this.eUserNames);
-        const ret = Api.updateUserByUserNo(this.form);
-        if (ret) {
-          uni.showToast({
-            title: "保存成功",
-            icon: "none",
-          });
-        }
+        // this.form.eUserName = JSON.stringify(this.eUserNames);
+        this.form.eUserName = this.eUserNames;
+        const { code } = Api.updateUserByUserNo(this.form);
+        const title = code == 1 ? "保存成功" : "保存失败";
+        uni.showToast({
+          title,
+          icon: "none",
+        });
       }
     },
     async remove(item) {
@@ -123,14 +123,15 @@ export default {
         (sItem) => sItem.name === item.name
       );
       this.eUserNames.splice(index, 1);
-      this.form.eUserName = JSON.stringify(this.eUserNames);
-      const ret = await Api.updateUserByUserNo(this.form);
-      if (ret) {
-        uni.showToast({
-          title: "删除成功",
-          icon: "none",
-        });
-      }
+      // this.form.eUserName = JSON.stringify(this.eUserNames);
+      this.form.eUserName = this.eUserNames;
+      const { code } = await Api.updateUserByUserNo(this.form);
+      const title = code == 1 ? "删除成功" : "删除失败";
+      uni.showToast({
+        title,
+        icon: "none",
+      });
+      
     },
   },
 };

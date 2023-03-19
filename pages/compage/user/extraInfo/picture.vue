@@ -54,13 +54,15 @@ export default {
           pathToBase64(filePath).then((base64) => {
             this.form.userImg = base64;
             Api.updateUserByUserNo(this.form)
-              .then((ret) => {
-                if (ret) {
+              .then(({ code }) => {
+                if (code == 1) {
                   this.imag = base64;
                   uni.showToast({
                     title: "上传成功",
                     icon: "none",
                   });
+                } else {
+                  throw new Error("上传失败!");
                 }
               })
               .catch((err) => {

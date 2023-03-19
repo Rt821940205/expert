@@ -41,12 +41,20 @@
         v-show="selectFirst === true"
         :list="list"
         @update:item="toItem"
+        v-if="!loading"
       />
       <listdaniu
         v-show="selectFirst === false"
         :list="daniuList"
         @update:item="toFollow"
+        v-if="!loading"
       />
+      <view
+        v-if="loading"
+        class="loading"
+      >
+        <u-loading-icon></u-loading-icon>
+      </view>
     </view>
   </view>
 </template>
@@ -65,7 +73,8 @@ export default {
       list: [],
       daniuList: [],
       selectFirst: true, //默认选择第一个
-      theme: "", //搜索关键字
+      theme: "", //搜索关键字,
+      loading: false,
     };
   },
   async onShow() {
@@ -86,14 +95,16 @@ export default {
         this.daniuList = [];
         return;
       }
+      this.loading = true;
       const { data } = await Api.findScholarByUserId({
         keyWords: this.theme,
       });
+      this.loading = false;
       this.daniuList = data;
     },
     async toFollow(id) {
       await Api.addUserBuddy({
-        buddyUserId: id
+        buddyUserId: id,
       });
       uni.showToast({
         title: "关注成功",
@@ -125,9 +136,9 @@ export default {
     padding: $zgd-logo-padding;
     .logo {
       image {
-      width: $zgd-logo-w;
-      height: $zgd-logo-h;
-    }
+        width: $zgd-logo-w;
+        height: $zgd-logo-h;
+      }
     }
   }
   .search-bar {
@@ -140,7 +151,7 @@ export default {
       border-radius: 30rpx;
       border: 2rpx solid $base-color;
       width: 80%;
-      margin-left: 40rpx;
+      margin-left: $uni-spacing-row-base;
 
       input {
         font-size: $uni-font-size-base;
@@ -162,13 +173,15 @@ export default {
     }
   }
   .seegment-view {
-    justify-content: center;
+    box-sizing: border-box;
+    justify-content: space-between;
     align-content: center;
     margin-top: $uni-spacing-col-base;
     display: flex;
-    gap: $uni-spacing-row-base;
+    // gap: $uni-spacing-row-base;
     height: 60rpx;
     width: 100%;
+    padding: 0 $uni-spacing-row-base;
 
     button {
       margin-left: 0rpx;
@@ -185,7 +198,14 @@ export default {
     }
   }
   .content {
-    padding: 0rpx 25rpx 0rpx 25rpx;
+    padding: 0 $uni-spacing-row-base;
+  }
+
+  .loading {
+    position: fixed;
+    top: 40%;
+    left: 50%;
+    margin-left: -24rpx;
   }
 }
 </style>

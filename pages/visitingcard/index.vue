@@ -132,14 +132,14 @@ export default {
         item.name === value ? (item.isSelect = 1) : (item.isSelect = 0)
       );
       // console.log("eNames", eNames);
-      this.userInfo.eUserName = JSON.stringify(eNames);
-      const ret = await Api.updateUserByUserNo(this.userInfo);
-      if (ret) {
-        uni.showToast({
-          title: "修改默认英文名成功",
-          icon: "none",
-        });
-      }
+      // this.userInfo.eUserName = JSON.stringify(eNames);
+      this.userInfo.eUserName = eNames;
+      const { code } = await Api.updateUserByUserNo(this.userInfo);
+      const title = code == 1 ? "修改默认英文名成功" : "修改默认英文名失败";
+      uni.showToast({
+        title,
+        icon: "none",
+      });
     },
   },
 };

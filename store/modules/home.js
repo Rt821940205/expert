@@ -3,7 +3,8 @@ const store = {
 		user: {},
 		snNo: '',
 		share: false,
-		accessToken: ''
+		accessToken: '',
+		userId: uni.getStorageSync("userId") || ''
 	},
 	mutations: {
 		async setUser(state, user) {

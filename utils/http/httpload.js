@@ -14,8 +14,7 @@ const http = new Request({
 
 //请求拦截器
 http.interceptors.request.use((config) => { // 可使用async await 做异步操作
-	const userId = strore.state.home.user.id || '';
-
+	const userId = strore.state.home.userId || '';
 	// if (token) {
 	// 	config.header = {
 	// 		"Authorization": 'Bearer ' + token
