@@ -15,26 +15,26 @@
         />
       </view>
       <view class="button-view">
-        <button
-          type="primary"
-          class="btn"
-          @click="searchDaniu"
-        >搜索</button>
+        <button type="primary" class="btn" @click="searchDaniu">搜索</button>
       </view>
     </view>
     <view class="seegment-view">
       <button
         type="default"
         plain="true"
-        :class="{'button-select': selectFirst === true }"
+        :class="{ 'button-select': selectFirst === true }"
         @click="clickMyFollowList"
-      >我的关注</button>
+      >
+        我的关注
+      </button>
       <button
         type="default"
         plain="true"
-        :class="{'button-select': selectFirst === false}"
+        :class="{ 'button-select': selectFirst === false }"
         @click="clickDaniu"
-      >校内学者</button>
+      >
+        校内学者
+      </button>
     </view>
     <view class="content">
       <list
@@ -49,10 +49,7 @@
         @update:item="toFollow"
         v-if="!loading"
       />
-      <view
-        v-if="loading"
-        class="loading"
-      >
+      <view v-if="loading" class="loading">
         <u-loading-icon></u-loading-icon>
       </view>
     </view>
@@ -143,6 +140,8 @@ export default {
   }
   .search-bar {
     display: flex;
+    box-sizing: border-box;
+    padding: 0 36rpx 0;
     height: 100rpx;
     width: 100%;
     align-items: center;
@@ -151,17 +150,19 @@ export default {
       border-radius: 30rpx;
       border: 2rpx solid $base-color;
       width: 80%;
-      margin-left: $uni-spacing-row-base;
-
+      ::v-deep .uni-input-placeholder {
+        padding-left: $uni-spacing-row-lg;
+      }
+      ::v-deep .uni-input-input {
+        padding-left: $uni-spacing-row-lg;
+      }
       input {
         font-size: $uni-font-size-base;
         height: 60rpx;
-        margin-left: $uni-spacing-row-lg;
       }
     }
     .button-view {
       margin-left: $uni-spacing-row-base;
-      margin-right: $uni-spacing-row-base;
       height: 60rpx;
       width: 20%;
       button {
@@ -178,17 +179,13 @@ export default {
     align-content: center;
     margin-top: $uni-spacing-col-base;
     display: flex;
-    // gap: $uni-spacing-row-base;
     height: 60rpx;
-    width: 100%;
-    padding: 0 $uni-spacing-row-base;
+    padding: 0 36rpx;
 
     button {
-      margin-left: 0rpx;
-      margin-right: 0rpx;
       font-size: $uni-font-size-base;
       line-height: 60rpx;
-      width: 45%;
+      width: 48%;
       border: 2rpx solid $base-color;
       color: $base-color;
     }
@@ -196,9 +193,13 @@ export default {
       background: $base-color;
       color: white;
     }
+    ::v-deep uni-button {
+      margin-left: 0;
+      margin-right: 0;
+    }
   }
   .content {
-    padding: 0 $uni-spacing-row-base;
+    padding: $zgd-content-padding;
   }
 
   .loading {

@@ -208,8 +208,8 @@ export default {
     .achment-operate {
       display: flex;
       position: absolute;
-      top: -$uni-spacing-row-sm;
-      right: $uni-spacing-row-sm;
+      top: -$uni-spacing-col-hg;
+      right: $uni-spacing-row-lg;
       gap: 10rpx;
 
       view {
