@@ -154,23 +154,10 @@ export default {
         this.findNewResourceNumPage();
       }
     },
-    handleAllCliam(type) {
+    handleAllCliam(typeBtn) {
       this.allClaim =
-        type == "claimAll" ? false : type == "claimCancal" ? true : false;
-      this.showAllClaim(type);
-    },
-    showAllClaim(type) {
-      switch (type) {
-        case "claimAll":
-          this.$refs.child.handleListStatus(type);
-          break;
-        case "claimComit":
-          break;
-        case "claimCancal":
-          break;
-        case "allselcet":
-          break;
-      }
+        typeBtn == "claimAll" ? false : typeBtn == "claimCancal" ? true : false;
+      this.$refs.child.handleListStatus(typeBtn);
     },
     refresh() {
       this.pageNo = 1;

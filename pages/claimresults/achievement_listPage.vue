@@ -1,21 +1,16 @@
 <template>
   <view class="claim_list">
-    <view
-      class="result_item"
-      v-for="(item, index) in achievementList"
-      :key="item.id"
-    >
+    <view class="result_item" v-for="(item, index) in list" :key="item.id">
       <view class="result_index">{{ index + 1 }}</view>
       <view class="result_content">
         <view class="result_row">
           <view>标题</view>
           <view>{{ item.title }}</view>
-          <!-- <view @click="operateFun(item, 'add')">认领</view>
-          <view @click="operateFun(item, 'add')">认领</view> -->
           <view
+            @click="operateFun(index, item.id)"
             :class="
               operation == 'claimAll'
-                ? item.isSelcet == 0
+                ? item.isSelcet == false
                   ? 'iconfont icon-fuxuankong'
                   : 'iconfont icon-fuxuan'
                 : ''
@@ -31,14 +26,14 @@
         <view class="result_row">
           <view>时间</view>
           <view>{{ item.year }}</view>
-          <view style="bottom: 75%" @click="operateFun(item, 'detail')"
+          <view style="bottom: 75%" @click="detailAndLooked(item, 'detail')"
             >详情</view
           >
         </view>
         <view class="result_row">
           <view>作者</view>
           <view>{{ item.creator }}</view>
-          <view v-if="type == 1" @click="operateFun(item, 'looked')"
+          <view v-if="type == 1" @click="detailAndLooked(item, 'looked')"
             >标为已查看</view
           >
         </view>
@@ -65,25 +60,18 @@ export default {
   data() {
     return {
       operation: "",
-      list: [],
-      achievementList1: this.achievementList,
+      list: this.achievementList,
     };
   },
   watch: {
-    achievementList: function (newVal, oldVal) {
-      this.achievementList1 = newVal;
+    achievementList(val) {
+      this.list = val;
     },
   },
-  mounted() {
-    // this.list = this.achievementList;
-  },
   methods: {
-    operateFun(item, type) {
+    detailAndLooked(item, type) {
       const { id, resourceCode } = item;
       switch (type) {
-        case "add":
-          this.$emit("findAddNewResource", id);
-          break;
         case "looked":
           this.$emit("findSetResourceSearch", id);
           break;
@@ -96,14 +84,45 @@ export default {
           return;
       }
     },
+    claimResult(itemid) {
+      this.$emit("findAddNewResource", itemid);
+    },
+    operateFun(ids, itemid) {
+      this.operation == "claimAll"
+        ? this.claimAllClickSingle(ids)
+        : this.claimResult(itemid);
+    },
     handleListStatus(res) {
-      this.operation = res;
-      this.achievementList = this.achievementList.map((l) => ({
+      if (res === "claimAll" || res === "claimCancal") {
+        this.operation = res;
+        this.list = this.list.map((l) => ({
+          ...l,
+          isSelcet: false,
+        }));
+      }
+      if (res === "allselcet") this.allselcet();
+      if (res === "claimComit") this.claimComit();
+    },
+    claimAllClickSingle(ids) {
+      this.list[ids].isSelcet == false
+        ? (this.list[ids].isSelcet = true)
+        : (this.list[ids].isSelcet = false);
+    },
+    allselcet() {
+      this.list = this.list.map((l) => ({
         ...l,
-        isSelcet: 0,
+        isSelcet: true,
       }));
-      console.log(this.achievementList);
-      this.$forceUpdate();
+    },
+    claimComit() {
+      console.log(11111)
+      const resourceIdList = this.list
+        .filter((l) => l.isSelcet)
+        .map((f) => f.id)
+        .join(",");
+      if (resourceIdList.length > 0) {
+        this.claimResult(resourceIdList)
+      }
     },
   },
 };
