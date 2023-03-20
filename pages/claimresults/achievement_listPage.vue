@@ -1,6 +1,10 @@
 <template>
   <view class="claim_list">
-    <view class="result_item" v-for="(item, index) in achievementList" :key="item.id">
+    <view
+      class="result_item"
+      v-for="(item, index) in achievementList"
+      :key="item.id"
+    >
       <view class="result_index">{{ index + 1 }}</view>
       <view class="result_content">
         <view class="result_row">
@@ -62,13 +66,13 @@ export default {
     return {
       operation: "",
       list: [],
-      achievementList1: achievementList
+      achievementList1: this.achievementList,
     };
   },
   watch: {
-    achievementList:function(newVal, oldVal){
-      this.achievementList1 = newVal
-    }
+    achievementList: function (newVal, oldVal) {
+      this.achievementList1 = newVal;
+    },
   },
   mounted() {
     // this.list = this.achievementList;
@@ -94,8 +98,11 @@ export default {
     },
     handleListStatus(res) {
       this.operation = res;
-      this.achievementList = this.achievementList.map(l => ({...l, isSelcet: 0}))
-      console.log(this.achievementList)
+      this.achievementList = this.achievementList.map((l) => ({
+        ...l,
+        isSelcet: 0,
+      }));
+      console.log(this.achievementList);
       this.$forceUpdate();
     },
   },
