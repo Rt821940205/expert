@@ -1,5 +1,5 @@
 <template>
-  <view class="app">
+  <view class="achementlist-container">
     <view class="header">
       <tNav title="成果管理" />
     </view>
@@ -11,24 +11,27 @@
         ></u-tabs>
       </view>
     </view>
-    <view class="achment-list">
+    <view
+      v-if="!loading"
+      class="achment-list"
+    >
       <view
         v-for="(item, index) in list"
         :key="index"
         class="achment-list__item"
       >
-        <view>{{ index + 1 }}</view>
-        <view>
-          <view>项目</view>
-          <view>归属机构</view>
-          <view>标题</view>
+        <view class="index">{{ index + 1 }}</view>
+        <view class="key">
+          <view class="first">项目</view>
+          <view class="other">归属机构</view>
+          <view class="other">标题</view>
         </view>
-        <view>
-          <view>{{ item.year }}</view>
-          <view>{{ item.instituteAll }}</view>
-          <view>{{ item.title }}</view>
+        <view class="value">
+          <view class="first">{{ item.year }}</view>
+          <view class="other">{{ item.instituteAll }}</view>
+          <view class="other ellipsis">{{ item.title }}</view>
         </view>
-        <view>
+        <view class="btn">
           <view @click="remove(item)">
             删除
           </view>
@@ -38,6 +41,12 @@
           </view>
         </view>
       </view>
+    </view>
+    <view
+      v-if="loading"
+      class="loading"
+    >
+      <u-loading-icon></u-loading-icon>
     </view>
   </view>
 </template>
@@ -50,7 +59,7 @@ export default {
       tabList: [],
       tabCur: 0,
       list: [],
-      needUpdate: false,
+      loading: false,
     };
   },
   async mounted() {
@@ -60,7 +69,7 @@ export default {
     async init() {
       const { data } = await Api.getUserResourceNum({});
       this.tabList = this.changeRetToTabList(data);
-      await this.tabChange(0);
+      await this.tabChange(this.tabList[0]);
     },
     changeRetToTabList(arr) {
       return arr.map((item) => ({
@@ -79,8 +88,10 @@ export default {
         pageNo: 1,
         pageSize: 100,
       };
+      this.loading = true;
       const { data } = await Api.getUserResourcePage(param);
       this.list = data;
+      this.loading = false;
     },
     async tabChange(tab) {
       this.tabCur = tab.index;
@@ -112,19 +123,18 @@ export default {
 };
 </script>
 <style lang="scss" scoped>
-.app {
+.achementlist-container {
   .header {
-    height: 64rpx;
-    padding: 86rpx 50rpx 8rpx 50rpx;
+    padding: $zgd-arrow-padding;
   }
-
   .achment-nav {
-    height: 100rpx;
-    padding: 12rpx 50rpx 12rpx 50rpx;
+    margin-top: -25rpx;
+    padding: 0 50rpx 12rpx 50rpx;
   }
 
   .achment-list {
-    padding: 0rpx 50rpx 0rpx 50rpx;
+    padding: 0 $uni-spacing-row-base;
+    padding-bottom: $uni-spacing-col-hg;
 
     &__item {
       height: 178rpx;
@@ -138,75 +148,52 @@ export default {
       padding: 20rpx 20rpx 0rpx 20rpx;
       border: 1px solid $base-color;
       margin-bottom: 20rpx;
-
-      > view:first-child {
-        font-family: PingFangSC-Medium, sans-serif;
-        font-size: $uni-font-size-base;
+      font-size: $uni-font-size-base;
+      .index {
         color: $base-color;
         width: 20rpx;
       }
-
-      > view:nth-child(2) {
+      .key {
         width: 102rpx;
         margin-left: 20rpx;
         display: flex;
         flex-flow: column nowrap;
-
-        > view:first-child {
-          font-family: PingFangSC-Medium, sans-serif;
-          font-size: $uni-font-size-base;
+        > view {
+          flex: 1;
+        }
+        .first {
           color: $base-color;
-          flex: 1;
         }
-
-        > view:nth-child(2) {
-          font-family: PingFangSC-Light, sans-serif;
+        .other {
           font-size: $uni-font-size-sm;
-          flex: 1;
-        }
-
-        > view:last-child {
-          font-family: PingFangSC-Light, sans-serif;
-          font-size: $uni-font-size-sm;
-          flex: 1;
         }
       }
 
-      > view:nth-child(3) {
+      .value {
         flex: 1;
         display: flex;
         margin-left: 20rpx;
         flex-flow: column nowrap;
+        font-size: $uni-font-size-base;
+        > view {
+          flex: 1;
+        }
 
-        > view:first-child {
-          font-family: PingFangSC-Medium, sans-serif;
-          font-size: $uni-font-size-base;
+        .first {
           color: $base-color;
-          flex: 1;
         }
 
-        > view:nth-child(2) {
-          font-family: PingFangSC-Light, sans-serif;
+        .other {
           font-size: $uni-font-size-sm;
-          flex: 1;
         }
 
-        > view:last-child {
-          font-family: PingFangSC-Light, sans-serif;
-          font-size: $uni-font-size-sm;
-          flex: 1;
-          // display: -webkit-box;
-          text-overflow: ellipsis;
-          overflow: hidden;
-          white-space: nowrap;
+        .ellipsis {
+          @include ellipsis();
           width: 390rpx;
-          // -webkit-line-clamp: 1;
-          // -webkit-box-orient: vertical;
         }
       }
 
-      > view:last-child {
-        font-family: PingFangSC-Medium, sans-serif;
+      .btn {
         font-size: $uni-font-size-sm;
         color: $base-color;
         display: flex;
@@ -218,6 +205,13 @@ export default {
         }
       }
     }
+  }
+
+  .loading {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    margin-left: -24rpx;
   }
 }
 </style>
