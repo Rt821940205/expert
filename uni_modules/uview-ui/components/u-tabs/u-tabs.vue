@@ -110,6 +110,7 @@
 				},
 				innerCurrent: 0,
 				moving: false,
+				initFirst:true
 			}
 		},
 		watch: {
@@ -210,7 +211,7 @@
 			},
 			init() {
 				uni.$u.sleep().then(() => {
-					this.resize()
+					 this.resize()
 				})
 			},
 			setScrollLeft() {
@@ -237,7 +238,7 @@
 				if(this.list.length === 0) {
 					return
 				}
-				Promise.all([this.getTabsRect(), this.getAllItemRect()]).then(([tabsRect, itemRect = []]) => {
+			   Promise.all([this.getTabsRect(), this.getAllItemRect()]).then(([tabsRect, itemRect = []]) => {
 					this.tabsRect = tabsRect
 					this.scrollViewWidth = 0
 					itemRect.map((item, index) => {
@@ -249,6 +250,8 @@
 					// 获取了tabs的尺寸之后，设置滑块的位置
 					this.setLineLeft()
 					this.setScrollLeft()
+					this.firstTime && this.$emit('resize')
+					this.firstTime = false
 				})
 			},
 			// 获取导航菜单的尺寸

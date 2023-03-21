@@ -15,6 +15,8 @@
       <u-tabs
         :list="achievementList"
         @click="click"
+        @resize="resize"
+        ref="tabs"
       ></u-tabs>
     </view>
     <view class="list">
@@ -94,6 +96,21 @@ export default {
     },
   },
   methods: {
+    resize() {
+     const clientWidth = this.$refs.tabs.$el.clientWidth;
+      const rects = this.$refs.tabs.list;
+      const sum = rects.reduce((pre, cur) => {
+        return pre + cur.rect.width;
+      }, 0);
+      if (clientWidth > sum) {
+        this.$refs.tabs.$el.querySelector(
+          ".u-tabs__wrapper__nav__item"
+        ).style.marginLeft = (clientWidth - sum) / 2 + "px";
+        this.$refs.tabs.$el.querySelector(
+          ".u-tabs__wrapper__nav__line"
+        ).style.left = (clientWidth - sum) / 2 + "px";
+      }
+    },
     keyWordTran,
     click(item) {
       this.$emit("getList", item.resourceCode);

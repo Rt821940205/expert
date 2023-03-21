@@ -8,6 +8,8 @@
         <u-tabs
           :list="tabList"
           @click="tabChange"
+          @resize="resize"
+          ref="tabs"
         ></u-tabs>
       </view>
     </view>
@@ -118,6 +120,21 @@ export default {
       uni.navigateTo({
         url: `/pages/compage/achment-detail?id=${resource_id}&code=${resource_code}`,
       });
+    },
+    resize() {
+     const clientWidth = this.$refs.tabs.$el.clientWidth;
+      const rects = this.$refs.tabs.list;
+      const sum = rects.reduce((pre, cur) => {
+        return pre + cur.rect.width;
+      }, 0);
+      if (clientWidth > sum) {
+        this.$refs.tabs.$el.querySelector(
+          ".u-tabs__wrapper__nav__item"
+        ).style.marginLeft = (clientWidth - sum) / 2 + "px";
+        this.$refs.tabs.$el.querySelector(
+          ".u-tabs__wrapper__nav__line"
+        ).style.left = (clientWidth - sum) / 2 + "px";
+      }
     },
   },
 };

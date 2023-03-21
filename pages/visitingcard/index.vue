@@ -16,7 +16,7 @@
         </u-form>
       </view>
     </u-modal>
-    <view v-show="!show">
+    <view v-if="!show">
       <BasicInfo
         :basicInfo="userInfo"
         :eUserName="eUserName"
