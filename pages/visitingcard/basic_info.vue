@@ -31,12 +31,12 @@
           <view class="CN_name">{{ basicInfo.userName }}</view>
           <view class="EN_name">
             <picker
-              :value="0"
+              :value="index"
               :range="eUserName"
               @change="eNamesChange"
             >
               <text class="name_text">{{
-                eUserName.length > 0 && eUserName[0]
+                eUserName.length > 0 && eUserName[index]
               }}</text>
               <image src="@/static/home/down_arrow.png" />
             </picker>
@@ -115,18 +115,18 @@ export default {
     basicInfo: {
       handler(newName, oleName) {
         if (!!newName.eUserName) {
-          // const eNames = JSON.parse(newName.eUserName);
-          // const index = eNames.findIndex((item) => !!item.isSelect);
-          // this.index = index;
-          // const removed = eNames.splice(index, 1);
-          // eNames.unshift(removed[0]);
-          // this.eNames = eNames.map((item) => item.name);
+          const eNames = JSON.parse(JSON.stringify(newName.eUserName));
+          const index = eNames.findIndex((item) => !!item.isSelect);
+          this.index = index;
+          const removed = eNames.splice(index, 1);
+          eNames.unshift(removed[0]);
+          this.eNames = eNames.map((item) => item.name);
         }
       },
       immediate: true,
       deep: true,
     },
-  }
+  },
 };
 </script>
 

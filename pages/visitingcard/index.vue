@@ -81,12 +81,16 @@ export default {
             data,
             data: { eUserName, researchDirection, id },
           } = res;
-          uni.setStorageSync("userId", id);
-          this.$store.dispatch("setUser", data);
-          console.log(data, id);
+          for (const key in data) {
+            if (key === "eUserName" || key === "researchDirection") {
+              data[key] = JSON.parse(data[key]);
+            }
+          }
           this.userInfo = data;
           this.eUserName = JSON.parse(eUserName).map((i) => i.name);
           this.researchDirection = Object.freeze(JSON.parse(researchDirection));
+          uni.setStorageSync("userId", id);
+          this.$store.dispatch("setUser", data);
         }
         this.getCatalogueList();
       } catch (e) {
@@ -133,12 +137,10 @@ export default {
       }
     },
     async eNamesChange(value) {
-      const eNames = JSON.parse(this.userInfo.eUserName);
+      const eNames = this.userInfo.eUserName;
       eNames.forEach((item) =>
         item.name === value ? (item.isSelect = 1) : (item.isSelect = 0)
       );
-      // console.log("eNames", eNames);
-      // this.userInfo.eUserName = JSON.stringify(eNames);
       this.userInfo.eUserName = eNames;
       const { code } = await Api.updateUserByUserNo(this.userInfo);
       const title = code == 1 ? "修改默认英文名成功" : "修改默认英文名失败";

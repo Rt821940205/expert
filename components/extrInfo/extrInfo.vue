@@ -54,7 +54,7 @@
       <view>个人简介</view>
       <view
         v-if="!isShowProfile"
-        class="extraInfo-left"
+        class="bottom"
       >
         <view>{{ form.userDetail }}</view>
         <view class="btn">
@@ -65,14 +65,13 @@
           />
         </view>
       </view>
-      <view
-        v-else
-        class="extraInfo-left"
+      <view v-else
+      class="bottom"
       >
         <u--textarea
           v-model="form.userDetail"
-          type="textarea"
           placeholder="补全个人简历有助于您的学术交流和科研合作。"
+          class="border"
         />
         <view
           class="btn"
@@ -132,6 +131,7 @@ export default {
       this.isShowProfile = !this.isShowProfile;
     },
     async confirm() {
+      console.log(this.form)
       await Api.updateUserByUserNo(this.form);
       this.isShowProfile = !this.isShowProfile;
     },
@@ -185,6 +185,18 @@ export default {
   }
   .nobottom {
     border-bottom: none;
+  }
+
+  .bottom {
+    flex: 1;
+  }
+  .btn{
+    text-align: right;
+    margin-top: $uni-spacing-col-base;
+    margin-right: $uni-spacing-col-base;
+  }
+  .border{
+    
   }
 }
 </style>
