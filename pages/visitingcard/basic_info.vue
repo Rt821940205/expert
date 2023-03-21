@@ -38,7 +38,6 @@
               <text class="name_text">{{
                 eUserName.length > 0 && eUserName[index]
               }}</text>
-              {{ index }}
               <image src="@/static/home/down_arrow.png" />
             </picker>
           </view>
