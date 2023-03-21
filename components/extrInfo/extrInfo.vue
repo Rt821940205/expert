@@ -65,8 +65,9 @@
           />
         </view>
       </view>
-      <view v-else
-      class="bottom"
+      <view
+        v-else
+        class="bottom"
       >
         <u--textarea
           v-model="form.userDetail"
@@ -131,7 +132,7 @@ export default {
       this.isShowProfile = !this.isShowProfile;
     },
     async confirm() {
-      console.log(this.form)
+      console.log(this.form);
       await Api.updateUserByUserNo(this.form);
       this.isShowProfile = !this.isShowProfile;
     },
@@ -190,13 +191,19 @@ export default {
   .bottom {
     flex: 1;
   }
-  .btn{
+  .btn {
     text-align: right;
     margin-top: $uni-spacing-col-base;
     margin-right: $uni-spacing-col-base;
   }
-  .border{
-    
+  .border {
+    ::v-deep {
+      // .uni-textarea-textarea {
+        border: 1px solid $base-color;
+        border-radius: $uni-border-radius-sm;
+        margin-left: $uni-spacing-row-sm;
+      // }
+    }
   }
 }
 </style>

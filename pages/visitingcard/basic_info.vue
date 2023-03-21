@@ -38,6 +38,7 @@
               <text class="name_text">{{
                 eUserName.length > 0 && eUserName[index]
               }}</text>
+              {{ index }}
               <image src="@/static/home/down_arrow.png" />
             </picker>
           </view>
@@ -116,7 +117,7 @@ export default {
       handler(newName, oleName) {
         if (!!newName.eUserName) {
           const eNames = JSON.parse(JSON.stringify(newName.eUserName));
-          const index = eNames.findIndex((item) => !!item.isSelect);
+          const index = eNames.findIndex((item) => item.isSelect != 0);
           this.index = index;
           const removed = eNames.splice(index, 1);
           eNames.unshift(removed[0]);
