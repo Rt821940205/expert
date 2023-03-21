@@ -13,10 +13,7 @@
         ></u-tabs>
       </view>
     </view>
-    <view
-      v-if="!loading"
-      class="achment-list"
-    >
+    <view v-if="!loading" class="achment-list">
       <view
         v-for="(item, index) in list"
         :key="index"
@@ -30,24 +27,17 @@
         </view>
         <view class="value">
           <view class="first">{{ item.year }}</view>
-          <view class="other">{{ item.instituteAll }}</view>
+          <view class="other ellipsis">{{ item.instituteAll }}</view>
           <view class="other ellipsis">{{ item.title }}</view>
         </view>
         <view class="btn">
-          <view @click="remove(item)">
-            删除
-          </view>
+          <view @click="remove(item)"> 删除 </view>
           <view />
-          <view @click="goAchmentDetail(item)">
-            详情
-          </view>
+          <view @click="goAchmentDetail(item)"> 详情 </view>
         </view>
       </view>
     </view>
-    <view
-      v-if="loading"
-      class="loading"
-    >
+    <view v-if="loading" class="loading">
       <u-loading-icon></u-loading-icon>
     </view>
   </view>
@@ -62,6 +52,7 @@ export default {
       tabCur: 0,
       list: [],
       loading: false,
+      resourceCode: ''
     };
   },
   async mounted() {
@@ -98,6 +89,7 @@ export default {
     async tabChange(tab) {
       this.tabCur = tab.index;
       const { resourceCode } = tab;
+      this.resourceCode = resourceCode
       await this.getUserResourcePage(resourceCode);
     },
     async remove(item) {
@@ -122,7 +114,7 @@ export default {
       });
     },
     resize() {
-     const clientWidth = this.$refs.tabs.$el.clientWidth;
+      const clientWidth = this.$refs.tabs.$el.clientWidth;
       const rects = this.$refs.tabs.list;
       const sum = rects.reduce((pre, cur) => {
         return pre + cur.rect.width;
@@ -137,6 +129,10 @@ export default {
       }
     },
   },
+  onPullDownRefresh() {
+    this.getUserResourcePage(this.resourceCode);
+    uni.stopPullDownRefresh();
+  },
 };
 </script>
 <style lang="scss" scoped>
@@ -150,7 +146,7 @@ export default {
   }
 
   .achment-list {
-    padding: 0 $uni-spacing-row-base;
+    padding: $zgd-content-padding;
     padding-bottom: $uni-spacing-col-hg;
 
     &__item {

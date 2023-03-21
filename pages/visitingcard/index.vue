@@ -1,10 +1,6 @@
 <template>
   <view class="container">
-    <u-modal
-      :show="show"
-      :title="title"
-      @confirm="confirm"
-    >
+    <u-modal :show="show" :title="title" @confirm="confirm">
       <view>
         <u-form :model="userInfo">
           <u-form-item borderBottom>
@@ -52,6 +48,7 @@ export default {
       userInfo: {
         userNo: "00199",
       },
+      resourceCode: "",
       eUserName: [],
       researchDirection: [],
       achievementList: [],
@@ -109,6 +106,7 @@ export default {
               value: a.num,
             },
           }));
+          this.resourceCode = data[0].resourceCode;
           this.getList(data[0].resourceCode);
         }
       } catch (e) {
@@ -120,6 +118,7 @@ export default {
       this.getList();
     },
     async getList(resourceCode) {
+      this.resourceCode = resourceCode;
       this.achievementPageList = [];
       try {
         const res = await Api.getUserResourcePage({
@@ -149,6 +148,10 @@ export default {
         icon: "none",
       });
     },
+  },
+  onPullDownRefresh() {
+    this.getList(this.resourceCode);
+    uni.stopPullDownRefresh();
   },
 };
 </script>

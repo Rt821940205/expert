@@ -55,6 +55,8 @@ export default {
     font-size: $uni-font-size-base;
     margin-bottom: $uni-spacing-col-lm;
     border-bottom: 2rpx dashed $base-border-color;
+    height: 60rpx;
+    line-height: 60rpx;
     > view:last-child {
       text-align: right;
       width: 60%;

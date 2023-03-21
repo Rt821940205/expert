@@ -127,7 +127,7 @@ export default {
     },
     toList() {
       uni.navigateTo({
-        url: "/pages/compage/achmentList",
+        url: "/pages/compage/achment-manage",
       });
     },
   },
@@ -151,14 +151,14 @@ export default {
   }
 
   .tabs {
-    padding: 20rpx 60rpx;
+    padding: 0 60rpx 20rpx;
   }
 
   .list {
-    margin-top: 20rpx;
+    margin-top: $uni-spacing-col-hg;
     position: relative;
     .list_item {
-      padding: 30rpx 40rpx 60rpx 60rpx;
+      padding: 30rpx 40rpx 50rpx 60rpx;
       background: -webkit-linear-gradient(
         top left,
         rgba(75, 195, 226, 0.2) 0%,
@@ -225,8 +225,8 @@ export default {
     .achment-operate {
       display: flex;
       position: absolute;
-      top: -$uni-spacing-col-hg;
-      right: $uni-spacing-row-lg;
+      top: -50rpx;
+      right: $uni-spacing-row-hg;
       gap: 10rpx;
 
       view {

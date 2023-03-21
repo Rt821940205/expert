@@ -152,7 +152,7 @@ export default {
       width: 150rpx;
       display: flex;
       justify-content: flex-end;
-      gap: $uni-spacing-row-base;
+      gap: $uni-spacing-row-lg;
 
       image {
         width: $uni-img-size-mini;

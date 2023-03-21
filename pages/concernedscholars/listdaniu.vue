@@ -86,6 +86,7 @@ export default {
           flex-flow: column nowrap;
           justify-content: flex-start;
           align-items: flex-end;
+          text-align: right;
           view:first-child {
             font-size: $uni-font-size-lm;
             flex: 1;

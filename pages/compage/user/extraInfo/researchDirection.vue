@@ -15,6 +15,8 @@
             plain
             size="mini"
             closable
+            border-color="#316b7a"
+            color="#316b7a"
             @close="removeTag"
           />
         </view>

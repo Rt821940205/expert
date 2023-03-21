@@ -1,7 +1,10 @@
 {
 	"pages": [
 		{
-			"path": "pages/visitingcard/index"
+			"path": "pages/visitingcard/index",
+			"style": {
+				"enablePullDownRefresh": true
+			}
 		},
 		{
 			"path": "pages/concernedscholars/index"
@@ -61,10 +64,10 @@
 			}
 		},
 		{
-			"path": "pages/compage/achmentList",
+			"path": "pages/compage/achment-manage",
 			"style": {
 				"navigationBarTitleText": "",
-				"enablePullDownRefresh": false
+				"enablePullDownRefresh": true
 			}
 		}
 	],
