@@ -115,7 +115,7 @@ export default {
     },
     sortByTime() {
       this.orderByType == 1 ? (this.orderByType = 2) : (this.orderByType = 1);
-      this.getList();
+      this.getList(this.resourceCode);
     },
     async getList(resourceCode) {
       this.resourceCode = resourceCode;
