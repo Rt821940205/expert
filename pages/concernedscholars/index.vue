@@ -81,7 +81,6 @@ export default {
     init() {
       this.updateFollowList();
     },
-    //
     async updateFollowList() {
       const { data } = await Api.getUserBuddyPage({});
       this.list = data;
@@ -124,6 +123,10 @@ export default {
       this.selectFirst = false;
     },
   },
+  onPullDownRefresh() {
+    this.updateFollowList();
+    uni.stopPullDownRefresh();
+  }
 };
 </script>
 
