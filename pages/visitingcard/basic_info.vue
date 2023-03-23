@@ -48,7 +48,7 @@
       </view>
     </view>
     <view class="header_b">
-      <view class="list">
+      <view class="list" @touchmove.stop @touch.stop>
         <u-tag
           v-for="item in researchDirection"
           :key="item"

@@ -1,21 +1,16 @@
 <template>
   <view class="list">
-    <view
-      v-for="(sItem, sIndex) in list"
-      :key="sIndex"
-      class="list-item__info"
-    >
+    <view v-for="(sItem, sIndex) in list" :key="sIndex" class="list-item__info">
       <view class="top">
         <view class="left">
           <button
             type="default"
-            :class="{'followStyle':sItem.isfocus != '0'}"
-            @click="searchDaniu(sItem.user_id,sItem)"
-          >关注</button>
-          <image
-            :src="sItem.avatarPath"
-            v-if="sItem.avatarPath"
-          />
+            :class="{ followStyle: sItem.isfocus != '0' }"
+            @click="searchDaniu(sItem.user_id, sItem)"
+          >
+            关注
+          </button>
+          <image :src="sItem.avatarPath" v-if="sItem.avatarPath" />
           <image
             v-if="!sItem.avatarPath"
             src="../../static/home/default-user-header2.png"
@@ -23,7 +18,10 @@
         </view>
         <view class="right">
           <view>{{ sItem.scholar_name }}</view>
-          <view>{{ sItem.institute }} - {{ sItem.professional_title || '暂无' }}</view>
+          <view
+            >{{ sItem.institute }} -
+            {{ sItem.professional_title || "暂无" }}</view
+          >
           <view>{{ sItem.subject }}</view>
         </view>
       </view>
@@ -55,11 +53,11 @@ export default {
       margin-top: $uni-spacing-col-lg;
       margin-bottom: $uni-spacing-col-lg;
       background: $uni-bg-card-1;
-     
+
       .top {
         height: 232rpx;
         display: flex;
-        padding:$uni-spacing-col-base $uni-spacing-row-base ;
+        padding: $uni-spacing-col-base $uni-spacing-row-base;
         .left {
           button {
             color: white;
@@ -92,11 +90,12 @@ export default {
             flex: 1;
           }
 
-          view:nth-child(2), view:nth-child(3), view:last-child {
+          view:nth-child(2),
+          view:nth-child(3),
+          view:last-child {
             font-size: $uni-font-size-sm;
             flex: 1;
           }
-
         }
       }
     }

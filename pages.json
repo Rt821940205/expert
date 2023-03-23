@@ -7,7 +7,10 @@
 			}
 		},
 		{
-			"path": "pages/concernedscholars/index"
+			"path": "pages/concernedscholars/index",
+			"style": {
+				"enablePullDownRefresh": true
+			}
 		},
 		{
 			"path": "pages/claimresults/index",
