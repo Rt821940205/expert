@@ -19,7 +19,10 @@
         ref="tabs"
       ></u-tabs>
     </view>
-    <view class="list">
+    <view
+      class="list"
+      v-if="!loading"
+    >
       <view
         class="list_item"
         v-for="(item, index) in achievementPageList"
@@ -38,7 +41,10 @@
             <view class="com_text">{{ keyWordTran(item.keyword || "") }}</view>
             <view class="com_text">{{ item.journal }}</view>
           </view>
-          <view class="item_header_r" :style="{opacity:item.isNew ? 1 : 0}">新！</view>
+          <view
+            class="item_header_r"
+            :style="{opacity:item.isNew ? 1 : 0}"
+          >新！</view>
         </view>
         <view class="item_footer">查看原文</view>
       </view>
@@ -60,6 +66,9 @@
           />
         </view>
       </view>
+    </view>
+    <view v-else>
+      <u-loading-icon></u-loading-icon>
     </view>
   </view>
 </template>
@@ -95,9 +104,18 @@ export default {
       );
     },
   },
+  watch: {
+    achievementList: {
+      handler(newVal) {
+        this.loading = !newVal.length ? true : false;
+      },
+      immediate: true,
+      deep: true,
+    },
+  },
   methods: {
     resize() {
-     const clientWidth = this.$refs.tabs.$el.clientWidth;
+      const clientWidth = this.$refs.tabs.$el.clientWidth;
       const rects = this.$refs.tabs.list;
       const sum = rects.reduce((pre, cur) => {
         return pre + cur.rect.width;

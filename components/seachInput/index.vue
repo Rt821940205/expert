@@ -130,7 +130,7 @@ export default {
 
   // 组件周期函数--监听组件挂载完毕
   mounted() {
-    console.log(uni.getStorageSync("historyKeyword"));
+   
   },
   // 组件周期函数--监听组件数据更新之前
   beforeUpdate() {},

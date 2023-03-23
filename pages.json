@@ -22,13 +22,6 @@
 			}
 		},
 		{
-			"path": "pages/compage/share",
-			"style": {
-				"navigationBarTitleText": "",
-				"enablePullDownRefresh": false
-			}
-		},
-		{
 			"path": "pages/compage/qcode",
 			"style": {
 				"navigationBarTitleText": "",

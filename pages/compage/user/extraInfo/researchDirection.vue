@@ -83,16 +83,10 @@ export default {
       if (!text) return;
       const { data } = await Api.getResearchDirection({ text });
       this.searchTags = data && data.map((item) => item.text);
-      console.log(this.searchTags);
     },
     selectInSearchTag(item) {
       return this.selectTags.includes(item);
     },
-    // selectTag(item) {
-    //   if (!this.selectTags.includes(item)) {
-    //     this.selectTags.push(item);
-    //   }
-    // },
     async save() {
       if (this.search === "") {
         return uni.showToast({
@@ -111,7 +105,6 @@ export default {
           this.selectTags.push(this.search);
         }
       }
-      console.log(this.selectTags, "JSON.stringify(this.selectTags)");
       this.form.researchDirection = this.selectTags;
 
       const { code } = await Api.updateUserByUserNo(this.form);

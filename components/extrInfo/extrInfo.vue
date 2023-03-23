@@ -132,7 +132,6 @@ export default {
       this.isShowProfile = !this.isShowProfile;
     },
     async confirm() {
-      console.log(this.form);
       await Api.updateUserByUserNo(this.form);
       this.isShowProfile = !this.isShowProfile;
     },

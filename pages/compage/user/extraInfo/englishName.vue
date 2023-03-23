@@ -108,10 +108,10 @@ export default {
         });
         this.newUserName = "";
         this.show = !this.show;
-        // this.form.eUserName = JSON.stringify(this.eUserNames);
         this.form.eUserName = this.eUserNames;
-        const { code } = Api.updateUserByUserNo(this.form);
+        const { code } = await Api.updateUserByUserNo(this.form);
         const title = code == 1 ? "保存成功" : "保存失败";
+        console.log(title,'title')
         uni.showToast({
           title,
           icon: "none",

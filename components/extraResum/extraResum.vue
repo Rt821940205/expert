@@ -196,7 +196,6 @@ export default {
   },
   async mounted() {
     this.kid = this.$store.state.home.snNo;
-    console.log(this.$store);
     await this.init();
   },
 
@@ -231,7 +230,6 @@ export default {
       };
     },
     async save() {
-      // console.log("save");
       try {
         await this.$refs.form1.validate();
         const _form = JSON.parse(JSON.stringify(this.form));
@@ -239,7 +237,6 @@ export default {
         _form.yearTo = this.years[this.form.yearTo];
         _form.education = this.leavels[this.form.education];
         _form.kid = this.kid;
-        // console.log("addScholarResume");
         const { code } = await Api.addScholarResume(_form);
         if (code == 1) {
           await this.init();

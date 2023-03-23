@@ -115,7 +115,6 @@ export default {
       }));
     },
     claimComit() {
-      console.log(11111)
       const resourceIdList = this.list
         .filter((l) => l.isSelcet)
         .map((f) => f.id)
