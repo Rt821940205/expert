@@ -223,9 +223,7 @@ export default {
           }));
           if (data.length > 0) {
             this.achievementList =
-              pageNo === 1
-                ? Object.freeze(arr)
-                : Object.freeze([...this.achievementList, ...arr]);
+              pageNo === 1 ? arr : [...this.achievementList, ...arr];
           } else {
             //总条数为0时 数组为空
             if (totel == 0) {

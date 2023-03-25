@@ -30,7 +30,7 @@
           <view v-if="source" class="EN_name">
             <picker :value="index" :range="eUserName" @change="eNamesChange">
               <text class="name_text">{{
-                eUserName.length > 0 && eUserName[index]
+                eUserName.length > 0 && eUserName[index] || ''
               }}</text>
               <image src="@/static/home/down_arrow.png" />
             </picker>

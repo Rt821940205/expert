@@ -120,7 +120,7 @@ export default {
         .map((f) => f.id)
         .join(",");
       if (resourceIdList.length > 0) {
-        this.claimResult(resourceIdList)
+        this.claimResult(resourceIdList);
       }
     },
   },

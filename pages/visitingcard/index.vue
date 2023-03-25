@@ -44,7 +44,7 @@ export default {
     return {
       baseList: [],
       loading: true,
-      show: true,
+      show: false,
       title: "请输入工号",
       userInfo: {
         userNo: "",
@@ -73,12 +73,22 @@ export default {
     if (!!userNo) {
       this.show = false;
       this.getData({ userNo });
+    } else {
+      this.show = true;
     }
   },
   created() {},
+  //sso登录模式
+  async onLoad() {
+    uni.$on("update", () => {
+      const snNo = this.$store.state.home.snNo;
+      this.getData({ userNo: snNo });
+    });
+  },
   methods: {
+    //弹出框本地测试
     confirm() {
-      this.show = !this.show;
+      this.show = false;
       this.getData(this.userInfo);
       this.$store.dispatch("setSnNo", this.userInfo.userNo);
     },

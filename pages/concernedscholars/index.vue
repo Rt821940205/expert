@@ -37,19 +37,13 @@
       </button>
     </view>
     <view class="content">
-      <list
-        v-show="selectFirst === true"
-        :list="list"
-        @update:item="toItem"
-        v-if="!loading"
-      />
+      <list v-show="selectFirst === true" :list="list" @update:item="toItem" />
       <listdaniu
         v-show="selectFirst === false"
         :list="daniuList"
         @update:item="toFollow"
-        v-if="!loading"
       />
-      <view v-if="loading" class="loading">
+      <view v-if="loading" class="swiper-loading">
         <u-loading-icon></u-loading-icon>
       </view>
     </view>
@@ -72,6 +66,8 @@ export default {
       selectFirst: true, //默认选择第一个
       theme: "", //搜索关键字,
       loading: false,
+      pageNo: 1,
+      pageSize: 10,
     };
   },
   async onShow() {
@@ -86,6 +82,7 @@ export default {
       this.list = data;
     },
     async searchDaniu() {
+      const { pageNo, pageSize } = this;
       this.selectFirst = false;
       if (!this.theme.length) {
         this.daniuList = [];
@@ -94,9 +91,13 @@ export default {
       this.loading = true;
       const { data } = await Api.findScholarByUserId({
         keyWords: this.theme,
+        pageNo,
+        pageSize,
       });
+      if (data.length > 0) {
+        this.daniuList = pageNo === 1 ? data : [...this.daniuList, ...data];
+      }
       this.loading = false;
-      this.daniuList = data;
     },
     async toFollow(id) {
       await Api.addUserBuddy({
@@ -121,8 +122,18 @@ export default {
     },
   },
   onPullDownRefresh() {
-    this.updateFollowList();
+    if (this.daniuList.length > 0) {
+      this.pageNo = 1;
+      this.searchDaniu();
+    }
     uni.stopPullDownRefresh();
+  },
+  onReachBottom() {
+    console.log(111);
+    if (!this.loading) {
+      this.pageNo++;
+      this.searchDaniu();
+    }
   },
 };
 </script>
@@ -202,7 +213,7 @@ export default {
     padding: $zgd-content-padding;
   }
 
-  .loading {
+  .swiper-loading {
     position: fixed;
     top: 40%;
     left: 50%;
