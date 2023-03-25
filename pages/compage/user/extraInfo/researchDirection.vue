@@ -17,7 +17,7 @@
             closable
             border-color="#316b7a"
             color="#316b7a"
-            @close="removeTag"
+            @close="removeTag(item)"
           />
         </view>
         <view>
@@ -121,7 +121,6 @@ export default {
     async removeTag(item) {
       const index = this.selectTags.findIndex((sItem) => sItem === item);
       this.selectTags.splice(index, 1);
-      // this.form.researchDirection = JSON.stringify(this.selectTags);
       this.form.researchDirection = this.selectTags;
       const { code } = await Api.updateUserByUserNo(this.form);
       if (code == 1) {

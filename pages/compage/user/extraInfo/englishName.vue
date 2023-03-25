@@ -23,10 +23,7 @@
           </view>
         </view>
         <view>
-          <view
-            class="search"
-            v-if="showInput"
-          >
+          <view class="search" v-if="showInput">
             <view>
               <u--input
                 class="search-input"
@@ -34,26 +31,15 @@
                 placeholder="请输入内容"
               ></u--input>
             </view>
-            <view
-              class="search-btn"
-              @click="confirm"
-            >
-              确定
-            </view>
+            <view class="search-btn" @click="confirm"> 确定 </view>
           </view>
-          <u-icon
-            v-else
-            name="plus"
-            size="18"
-            color="#316B7A"
-            @click="add"
-          />
+          <u-icon v-else name="plus" size="18" color="#316B7A" @click="add" />
         </view>
       </view>
     </view>
   </view>
 </template>
-  <script>
+<script>
 import Api from "@/server/index.js";
 import { mapState, mapGetters } from "vuex";
 export default {
@@ -111,7 +97,6 @@ export default {
         this.form.eUserName = this.eUserNames;
         const { code } = await Api.updateUserByUserNo(this.form);
         const title = code == 1 ? "保存成功" : "保存失败";
-        console.log(title,'title')
         uni.showToast({
           title,
           icon: "none",
@@ -123,7 +108,6 @@ export default {
         (sItem) => sItem.name === item.name
       );
       this.eUserNames.splice(index, 1);
-      // this.form.eUserName = JSON.stringify(this.eUserNames);
       this.form.eUserName = this.eUserNames;
       const { code } = await Api.updateUserByUserNo(this.form);
       const title = code == 1 ? "删除成功" : "删除失败";
@@ -131,7 +115,6 @@ export default {
         title,
         icon: "none",
       });
-      
     },
   },
 };

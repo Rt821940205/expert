@@ -58,7 +58,7 @@ export default {
       needRefresh: false,
     };
   },
-  onTabItemTap() {
+  onTabItemTap(index) {
     if (this.needRefresh) {
       this.getList(this.resourceCode);
     } else {
