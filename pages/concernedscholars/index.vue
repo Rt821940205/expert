@@ -122,14 +122,16 @@ export default {
     },
   },
   onPullDownRefresh() {
-    if (this.daniuList.length > 0) {
+    if(this.selectFirst) {
+      this.updateFollowList();
+    }
+    if (!this.selectFirst && this.daniuList.length > 0) {
       this.pageNo = 1;
       this.searchDaniu();
     }
     uni.stopPullDownRefresh();
   },
   onReachBottom() {
-    console.log(111);
     if (!this.loading) {
       this.pageNo++;
       this.searchDaniu();

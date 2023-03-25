@@ -246,6 +246,10 @@ export default {
         const res = await Api.addNewResource(params);
         if (res.code === 1) {
           this.refresh();
+
+          uni.showToast({
+            title: "认领成功",
+          });
         }
       } catch (e) {
         console.log(e);

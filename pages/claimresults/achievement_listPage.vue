@@ -65,6 +65,7 @@ export default {
   },
   watch: {
     achievementList(val) {
+      // this.operation = "claimAll"
       this.list = val;
     },
   },
