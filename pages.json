@@ -25,6 +25,12 @@
 			}
 		},
 		{
+			"path": "pages/compage/scholar-detail",
+			"style": {
+				"navigationBarTitleText": "学者详情"
+			}
+		},
+		{
 			"path": "pages/compage/qcode",
 			"style": {
 				"navigationBarTitleText": "",

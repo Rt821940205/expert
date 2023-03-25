@@ -1,15 +1,8 @@
 <template>
   <view class="container">
     <view class="container-title">
-      <view>
-        我的成果（{{ total }}）
-      </view>
-      <view
-        class="right"
-        @click.stop="toList"
-      >
-        成果管理
-      </view>
+      <view> 我的成果（{{ total }}） </view>
+      <view v-if="source" class="right" @click.stop="toList">成果管理</view>
     </view>
     <view class="tabs">
       <u-tabs
@@ -19,10 +12,7 @@
         ref="tabs"
       ></u-tabs>
     </view>
-    <view
-      class="list"
-      v-if="!loading"
-    >
+    <view class="list" v-if="!loading">
       <view
         class="list_item"
         v-for="(item, index) in achievementPageList"
@@ -41,29 +31,19 @@
             <view class="com_text">{{ keyWordTran(item.keyword || "") }}</view>
             <view class="com_text">{{ item.journal }}</view>
           </view>
-          <view
-            class="item_header_r"
-            :style="{opacity:item.isNew ? 1 : 0}"
-          >新！</view>
+          <view class="item_header_r" :style="{ opacity: item.isNew ? 1 : 0 }"
+            >新！</view
+          >
         </view>
         <view class="item_footer">查看原文</view>
       </view>
       <view class="achment-operate">
         <view>
-          <image
-            v-show="showUpImg"
-            src="@/static/home/arrow-up.png"
-          />
-          <image
-            v-show="!showUpImg"
-            src="@/static/home/arrow-down.png"
-          />
+          <image v-show="showUpImg" src="@/static/home/arrow-up.png" />
+          <image v-show="!showUpImg" src="@/static/home/arrow-down.png" />
         </view>
         <view>
-          <image
-            src="@/static/home/time_new.png"
-            @click="sortByTime"
-          />
+          <image src="@/static/home/time_new.png" @click="sortByTime" />
         </view>
       </view>
     </view>
@@ -83,6 +63,12 @@ export default {
     };
   },
   props: {
+    source: {
+      type: Boolean,
+      default: () => {
+        return true;
+      },
+    },
     achievementList: {
       type: Array,
       default: function () {

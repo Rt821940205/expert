@@ -34,6 +34,7 @@ import Api from "@/server/index.js";
 import BasicInfo from "./basic_info.vue";
 import AchievementList from "./achievement_list.vue";
 import { dictionary } from "@/utils/dic.js";
+import strore from "@/store/index.js";
 export default {
   components: {
     BasicInfo,
@@ -54,9 +55,26 @@ export default {
       achievementList: [],
       achievementPageList: [],
       orderByType: 1, //  -- 排列顺序（1-时间倒序，2-时间正序）
+      needRefresh: false,
     };
   },
-  mounted() {},
+  onTabItemTap() {
+    if (this.needRefresh) {
+      this.getList(this.resourceCode);
+    } else {
+      this.needRefresh = true;
+    }
+  },
+  onHide() {
+    this.needRefresh = true;
+  },
+  mounted() {
+    const userNo = strore.state.home.userNo;
+    if (!!userNo) {
+      this.show = false;
+      this.getData({ userNo });
+    }
+  },
   created() {},
   methods: {
     confirm() {
@@ -87,16 +105,18 @@ export default {
           this.eUserName = JSON.parse(eUserName).map((i) => i.name);
           this.researchDirection = Object.freeze(JSON.parse(researchDirection));
           uni.setStorageSync("userId", id);
+          uni.setStorageSync("userNo", params.userNo);
           this.$store.dispatch("setUser", data);
+          this.$store.dispatch("setUserId", id);
+          this.getCatalogueList(id);
         }
-        this.getCatalogueList();
       } catch (e) {
         console.log(e);
       }
     },
-    async getCatalogueList() {
+    async getCatalogueList(id) {
       try {
-        const res = await Api.getUserResourceNum({});
+        const res = await Api.getUserResourceNum({ userId: id });
         if (res.code === 1) {
           const { data } = res;
           this.achievementList = data.map((a) => ({

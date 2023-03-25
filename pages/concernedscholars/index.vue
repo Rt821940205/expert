@@ -108,12 +108,9 @@ export default {
       this.updateFollowList();
     },
     toItem(sItem) {
+      const { id, buddyId } = sItem;
       uni.navigateTo({
-        url:
-          "/pages/visitingcard/index?id=" +
-          sItem.id +
-          "&buddyId=" +
-          sItem.buddyId,
+        url: "/pages/compage/scholar-detail?id=" + id + "&buddyId=" + buddyId,
       });
     },
     clickMyFollowList() {
@@ -126,7 +123,7 @@ export default {
   onPullDownRefresh() {
     this.updateFollowList();
     uni.stopPullDownRefresh();
-  }
+  },
 };
 </script>
 
