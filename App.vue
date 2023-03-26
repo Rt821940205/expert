@@ -23,18 +23,20 @@ export default {
     Vue.prototype.windowTo = this.windowTo;
     let _this = this;
     let options = (_this.options = _this.$route.query);
-    let code = (this.code =
-      getUrlParams("code") || this.$store.state.home.accessToken);
+    const accessToken = this.$store.state.home.accessToken;
+    let code = (this.code = getUrlParams("code") || accessToken);
     let admin = (this.code = getUrlParams("admin") || options.admin);
     this.options.code = code;
     if (!admin) {
-      if (this.$store.state.home.accessToken === "") {
+      if (accessToken === "") {
         if (!options.code) {
-          // this.windowTo();
+          this.windowTo();
         } else {
           try {
             this.getaccess_token(code);
           } catch (error) {
+            //重新定向登录地址
+            uni.clearStorageSync();
             this.windowTo();
           }
         }
@@ -59,7 +61,7 @@ export default {
       window.location.href = href;
     },
     getaccess_token(code) {
-      var url = `http://172.16.13.156/kjdnphp/public/casAuth?code=${code}`;
+      const url = `http://172.16.13.156/kjdnphp/public/casAuth?code=${code}`;
       uni.request({
         url: url,
         success: (res) => {
@@ -69,10 +71,9 @@ export default {
           } catch (error) {
             data = {};
           }
-          let access_token = data.access_token;
-          let expires_in = data.expires_in;
+          const { access_token, expires_in } = data;
           this.$store.dispatch("setAccessToken", access_token);
-          const token = this.$store.state.home.accessToken;
+          // uni.$emit("update");
           if (access_token && expires_in > 0) {
             this.getUserId();
           } else {

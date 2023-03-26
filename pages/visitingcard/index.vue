@@ -22,7 +22,7 @@
       <AchievementList
         :achievementList="achievementList"
         :achievementPageList="achievementPageList"
-        @getList="getList"
+        @findUserResourcePage="findUserResourcePage"
         @sortByTime="sortByTime"
       />
     </view>
@@ -60,7 +60,7 @@ export default {
   },
   onTabItemTap(index) {
     if (this.needRefresh) {
-      this.getList(this.resourceCode);
+      this.findUserResourcePage(this.resourceCode);
     } else {
       this.needRefresh = true;
     }
@@ -69,27 +69,31 @@ export default {
     this.needRefresh = true;
   },
   mounted() {
-    const userNo = strore.state.home.userNo;
-    if (!!userNo) {
-      this.show = false;
-      this.getData({ userNo });
-    } else {
-      this.show = true;
-    }
+    //弹出框本地测试
+    // const userNo = strore.state.home.userNo;
+    // if (!!userNo) {
+    //   this.show = false;
+    //   this.findUserByUserNo({ userNo });
+    // } else {
+    //   this.show = true;
+    // }
   },
   created() {},
   //sso登录模式
   async onLoad() {
     uni.$on("update", () => {
       const userNo = this.$store.state.home.userNo;
-      this.getData({ userNo });
+      if (!!userNo) {
+        this.findUserByUserNo({ userNo });
+      } else {
+        this.show = true;
+      }
     });
   },
   methods: {
-    //弹出框本地测试
     confirm() {
       this.show = false;
-      this.getData(this.userInfo);
+      this.findUserByUserNo(this.userInfo);
       this.$store.dispatch("setUserNo", this.userInfo.userNo);
     },
     click(name) {
@@ -98,7 +102,7 @@ export default {
         url: `/pages/functionintroduction/details/index?id=${name}`,
       });
     },
-    async getData(params) {
+    async findUserByUserNo(params) {
       try {
         const res = await Api.getUserByUserNo(params);
         if (res.code === 1) {
@@ -118,13 +122,13 @@ export default {
           uni.setStorageSync("userNo", params.userNo);
           this.$store.dispatch("setUser", data);
           this.$store.dispatch("setUserId", id);
-          this.getCatalogueList(id);
+          this.findUserResourceNum(id);
         }
       } catch (e) {
         console.log(e);
       }
     },
-    async getCatalogueList(id) {
+    async findUserResourceNum(id) {
       try {
         const res = await Api.getUserResourceNum({ userId: id });
         if (res.code === 1) {
@@ -137,7 +141,7 @@ export default {
             },
           }));
           this.resourceCode = data[0].resourceCode;
-          this.getList(data[0].resourceCode);
+          this.findUserResourcePage(data[0].resourceCode);
         }
       } catch (e) {
         console.log(e);
@@ -145,9 +149,9 @@ export default {
     },
     sortByTime() {
       this.orderByType == 1 ? (this.orderByType = 2) : (this.orderByType = 1);
-      this.getList(this.resourceCode);
+      this.findUserResourcePage(this.resourceCode);
     },
-    async getList(resourceCode) {
+    async findUserResourcePage(resourceCode) {
       this.resourceCode = resourceCode;
       this.achievementPageList = [];
       try {
@@ -180,7 +184,7 @@ export default {
     },
   },
   onPullDownRefresh() {
-    this.getList(this.resourceCode);
+    this.findUserResourcePage(this.resourceCode);
     uni.stopPullDownRefresh();
   },
 };
