@@ -155,8 +155,9 @@ export default {
       }
     },
     handleAllCliam(typeBtn) {
-      this.allClaim =
-        typeBtn == "claimAll" ? false : typeBtn == "claimCancal" ? true : false;
+      // this.allClaim =
+      //   typeBtn == "claimAll" ? false : typeBtn == "claimCancal" ? true : false;
+      this.allClaim = typeBtn === "allselcet" ? false : !this.allClaim;
       this.$refs.child.handleListStatus(typeBtn);
     },
     refresh() {

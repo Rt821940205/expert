@@ -20,10 +20,30 @@ export default {
     };
   },
   onLaunch: function () {
-    // Vue.prototype.windowTo = this.windowTo;
-    // this.code = getUrlParams("code") || this.$store.state.home.accessToken;
-    // this.options.code = code;
-    // this.windowTo();
+    Vue.prototype.windowTo = this.windowTo;
+    let _this = this;
+    let options = (_this.options = _this.$route.query);
+    let code = (this.code =
+      getUrlParams("code") || this.$store.state.home.accessToken);
+    let admin = (this.code = getUrlParams("admin") || options.admin);
+    this.options.code = code;
+    if (!admin) {
+      if (this.$store.state.home.accessToken === "") {
+        if (!options.code) {
+          // this.windowTo();
+        } else {
+          try {
+            this.getaccess_token(code);
+          } catch (error) {
+            this.windowTo();
+          }
+        }
+      } else {
+        this.getUserId();
+      }
+    } else {
+      this.getaccess_token("112132");
+    }
   },
   onShow: function () {
     // console.log('App Show')
@@ -73,7 +93,7 @@ export default {
             data = {};
           }
           let id = data.id;
-          this.$store.dispatch("setSnNo", id);
+          this.$store.dispatch("setUserNo", id);
           uni.$emit("update");
         },
       });

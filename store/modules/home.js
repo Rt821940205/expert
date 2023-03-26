@@ -1,18 +1,21 @@
 const store = {
 	state: {
 		user: {},
-		snNo: '',
+		// snNo: '',
+		userNo: uni.getStorageSync("userNo") || '',
 		share: false,
 		accessToken: '',
 		userId: uni.getStorageSync("userId") || '',
-		userNo: uni.getStorageSync("userNo") || '',
 	},
 	mutations: {
 		async setUser(state, user) {
 			state.user = user
 		},
-		async setSnNo(state, snNo) {
-			state.snNo = snNo
+		// async setSnNo(state, snNo) {
+		// 	state.snNo = snNo
+		// },
+		async setUserNo(state, userNo) {
+			state.userNo = userNo
 		},
 		async setShare(state, share) {
 			state.share = share
@@ -30,10 +33,15 @@ const store = {
 		}, user) => {
 			commit('setUser', user)
 		},
-		setSnNo: ({
+		// setSnNo: ({
+		// 	commit
+		// }, snNo) => {
+		// 	commit('setSnNo', snNo)
+		// },
+		setUserNo: ({
 			commit
-		}, snNo) => {
-			commit('setSnNo', snNo)
+		}, userNo) => {
+			commit('setUserNo', userNo)
 		},
 		setShare: ({
 			commit

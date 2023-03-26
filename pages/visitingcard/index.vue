@@ -81,8 +81,8 @@ export default {
   //sso登录模式
   async onLoad() {
     uni.$on("update", () => {
-      const snNo = this.$store.state.home.snNo;
-      this.getData({ userNo: snNo });
+      const userNo = this.$store.state.home.userNo;
+      this.getData({ userNo });
     });
   },
   methods: {
@@ -90,7 +90,7 @@ export default {
     confirm() {
       this.show = false;
       this.getData(this.userInfo);
-      this.$store.dispatch("setSnNo", this.userInfo.userNo);
+      this.$store.dispatch("setUserNo", this.userInfo.userNo);
     },
     click(name) {
       this.$refs.uToast.success(name);

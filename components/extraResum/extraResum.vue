@@ -195,7 +195,7 @@ export default {
     },
   },
   async mounted() {
-    this.kid = this.$store.state.home.snNo;
+    this.kid = this.$store.state.home.userNo;
     await this.init();
   },
 

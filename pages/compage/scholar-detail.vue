@@ -55,6 +55,9 @@ export default {
     this.$store.dispatch("setUserId", id);
     this.getData({ id });
   },
+  onUnload() {
+    this.$store.dispatch("setUserId", uni.getStorageSync("userId"));
+  },
   created() {},
   methods: {
     async getData(params) {
