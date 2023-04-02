@@ -14,10 +14,13 @@ const http = new Request({
 
 //请求拦截器
 http.interceptors.request.use((config) => { // 可使用async await 做异步操作
-	const userId = strore.state.home.userId;
-	config.data = Object.assign(config.data, {
-		userId
-	})
+	//needUserIds是否是本学者的userId
+	if (!config.data.needUserId) {
+		const userId = strore.state.home.userId;
+		config.data = Object.assign(config.data, {
+			userId
+		})
+	}
 	return config
 }, error => {
 	return Promise.resolve(error)

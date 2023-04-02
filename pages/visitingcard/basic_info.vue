@@ -92,7 +92,6 @@ export default {
   },
   methods: {
     goBack() {
-      this.$store.dispatch("setUserId", uni.getStorageSync("userId"));
       uni.navigateBack();
     },
     cancelFollow() {

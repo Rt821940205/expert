@@ -13,7 +13,7 @@
         :source="source"
         :achievementList="achievementList"
         :achievementPageList="achievementPageList"
-        @getList="getList"
+        @findUserResourcePage="findUserResourcePage"
         @sortByTime="sortByTime"
       />
     </view>
@@ -52,15 +52,12 @@ export default {
   },
   onLoad({ id, buddyId }) {
     this.buddyId = buddyId;
-    this.$store.dispatch("setUserId", id);
-    this.getData({ id });
-  },
-  onUnload() {
-    this.$store.dispatch("setUserId", uni.getStorageSync("userId"));
+    this.userId = id;
+    this.findUserById({ id, needUserId: true });
   },
   created() {},
   methods: {
-    async getData(params) {
+    async findUserById(params) {
       try {
         const res = await Api.getUserById(params);
         if (res.code === 1) {
@@ -77,14 +74,17 @@ export default {
           this.eUserName = JSON.parse(eUserName).map((i) => i.name);
           this.researchDirection = Object.freeze(JSON.parse(researchDirection));
         }
-        this.getCatalogueList();
+        this.findUserResourceNum();
       } catch (e) {
         console.log(e);
       }
     },
-    async getCatalogueList() {
+    async findUserResourceNum() {
       try {
-        const res = await Api.getUserResourceNum({});
+        const res = await Api.getUserResourceNum({
+          needUserId: true,
+          userId: this.userId,
+        });
         if (res.code === 1) {
           const { data } = res;
           this.achievementList = data.map((a) => ({
@@ -95,7 +95,7 @@ export default {
             },
           }));
           this.resourceCode = data[0].resourceCode;
-          this.getList(data[0].resourceCode);
+          this.findUserResourcePage(data[0].resourceCode);
         }
       } catch (e) {
         console.log(e);
@@ -103,9 +103,9 @@ export default {
     },
     sortByTime() {
       this.orderByType == 1 ? (this.orderByType = 2) : (this.orderByType = 1);
-      this.getList(this.resourceCode);
+      this.findUserResourcePage(this.resourceCode);
     },
-    async getList(resourceCode) {
+    async findUserResourcePage(resourceCode) {
       this.resourceCode = resourceCode;
       this.achievementPageList = [];
       try {
@@ -114,6 +114,8 @@ export default {
           orderByType: this.orderByType,
           pageNo: 1,
           pageSize: 100,
+          needUserId: true,
+          userId: this.userId,
         });
         if (res.code === 1) {
           const { data } = res;
@@ -149,7 +151,7 @@ export default {
     },
   },
   onPullDownRefresh() {
-    this.getList(this.resourceCode);
+    this.findUserResourcePage(this.resourceCode);
     uni.stopPullDownRefresh();
   },
 };
