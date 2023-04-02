@@ -67,7 +67,7 @@ export default {
       theme: "", //搜索关键字,
       loading: false,
       pageNo: 1,
-      pageSize: 10,
+      pageSize: 500,
     };
   },
   async onShow() {
@@ -94,9 +94,10 @@ export default {
         pageNo,
         pageSize,
       });
-      if (data.length > 0) {
-        this.daniuList = pageNo === 1 ? data : [...this.daniuList, ...data];
-      }
+      this.daniuList = data
+      // if (data.length > 0) {
+      //   this.daniuList = pageNo === 1 ? data : [...this.daniuList, ...data];
+      // }
       this.loading = false;
     },
     async toFollow(id) {
@@ -131,12 +132,12 @@ export default {
     }
     uni.stopPullDownRefresh();
   },
-  onReachBottom() {
-    if (!this.loading) {
-      this.pageNo++;
-      this.searchDaniu();
-    }
-  },
+  // onReachBottom() {
+  //   if (!this.loading) {
+  //     this.pageNo++;
+  //     this.searchDaniu();
+  //   }
+  // },
 };
 </script>
 
