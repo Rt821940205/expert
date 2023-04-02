@@ -1,7 +1,7 @@
 <template>
   <view class="app">
     <view class="header">
-      <tNav title="补充信息 - 研究方向" />
+      <tNav :title="title" />
     </view>
     <view class="content">
       <view class="content__view">
@@ -53,20 +53,32 @@
 import Api from "@/server/index.js";
 import { mapState, mapGetters } from "vuex";
 export default {
+  onLoad: function (option) {
+    console.log(option)
+    this.tagsName = option.tagsName || "researchDirection";
+    this.title = option.title || "补充信息 - 研究方向";
+    // console.log(this.tagsName,this.title)
+  },
   data() {
     return {
       selectTags: [],
       search: "",
       searchTags: [],
+      tagsName: "",
+      title: "",
     };
   },
   computed: {
     ...mapState({
       form: (state) => state.home.user,
     }),
-    ...mapGetters({
-      tags: "researchDirectionCount",
-    }),
+    // ...mapGetters({
+    //   // tags: "researchDirectionCount",
+    //   tags:this.tagsName,
+    // }),
+    tags() {
+      return this.$store.getters[this.tagsName + "Count"];
+    },
   },
   watch: {
     tags: {
@@ -79,6 +91,7 @@ export default {
   },
   methods: {
     async handlerInput(text) {
+      if (this.tagsName == "subject") return;
       this.searchTags = [];
       if (!text) return;
       const { data } = await Api.getResearchDirection({ text });
@@ -96,7 +109,7 @@ export default {
       }
       if (this.selectTags.length === 0) {
         return uni.showToast({
-          title: "请至少选择一个研究方向",
+          title: "请至少选择一个方向",
           icon: "none",
         });
       }
@@ -105,7 +118,14 @@ export default {
           this.selectTags.push(this.search);
         }
       }
-      this.form.researchDirection = this.selectTags;
+
+      if (this.tagsName === "subject") {
+        this.form[this.tagsName] = this.selectTags.join(";");
+      } else {
+        this.form[this.tagsName] = this.selectTags;
+      }
+
+      // this.form.researchDirection = this.selectTags;
 
       const { code } = await Api.updateUserByUserNo(this.form);
       if (code == 1) {
@@ -121,7 +141,15 @@ export default {
     async removeTag(item) {
       const index = this.selectTags.findIndex((sItem) => sItem === item);
       this.selectTags.splice(index, 1);
-      this.form.researchDirection = this.selectTags;
+
+      // this.form.researchDirection = this.selectTags;
+
+      if (this.tagsName === "subject") {
+        this.form[this.tagsName] = this.selectTags.join(";");
+      } else {
+        this.form[this.tagsName] = this.selectTags;
+      }
+
       const { code } = await Api.updateUserByUserNo(this.form);
       if (code == 1) {
         uni.$emit("update");

@@ -5,7 +5,7 @@ export const dictionary = {
 	D: '学位论文',
 	E: 'EI',
 	I: 'SCI',
-	J: '期刊',
+	J: '中文期刊',
 	O: '项目',
 	P: '专利',
 	Q: '其他',
@@ -30,7 +30,7 @@ export const achmentDetailDic = {
 			'index': 'keyword'
 		},
 		{
-			'name': '期刊',
+			'name': '中文期刊',
 			'index': 'journal'
 		},
 		{

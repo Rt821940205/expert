@@ -70,13 +70,13 @@ export default {
   },
   mounted() {
     //弹出框本地测试
-    // const userNo = strore.state.home.userNo;
-    // if (!!userNo) {
-    //   this.show = false;
-    //   this.findUserByUserNo({ userNo });
-    // } else {
-    //   this.show = true;
-    // }
+    const userNo = strore.state.home.userNo;
+    if (!!userNo) {
+      this.show = false;
+      this.findUserByUserNo({ userNo });
+    } else {
+      this.show = true;
+    }
   },
   created() {},
   //sso登录模式
@@ -111,7 +111,7 @@ export default {
             data: { eUserName, researchDirection, id },
           } = res;
           for (const key in data) {
-            if (key === "eUserName" || key === "researchDirection") {
+            if (key === "eUserName" || key === "researchDirection" ) {
               data[key] = JSON.parse(data[key]);
             }
           }

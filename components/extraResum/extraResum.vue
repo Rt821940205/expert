@@ -1,17 +1,9 @@
 <template>
   <view class="extraInfo">
     <view class="title">* 请补充过往履历及曾用邮箱,以便发现您的更多成果。</view>
-    <view
-      v-for="(item, idx) in list"
-      :key="idx"
-    >
+    <view v-for="(item, idx) in list" :key="idx">
       <view class="closeBox">
-        <u-icon
-          name="close"
-          size="18"
-          color="#316B7A"
-          @click="remove(item)"
-        />
+        <u-icon name="close" size="18" color="#316B7A" @click="remove(item)" />
       </view>
       <view class="extraInfo-item">
         <view>时间</view>
@@ -32,26 +24,12 @@
     </view>
 
     <view v-if="!isShowCard">
-
       <view class="closeBox">
-        <u-icon
-          name="close"
-          size="18"
-          color="#316B7A"
-          @click="remove"
-        />
+        <u-icon name="close" size="18" color="#316B7A" @click="remove" />
       </view>
 
-      <u--form
-        :model="form"
-        :rules="rules"
-        ref="form1"
-        :borderBottom="false"
-      >
-        <u-form-item
-          label="时间"
-          prop="yearTimes"
-        >
+      <u--form :model="form" :rules="rules" ref="form1" :borderBottom="false">
+        <u-form-item label="时间" prop="yearTimes">
           <view class="form-item">
             <picker
               :value="form.yearFrom"
@@ -62,24 +40,21 @@
                 {{ years[form.yearFrom] }}
               </view>
             </picker>
-            <view class="split">
-              -
-            </view>
+            <view class="split"> - </view>
             <picker
               :value="form.yearTo"
-              :range="years"
+              :range="[...years.slice(0, 1), '至今', ...years.slice(1)]"
               @change="yearToChange"
             >
               <view>
-                {{ years[form.yearTo] }}
+                {{
+                  [...years.slice(0, 1), "至今", ...years.slice(1)][form.yearTo]
+                }}
               </view>
             </picker>
           </view>
         </u-form-item>
-        <u-form-item
-          label="机构"
-          prop="agency"
-        >
+        <u-form-item label="机构" prop="agency">
           <view class="form-item">
             <u--input
               v-model="form.agency"
@@ -89,10 +64,7 @@
             />
           </view>
         </u-form-item>
-        <u-form-item
-          label="学历"
-          prop="education"
-        >
+        <u-form-item label="学历" prop="education">
           <view class="form-item">
             <picker
               :value="form.education"
@@ -105,10 +77,7 @@
             </picker>
           </view>
         </u-form-item>
-        <u-form-item
-          label="邮箱"
-          prop="email"
-        >
+        <u-form-item label="邮箱" prop="email">
           <view class="form-item">
             <u--input
               v-model="form.email"
@@ -119,7 +88,6 @@
           </view>
         </u-form-item>
       </u--form>
-
     </view>
 
     <view class="bottom">
@@ -130,12 +98,7 @@
         color="#316B7A"
         @click="add"
       />
-      <view
-        v-else
-        @click.stop="save"
-      >
-        确定
-      </view>
+      <view v-else @click.stop="save"> 确定 </view>
     </view>
   </view>
 </template>
@@ -166,15 +129,32 @@ export default {
       list: [],
       kid: "",
       rules: {
-        yearTimes: {
+        yearTimes: [
+          {
+            // required: true,
+            message: "请选择起始时间", // 自定义验证函数，见上说明
+            validator: (rule, value, callback) => !value[0] == 0,
+            trigger: ["change", "blur"],
+          },
+          {
+            // required: true,
+            message: "请选择结束时间", // 自定义验证函数，见上说明
+            validator: (rule, value, callback) => !value[1] == 0,
+            trigger: ["change", "blur"],
+          },
+        ],
+        // yearTo: { required: true, message: "请选择时间" },
+        agency: {
           required: true,
-          message: "请选择时间", // 自定义验证函数，见上说明
-          validator: (rule, value, callback) =>
-            !value.some((item) => item == 0),
+          message: "请输入机构",
+          trigger: ["change", "blur"],
         },
-        yearTo: { required: true, message: "请选择时间" },
-        agency: { required: true, message: "请输入机构" },
-        education: { required: true, message: "请选择学历" },
+        education: {
+          required: true,
+          message: "请选择学历",
+          validator: (rule, value, callback) => !value == 0,
+          trigger: ["change", "blur"],
+        },
         email: {
           validator: (rule, value, callback) => checkEmail(value),
           message: "请输入正确的邮箱格式",
@@ -211,13 +191,16 @@ export default {
     yearFromChange(e) {
       this.form.yearFrom = e.target.value;
       this.form.yearTimes[0] = e.target.value;
+      this.$refs.form1.validateField('yearTimes');
     },
     yearToChange(e) {
       this.form.yearTo = e.target.value;
       this.form.yearTimes[1] = e.target.value;
+      this.$refs.form1.validateField('yearTimes');
     },
     educationChange(e) {
       this.form.education = e.target.value;
+      this.$refs.form1.validateField('education');
     },
     reset() {
       this.form = {
@@ -234,7 +217,11 @@ export default {
         await this.$refs.form1.validate();
         const _form = JSON.parse(JSON.stringify(this.form));
         _form.yearFrom = this.years[this.form.yearFrom];
-        _form.yearTo = this.years[this.form.yearTo];
+        _form.yearTo = [
+          ...this.years.slice(0, 1),
+          "至今",
+          ...this.years.slice(1),
+        ][this.form.yearTo];
         _form.education = this.leavels[this.form.education];
         _form.kid = this.kid;
         const { code } = await Api.addScholarResume(_form);
@@ -251,7 +238,9 @@ export default {
             icon: "none",
           });
         }
-      } catch {}
+      } catch (error) {
+        console.log(error);
+      }
     },
     async remove(item) {
       if (!item) {

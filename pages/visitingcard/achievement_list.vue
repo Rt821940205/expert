@@ -117,7 +117,7 @@ export default {
     },
     keyWordTran,
     click(item) {
-      this.$emit("getList", item.resourceCode);
+      this.$emit("findUserResourcePage", item.resourceCode);
     },
     goAchmentDetail(item) {
       const { resource_id, resource_code } = item;

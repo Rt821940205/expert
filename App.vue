@@ -30,7 +30,7 @@ export default {
     if (!admin) {
       if (accessToken === "") {
         if (!options.code) {
-          this.windowTo();
+          // this.windowTo();
         } else {
           try {
             this.getaccess_token(code);

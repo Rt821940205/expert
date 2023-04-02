@@ -3,6 +3,10 @@ export default {
         return !!state.home.user.researchDirection ?
             state.home.user.researchDirection : []
     },
+    subjectCount: (state) => {
+        return !!state.home.user.subject ?
+            state.home.user.subject.split(";") : ''
+    },
     eUserName: (state) => {
         return !!state.home.user.eUserName ?
             state.home.user.eUserName : []
