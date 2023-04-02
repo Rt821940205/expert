@@ -111,7 +111,7 @@ export default {
             data: { eUserName, researchDirection, id },
           } = res;
           for (const key in data) {
-            if (key === "eUserName" || key === "researchDirection" ) {
+            if (key === "eUserName" || key === "researchDirection") {
               data[key] = JSON.parse(data[key]);
             }
           }
