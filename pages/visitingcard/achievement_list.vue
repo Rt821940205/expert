@@ -120,7 +120,7 @@ export default {
       this.$emit("findUserResourcePage", item.resourceCode);
     },
     goAchmentDetail(item) {
-      const { resource_id, resource_code } = item;
+      const { resourceIds:resource_id, resourceCode:resource_code } = item;
       uni.navigateTo({
         url: `/pages/compage/achment-detail?id=${resource_id}&code=${resource_code}`,
       });
