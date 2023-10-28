@@ -44,7 +44,7 @@ export default {
     return {
       baseList: [],
       loading: true,
-      show: false,
+      show: true,
       title: "请输入工号",
       userInfo: {
         userNo: "",
@@ -72,7 +72,7 @@ export default {
     //弹出框本地测试
     const userNo = strore.state.home.userNo;
     if (!!userNo) {
-      this.show = false;
+      // this.show = false;
       this.findUserByUserNo({ userNo });
     } else {
       this.show = true;

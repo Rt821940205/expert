@@ -41,14 +41,17 @@ export default {
               ? "I"
               : option.code;
           const initArr = Array.from(achmentDetailDic[metchCode]);
+          // const finalArr = initArr.map((f) => ({
+          //   name: f["name"] || '2',
+          //   content:
+          //     f.index === "keyword"
+          //       ? this.keyWordTran(data[f["index"]])
+          //       : data[f["index"]],
+          // }));
           const finalArr = initArr.map((f) => ({
             name: f["name"],
-            content:
-              f.index === "keyword"
-                ? this.keyWordTran(data[f["index"]])
-                : data[f["index"]],
+            content: data[f["index"]],
           }));
-          console.log(finalArr);
           this.list = finalArr;
         }
       } catch (e) {}
