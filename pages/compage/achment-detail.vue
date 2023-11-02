@@ -15,6 +15,7 @@
 import Api from "@/server/index.js";
 import { keyWordTran } from "@/utils/common.js";
 import { achmentDetailDic } from "@/utils/dic.js";
+import { dictionary } from "@/utils/dic.js";
 export default {
   data() {
     return {
@@ -33,6 +34,7 @@ export default {
         const res = await Api.getResourceById(option);
         if (res.code === 1) {
           const { data } = res;
+          const detail = { ...data, type: dictionary[data.resourceCode]};
           const metchCode =
             option.code === "I" ||
             option.code === "E" ||
@@ -50,7 +52,7 @@ export default {
           // }));
           const finalArr = initArr.map((f) => ({
             name: f["name"],
-            content: data[f["index"]],
+            content: detail[f["index"]],
           }));
           this.list = finalArr;
         }

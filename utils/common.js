@@ -1,5 +1,5 @@
 export function keyWordTran(data) {
-	return data.replace(/;|,/g, " ")
+	return data.replace(/;|,/g, "，")
 }
 
 //校验邮箱格式

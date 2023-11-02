@@ -25,6 +25,8 @@
             <view class="header_c_tit">
               {{ item.title }}
             </view>
+            <view class="com_text">{{item.year}}</view>
+            <view class="com_text">{{dictionary[item.resourceCode]}}</view>
             <view class="com_text">{{
               keyWordTran(item.creatorAll || "")
             }}</view>
@@ -55,11 +57,13 @@
 
 <script>
 import { keyWordTran } from "@/utils/common.js";
+import { dictionary } from "@/utils/dic.js";
 export default {
   data() {
     return {
       loading: true,
       showUpImg: true,
+      dictionary
     };
   },
   props: {
@@ -120,9 +124,9 @@ export default {
       this.$emit("findUserResourcePage", item.resourceCode);
     },
     goAchmentDetail(item) {
-      const { resource_id, resource_code } = item;
+      const { id, resourceCode } = item;
       uni.navigateTo({
-        url: `/pages/compage/achment-detail?id=${resource_id}&code=${resource_code}`,
+        url: `/pages/compage/achment-detail?id=${id}&code=${resourceCode}`,
       });
     },
     sortByTime() {

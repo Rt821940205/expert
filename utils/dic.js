@@ -38,6 +38,10 @@ export const achmentDetailDic = {
 			'index': 'year'
 		},
 		{
+			'name': '类型',
+			'index': 'type'
+		},
+		{
 			'name': '卷',
 			'index': 'volume'
 		},
@@ -55,6 +59,10 @@ export const achmentDetailDic = {
 			'index': 'creatorAll'
 		},
 		{
+			'name': '主持人',
+			'index': 'participant'
+		},
+		{
 			'name': '项目编号',
 			'index': 'projectNo'
 		},
@@ -65,6 +73,14 @@ export const achmentDetailDic = {
 		{
 			'name': '项目来源',
 			'index': 'projectOrigin'
+		},
+		{
+			'name': '合同金额',
+			'index': 'totalAmount'
+		},
+		{
+			'name': '年份',
+			'index': 'year'
 		},
 	],
 	'P': [{
@@ -90,7 +106,7 @@ export const achmentDetailDic = {
 		{
 			'name': '专利发布时间',
 			'index': 'publicationDate'
-		},
+		}
 	],
 	'B': [{
 			'name': '标题',
