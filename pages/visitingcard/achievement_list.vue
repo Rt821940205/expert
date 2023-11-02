@@ -5,37 +5,30 @@
       <view v-if="source" class="right" @click.stop="toList">成果管理</view>
     </view>
     <view class="tabs">
-      <u-tabs
-        :list="achievementList"
-        @click="click"
-        @resize="resize"
-        ref="tabs"
-      ></u-tabs>
+      <u-tabs :list="achievementList" @click="click" @resize="resize" ref="tabs"></u-tabs>
     </view>
     <view class="list" v-if="!loading">
-      <view
-        class="list_item"
-        v-for="(item, index) in achievementPageList"
-        :key="index"
-        @click="goAchmentDetail(item)"
-      >
+      <view class="list_item" v-for="(item, index) in achievementPageList" :key="index" @click="goAchmentDetail(item)">
         <view class="item_header">
           <view class="item_header_l">{{ index + 1 }}</view>
           <view class="item_header_c">
             <view class="header_c_tit">
               {{ item.title }}
             </view>
-            <view class="com_text">{{item.year}}</view>
-            <view class="com_text">{{dictionary[item.resourceCode]}}</view>
+            <view class="com_text" v-if="item.cas" style="color: #ad1528">{{ item.cas }}</view>
+            <view class="com_text" v-if="item.jcr" style="color: #ad1528">{{ item.jcr }}</view>
+            <view class="com_text">{{ dictionary[item.resourceCode] }}</view>
             <view class="com_text">{{
               keyWordTran(item.creatorAll || "")
             }}</view>
             <view class="com_text">{{ keyWordTran(item.keyword || "") }}</view>
+            <view class="com_text" v-if="item.isHigh === 1">高被引</view>
+            <view class="com_text" v-if="item.isHot === 1">热点论文</view>
+            <view class="com_text">{{ item.year }}</view>
+            <view class="com_text" v-if="item.excellence">{{ item.excellence }}</view>
             <view class="com_text">{{ item.journal }}</view>
           </view>
-          <view class="item_header_r" :style="{ opacity: item.isNew ? 1 : 0 }"
-            >新！</view
-          >
+          <view class="item_header_r" :style="{ opacity: item.isNew ? 1 : 0 }">新！</view>
         </view>
         <view class="item_footer">查看原文</view>
       </view>
@@ -150,33 +143,32 @@ export default {
     height: 88rpx;
     line-height: 88rpx;
     padding: 0 50rpx;
+
     view {
       flex: 1;
     }
+
     .right {
       text-align: right;
     }
   }
 
   .tabs {
-    padding: 0 60rpx 20rpx;
+    padding: 0 40rpx 20rpx;
   }
 
   .list {
     margin-top: $uni-spacing-col-hg;
     position: relative;
+
     .list_item {
-      padding: 30rpx 40rpx 50rpx 60rpx;
-      background: -webkit-linear-gradient(
-        top left,
-        rgba(75, 195, 226, 0.2) 0%,
-        white 30%
-      );
-      background: linear-gradient(
-        to bottom right,
-        rgba(75, 195, 226, 0.2) 0%,
-        white 30%
-      );
+      padding: 30rpx 40rpx 40rpx 56rpx;
+      background: -webkit-linear-gradient(top left,
+          rgba(75, 195, 226, 0.2) 0%,
+          white 30%);
+      background: linear-gradient(to bottom right,
+          rgba(75, 195, 226, 0.2) 0%,
+          white 30%);
 
       .item_header {
         display: flex;
@@ -200,6 +192,11 @@ export default {
             -webkit-box-orient: vertical;
           }
 
+          .hot_high {
+            display: flex;
+            justify-content: space-between;
+          }
+
           .com_text {
             text-overflow: -o-ellipsis-lastline;
             overflow: hidden;
@@ -209,7 +206,7 @@ export default {
             line-clamp: 2;
             -webkit-box-orient: vertical;
             font-size: 20rpx;
-            margin-top: 20rpx;
+            margin-top: 14rpx;
           }
         }
 
@@ -239,6 +236,7 @@ export default {
 
       view {
         flex: 1;
+
         image {
           width: $uni-img-size-sm;
           height: $uni-img-size-sm;

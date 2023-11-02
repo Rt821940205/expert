@@ -49,7 +49,64 @@ export const achmentDetailDic = {
 			'name': '期',
 			'index': 'issue'
 		},
+		{
+			'name': '中科院分区',
+			'index': 'cas'
+		},
+		{
+			'name': 'JCR体系',
+			'index': 'jcr'
+		},
 	],
+	'J': [{
+			'name': '标题',
+			'index': 'title'
+		},
+		{
+			'name': '姓名',
+			'index': 'creatorAll'
+		},
+		{
+			'name': '关键词',
+			'index': 'keyword'
+		},
+		{
+			'name': '中文期刊',
+			'index': 'journal'
+		},
+		{
+			'name': '年份',
+			'index': 'year'
+		},
+		{
+			'name': '类型',
+			'index': 'type'
+		},
+		{
+			'name': '卷',
+			'index': 'volume'
+		},
+		{
+			'name': '期',
+			'index': 'issue'
+		},
+		{
+			'name': '卓越期刊分类',
+			'index': 'excellence'
+		},
+		{
+			'name': '工大奖励政策要求',
+			'index': 'zjuttag'
+		},
+		{
+			'name': '中科院分区',
+			'index': 'cas'
+		},
+		{
+			'name': 'JCR体系',
+			'index': 'jcr'
+		},
+	],	
 	'O': [{
 			'name': '项目标题',
 			'index': 'title'
@@ -82,10 +139,22 @@ export const achmentDetailDic = {
 			'name': '年份',
 			'index': 'year'
 		},
+		{
+			'name': '中科院分区',
+			'index': 'cas'
+		},
+		{
+			'name': 'JCR体系',
+			'index': 'jcr'
+		},
 	],
 	'P': [{
 			'name': '专利名称',
 			'index': 'patentName'
+		},
+		{
+			'name': '专利类型',
+			'index': 'patentCategory'
 		},
 		{
 			'name': '全体发明人',
@@ -106,7 +175,15 @@ export const achmentDetailDic = {
 		{
 			'name': '专利发布时间',
 			'index': 'publicationDate'
-		}
+		},
+		{
+			'name': '中科院分区',
+			'index': 'cas'
+		},
+		{
+			'name': 'JCR体系',
+			'index': 'jcr'
+		},
 	],
 	'B': [{
 			'name': '标题',
@@ -119,6 +196,14 @@ export const achmentDetailDic = {
 		{
 			'name': '出版年',
 			'index': 'year'
+		},
+		{
+			'name': '中科院分区',
+			'index': 'cas'
+		},
+		{
+			'name': 'JCR体系',
+			'index': 'jcr'
 		},
 	],
 	'A': [{
@@ -140,6 +225,14 @@ export const achmentDetailDic = {
 		{
 			'name': '奖励等级',
 			'content': 'awardWinningLevel'
-		}
+		},
+		{
+			'name': '中科院分区',
+			'index': 'cas'
+		},
+		{
+			'name': 'JCR体系',
+			'index': 'jcr'
+		},
 	],
 }

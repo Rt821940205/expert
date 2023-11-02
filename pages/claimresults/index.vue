@@ -128,7 +128,7 @@ export default {
       achievementList: [],
       loading: false,
       pageNo: 1,
-      pageSize: 10,
+      pageSize: 100,
       year: "",
       resourceCode: "",
       searchName: "",
@@ -218,20 +218,22 @@ export default {
         const res = await Api.getNewResourceNumPage(params);
         if (res.code === 1) {
           const { data, totel } = res;
-          let arr = data.map((r) => ({
-            ...r,
-            type: dictionary[r.resourceCode],
-          }));
-          if (data.length > 0) {
-            this.achievementList =
-              pageNo === 1 ? arr : [...this.achievementList, ...arr];
-          } else {
-            //总条数为0时 数组为空
-            if (totel == 0) {
-              this.achievementList = data;
-            }
-            console.log("已无更多成果");
-          }
+          const list = data.map(item => ({...item, type: dictionary[item.resourceCode]}))
+          this.achievementList = list;
+          // let arr = data.map((r) => ({
+          //   ...r,
+          //   type: dictionary[r.resourceCode],
+          // }));
+          // if (data.length > 0) {
+          //   this.achievementList =
+          //     pageNo === 1 ? arr : [...this.achievementList, ...arr];
+          // } else {
+          //   //总条数为0时 数组为空
+          //   if (totel == 0) {
+          //     this.achievementList = data;
+          //   }
+          //   console.log("已无更多成果");
+          // }
         }
       } catch (e) {
         console.log(e);
@@ -308,12 +310,12 @@ export default {
     }
     uni.stopPullDownRefresh();
   },
-  onReachBottom() {
-    if (!this.loading) {
-      this.pageNo++;
-      this.findNewResourceNumPage();
-    }
-  },
+  // onReachBottom() {
+  //   if (!this.loading) {
+  //     this.pageNo++;
+  //     this.findNewResourceNumPage();
+  //   }
+  // },
 };
 </script>
 
@@ -377,7 +379,7 @@ export default {
       .alldis {
         display: flex;
         align-items: center;
-        width: 38%;
+        width: 42%;
         margin-bottom: $uni-spacing-row-base;
         > text:nth-child(1) {
           margin-right: 30rpx;

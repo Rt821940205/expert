@@ -34,12 +34,11 @@ export default {
         const res = await Api.getResourceById(option);
         if (res.code === 1) {
           const { data } = res;
-          const detail = { ...data, type: dictionary[data.resourceCode]};
+          const detail = { ...data, type: dictionary[data.resourceCode] };
           const metchCode =
             option.code === "I" ||
-            option.code === "E" ||
-            option.code === "U" ||
-            option.code === "J"
+              option.code === "E" ||
+              option.code === "U"
               ? "I"
               : option.code;
           const initArr = Array.from(achmentDetailDic[metchCode]);
@@ -56,7 +55,7 @@ export default {
           }));
           this.list = finalArr;
         }
-      } catch (e) {}
+      } catch (e) { }
     },
   },
 };

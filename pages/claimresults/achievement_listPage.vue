@@ -24,6 +24,30 @@
           <view>{{ item.type }}</view>
         </view>
         <view class="result_row">
+          <view>高被引</view>
+          <view>{{ item.isHigh === 1 ? '是' : '否' }}</view>
+        </view>
+        <view class="result_row">
+          <view>热点论文</view>
+          <view>{{ item.isHot === 1 ? '是' : '否' }}</view>
+        </view>
+        <view class="result_row" v-if="item.excellence">
+          <view>卓越期刊分类</view>
+          <view>{{ item.excellence }}</view>
+        </view>
+        <view class="result_row" v-if="item.zjuttag">
+          <view>工大奖励政策要求</view>
+          <view>{{ item.zjuttag }}</view>
+        </view>
+        <view class="result_row" v-if="item.cas">
+          <view>中科院分区</view>
+          <view>{{ item.cas }}</view>
+        </view>
+        <view class="result_row" v-if="item.jcr">
+          <view>JCR体系</view>
+          <view>{{ item.jcr }}</view>
+        </view>
+        <view class="result_row">
           <view>时间</view>
           <view>{{ item.year }}</view>
           <view style="bottom: 75%" @click="detailAndLooked(item, 'detail')"
@@ -161,10 +185,10 @@ export default {
           margin-bottom: 0;
         }
         > view:nth-child(1) {
-          width: 15%;
+          width: 22%;
         }
         > view:nth-child(2) {
-          width: 60%;
+          width: 55%;
           font-weight: bolder;
           overflow: hidden;
           text-overflow: ellipsis;
