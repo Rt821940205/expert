@@ -47,6 +47,10 @@
           <view>JCR体系</view>
           <view>{{ item.jcr }}</view>
         </view>
+        <view class="result_row" v-if="item.tag">
+          <view>类别</view>
+          <view>{{ item.tag === 'Z' ? '纵向项目' : item.tag === 'H' ? '横向项目' : '' }}</view>
+        </view>
         <view class="result_row">
           <view>时间</view>
           <view>{{ item.year }}</view>

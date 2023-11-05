@@ -140,6 +140,10 @@ export const achmentDetailDic = {
 			'index': 'year'
 		},
 		{
+			'name': '类别',
+			'index': 'tag'
+		},
+		{
 			'name': '中科院分区',
 			'index': 'cas'
 		},

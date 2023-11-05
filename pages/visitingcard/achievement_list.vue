@@ -24,6 +24,8 @@
             <view class="com_text">{{ keyWordTran(item.keyword || "") }}</view>
             <view class="com_text" v-if="item.isHigh === 1">高被引</view>
             <view class="com_text" v-if="item.isHot === 1">热点论文</view>
+            <view class="com_text" v-if="item.tag === 'Z'">纵向项目</view>
+            <view class="com_text" v-if="item.tag === 'H'">横向项目</view>
             <view class="com_text">{{ item.year }}</view>
             <view class="com_text" v-if="item.excellence">{{ item.excellence }}</view>
             <view class="com_text">{{ item.journal }}</view>

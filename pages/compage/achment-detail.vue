@@ -34,7 +34,8 @@ export default {
         const res = await Api.getResourceById(option);
         if (res.code === 1) {
           const { data } = res;
-          const detail = { ...data, type: dictionary[data.resourceCode] };
+          const detail = { ...data, type: dictionary[data.resourceCode], tag: data.tag === 'Z' ? '纵向项目' : '横向项目'};
+          console.log(detail)
           const metchCode =
             option.code === "I" ||
               option.code === "E" ||
