@@ -6,16 +6,13 @@
         <view class="result_row">
           <view>标题</view>
           <view>{{ item.title }}</view>
-          <view
-            @click="operateFun(index, item.id)"
-            :class="
-              operation == 'claimAll'
-                ? item.isSelcet == false
-                  ? 'iconfont icon-fuxuankong'
-                  : 'iconfont icon-fuxuan'
-                : ''
-            "
-          >
+          <view @click="operateFun(index, item.id)" :class="
+            operation == 'claimAll'
+              ? item.isSelcet == false
+                ? 'iconfont icon-fuxuankong'
+                : 'iconfont icon-fuxuan'
+              : ''
+          ">
             {{ operation == "claimAll" ? "" : "认领" }}
           </view>
         </view>
@@ -23,11 +20,11 @@
           <view>类型</view>
           <view>{{ item.type }}</view>
         </view>
-        <view class="result_row">
+        <view class="result_row" v-if="item.resourceCode === 'I' || item.resourceCode === 'E'">
           <view>高被引</view>
           <view>{{ item.isHigh === 1 ? '是' : '否' }}</view>
         </view>
-        <view class="result_row">
+        <view class="result_row" v-if="item.resourceCode === 'I' || item.resourceCode === 'E'">
           <view>热点论文</view>
           <view>{{ item.isHot === 1 ? '是' : '否' }}</view>
         </view>
@@ -41,11 +38,11 @@
         </view>
         <view class="result_row" v-if="item.cas">
           <view>中科院分区</view>
-          <view>{{ item.cas }}</view>
+          <view>{{ item.cas.toUpperCase() }}</view>
         </view>
         <view class="result_row" v-if="item.jcr">
           <view>JCR体系</view>
-          <view>{{ item.jcr }}</view>
+          <view>{{ item.jcr.toUpperCase() }}</view>
         </view>
         <view class="result_row" v-if="item.tag">
           <view>类别</view>
@@ -54,16 +51,12 @@
         <view class="result_row">
           <view>时间</view>
           <view>{{ item.year }}</view>
-          <view style="bottom: 75%" @click="detailAndLooked(item, 'detail')"
-            >详情</view
-          >
+          <view style="bottom: 75%" @click="detailAndLooked(item, 'detail')">详情</view>
         </view>
         <view class="result_row">
           <view>作者</view>
-          <view>{{ item.creator }}</view>
-          <view v-if="type == 1" @click="detailAndLooked(item, 'looked')"
-            >标为已查看</view
-          >
+          <view>{{ item.resourceCode === 'P' ? item.allInventors : item.creator }}</view>
+          <view v-if="type == 1" @click="detailAndLooked(item, 'looked')">标为已查看</view>
         </view>
       </view>
     </view>
@@ -161,44 +154,47 @@ export default {
   .result_item {
     border: 1px $base-color solid;
     padding: $uni-spacing-row-lg;
-    background: -webkit-linear-gradient(
-      top left,
-      rgba(75, 195, 226, 0.2) 0%,
-      white 30%
-    );
-    background: linear-gradient(
-      to bottom right,
-      rgba(75, 195, 226, 0.2) 0%,
-      white 30%
-    );
+    background: -webkit-linear-gradient(top left,
+        rgba(75, 195, 226, 0.2) 0%,
+        white 30%);
+    background: linear-gradient(to bottom right,
+        rgba(75, 195, 226, 0.2) 0%,
+        white 30%);
     display: flex;
     margin-bottom: 15rpx;
+
     .result_index {
       width: 8%;
       font-size: $uni-font-size-base;
       color: $base-color;
     }
+
     .result_content {
       width: 92%;
+
       .result_row {
         display: flex;
         font-size: $uni-font-size-base;
         margin-bottom: 20rpx;
         position: relative;
+
         &:last-child {
           margin-bottom: 0;
         }
-        > view:nth-child(1) {
+
+        >view:nth-child(1) {
           width: 22%;
         }
-        > view:nth-child(2) {
+
+        >view:nth-child(2) {
           width: 55%;
           font-weight: bolder;
           overflow: hidden;
           text-overflow: ellipsis;
           white-space: nowrap;
         }
-        > view:nth-child(3) {
+
+        >view:nth-child(3) {
           position: absolute;
           color: $base-color;
           right: 0;

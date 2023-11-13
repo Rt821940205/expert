@@ -15,15 +15,15 @@
             <view class="header_c_tit">
               {{ item.title }}
             </view>
-            <view class="com_text" v-if="item.cas" style="color: #ad1528">{{ item.cas }}</view>
-            <view class="com_text" v-if="item.jcr" style="color: #ad1528">{{ item.jcr }}</view>
+            <view class="com_text" v-if="item.cas" style="color: #ad1528">{{ item.cas.toUpperCase() }}</view>
+            <view class="com_text" v-if="item.jcr" style="color: #ad1528">{{ item.jcr.toUpperCase() }}</view>
             <view class="com_text">{{ dictionary[item.resourceCode] }}</view>
             <view class="com_text">{{
               keyWordTran(item.creatorAll || "")
             }}</view>
             <view class="com_text">{{ keyWordTran(item.keyword || "") }}</view>
-            <view class="com_text" v-if="item.isHigh === 1">高被引</view>
-            <view class="com_text" v-if="item.isHot === 1">热点论文</view>
+            <view class="com_text" v-if="item.isHigh === 1 && (item.resourceCode === 'I' || item.resourceCode === 'E')">高被引</view>
+            <view class="com_text" v-if="item.isHot === 1 && (item.resourceCode === 'I' || item.resourceCode === 'E')">热点论文</view>
             <view class="com_text" v-if="item.tag === 'Z'">纵向项目</view>
             <view class="com_text" v-if="item.tag === 'H'">横向项目</view>
             <view class="com_text">{{ item.year }}</view>

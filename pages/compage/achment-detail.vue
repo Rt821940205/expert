@@ -34,14 +34,18 @@ export default {
         const res = await Api.getResourceById(option);
         if (res.code === 1) {
           const { data } = res;
-          const detail = { ...data, type: dictionary[data.resourceCode], tag: data.tag === 'Z' ? '纵向项目' : '横向项目'};
-          console.log(detail)
-          const metchCode =
-            option.code === "I" ||
-              option.code === "E" ||
-              option.code === "U"
-              ? "I"
-              : option.code;
+          const detail = {
+            ...data,
+            type: dictionary[data.resourceCode],
+            tag: data.tag === 'Z' ? '纵向项目' : '横向项目',
+            cas: data.cas.toUpperCase(),
+            jcr: data.jcr.toUpperCase(),
+            zzed: data.tag === 'H' ?
+              data.contractAmount :
+              data.tag === 'Z' ?
+                data.totalFunding : ''
+          };
+          const metchCode = (option.code === "I" || option.code === "E" || option.code === "U") ? "I" : option.code;
           const initArr = Array.from(achmentDetailDic[metchCode]);
           // const finalArr = initArr.map((f) => ({
           //   name: f["name"] || '2',
