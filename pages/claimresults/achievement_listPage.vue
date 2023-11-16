@@ -55,7 +55,7 @@
         </view>
         <view class="result_row">
           <view>作者</view>
-          <view>{{ item.resourceCode === 'P' ? item.allInventors : item.creator }}</view>
+          <view>{{ (item.resourceCode === 'J' || item.resourceCode === 'E' || item.resourceCode === 'I') ? item.creatorAll : item.creator }}</view>
           <view v-if="type == 1" @click="detailAndLooked(item, 'looked')">标为已查看</view>
         </view>
       </view>
@@ -187,7 +187,7 @@ export default {
         }
 
         >view:nth-child(2) {
-          width: 55%;
+          width: 50%;
           font-weight: bolder;
           overflow: hidden;
           text-overflow: ellipsis;

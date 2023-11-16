@@ -4,27 +4,16 @@
       <view>
         <u-form :model="userInfo">
           <u-form-item borderBottom>
-            <u--input
-              placeholder="请输入工号"
-              v-model="userInfo.userNo"
-            ></u--input>
+            <u--input placeholder="请输入工号" v-model="userInfo.userNo"></u--input>
           </u-form-item>
         </u-form>
       </view>
     </u-modal>
     <view v-if="!show">
-      <BasicInfo
-        :basicInfo="userInfo"
-        :eUserName="eUserName"
-        :researchDirection="researchDirection"
-        @update:ename="eNamesChange"
-      />
-      <AchievementList
-        :achievementList="achievementList"
-        :achievementPageList="achievementPageList"
-        @findUserResourcePage="findUserResourcePage"
-        @sortByTime="sortByTime"
-      />
+      <BasicInfo :basicInfo="userInfo" :eUserName="eUserName" :researchDirection="researchDirection"
+        @update:ename="eNamesChange" />
+      <AchievementList :achievementList="achievementList" :achievementPageList="achievementPageList"
+        @findUserResourcePage="findUserResourcePage" @sortByTime="sortByTime" />
     </view>
   </view>
 </template>
@@ -44,7 +33,8 @@ export default {
     return {
       baseList: [],
       loading: true,
-      show: true,
+      show: true, //soo登录
+      // show: false, //账号登录
       title: "请输入工号",
       userInfo: {
         userNo: "",
@@ -72,13 +62,14 @@ export default {
     //弹出框本地测试
     const userNo = strore.state.home.userNo;
     if (!!userNo) {
-      // this.show = false;
+      // this.show = false;  // 账号登录
+      // sso登录去掉整行
       this.findUserByUserNo({ userNo });
     } else {
       this.show = true;
     }
   },
-  created() {},
+  created() { },
   //sso登录模式
   async onLoad() {
     uni.$on("update", () => {
@@ -200,6 +191,5 @@ export default {
   /* #endif */
 }
 
-.container {
-}
+.container {}
 </style>
