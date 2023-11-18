@@ -1,6 +1,7 @@
 <template>
   <view class="container">
-    <u-modal :show="show" :title="title" @confirm="confirm">
+    <!-- 账号登录 -->
+    <!-- <u-modal :show="show" :title="title" @confirm="confirm">
       <view>
         <u-form :model="userInfo">
           <u-form-item borderBottom>
@@ -8,7 +9,7 @@
           </u-form-item>
         </u-form>
       </view>
-    </u-modal>
+    </u-modal> -->
     <view v-if="!show">
       <BasicInfo :basicInfo="userInfo" :eUserName="eUserName" :researchDirection="researchDirection"
         @update:ename="eNamesChange" />
@@ -33,8 +34,8 @@ export default {
     return {
       baseList: [],
       loading: true,
-      show: true, //soo登录
-      // show: false, //账号登录
+      show: false, //soo登录
+      // show: true, //账号登录
       title: "请输入工号",
       userInfo: {
         userNo: "",
@@ -62,8 +63,6 @@ export default {
     //弹出框本地测试
     const userNo = strore.state.home.userNo;
     if (!!userNo) {
-      // this.show = false;  // 账号登录
-      // sso登录去掉整行
       this.findUserByUserNo({ userNo });
     } else {
       this.show = true;
@@ -190,6 +189,4 @@ export default {
   box-sizing: border-box;
   /* #endif */
 }
-
-.container {}
 </style>
