@@ -19,6 +19,7 @@
       <view v-else>
         <view class="list">
           <u-tag
+            @click="onSearch"
             v-for="(item, index) in historyKeyword"
             :key="index"
             :text="item"

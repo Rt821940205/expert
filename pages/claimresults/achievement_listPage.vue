@@ -21,12 +21,16 @@
           <view>{{ item.type }}</view>
         </view>
         <view class="result_row" v-if="item.resourceCode === 'I' || item.resourceCode === 'E'">
-          <view>高被引</view>
-          <view>{{ item.isHigh === 1 ? '是' : '否' }}</view>
+          <view>高被引/热点论文</view>
+          <view>{{ item.isHigh === 1 ? '是' : '否' }}/{{ item.isHot === 1 ? '是' : '否' }}</view>
         </view>
-        <view class="result_row" v-if="item.resourceCode === 'I' || item.resourceCode === 'E'">
+        <!-- <view class="result_row" v-if="item.resourceCode === 'I' || item.resourceCode === 'E'">
           <view>热点论文</view>
           <view>{{ item.isHot === 1 ? '是' : '否' }}</view>
+        </view> -->
+        <view class="result_row" v-if="item.journal">
+          <view>期刊</view>
+          <view>{{ item.journal }}</view>
         </view>
         <view class="result_row" v-if="item.excellence">
           <view>卓越期刊分类</view>
@@ -55,7 +59,7 @@
         </view>
         <view class="result_row">
           <view>作者</view>
-          <view>{{ (item.resourceCode === 'J' || item.resourceCode === 'E' || item.resourceCode === 'I') ? item.creatorAll : item.creator }}</view>
+          <view>{{ (item.resourceCode === 'J' || item.resourceCode === 'E' || item.resourceCode === 'I' || item.resourceCode === 'P') ? item.creatorAll : item.creator }}</view>
           <view v-if="type == 1" @click="detailAndLooked(item, 'looked')">标为已查看</view>
         </view>
       </view>
@@ -164,8 +168,8 @@ export default {
     margin-bottom: 15rpx;
 
     .result_index {
-      width: 8%;
-      font-size: $uni-font-size-base;
+      width: 5%;
+      font-size: $uni-font-size-sm;
       color: $base-color;
     }
 
@@ -174,7 +178,7 @@ export default {
 
       .result_row {
         display: flex;
-        font-size: $uni-font-size-base;
+        font-size: $uni-font-size-sm;
         margin-bottom: 20rpx;
         position: relative;
 
@@ -184,6 +188,7 @@ export default {
 
         >view:nth-child(1) {
           width: 22%;
+          padding-right: 16rpx;
         }
 
         >view:nth-child(2) {
@@ -191,7 +196,11 @@ export default {
           font-weight: bolder;
           overflow: hidden;
           text-overflow: ellipsis;
-          white-space: nowrap;
+          // white-space: nowrap;
+
+          display: -webkit-box;
+          -webkit-box-orient: vertical;
+          -webkit-line-clamp: 2;
         }
 
         >view:nth-child(3) {
