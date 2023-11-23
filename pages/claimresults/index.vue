@@ -370,7 +370,7 @@ export default {
       }
     }
     .claim_selcet {
-      color: #316b7a;
+      color: $base-color;
       font-size: $uni-font-size-base;
       padding: 0 $uni-spacing-row-lg;
       display: flex;
@@ -402,7 +402,7 @@ export default {
               height: 0;
               border-left: 5px solid transparent;
               border-right: 5px solid transparent;
-              border-top: 6px solid #316b7a;
+              border-top: 6px solid $base-color;
             }
           }
         }
@@ -413,7 +413,7 @@ export default {
       .all_Claim {
         width: 100%;
         font-size: $uni-font-size-base;
-        color: #316b7a;
+        color: $base-color;
         justify-content: space-between;
       }
     }
@@ -426,7 +426,7 @@ export default {
     .noListTips {
       text-align: center;
       font-size: 14px;
-      color: #316b7a;
+      color: $base-color;
       margin-top: 50rpx;
     }
   }
