@@ -21,13 +21,13 @@
           <view>{{ item.type }}</view>
         </view>
         <view class="result_row" v-if="item.resourceCode === 'I' || item.resourceCode === 'E'">
-          <view>高被引/热点论文</view>
-          <view>{{ item.isHigh === 1 ? '是' : '否' }}/{{ item.isHot === 1 ? '是' : '否' }}</view>
+          <view>高被引</view>
+          <view>{{ item.isHigh === 1 ? '是' : '否' }}</view>
         </view>
-        <!-- <view class="result_row" v-if="item.resourceCode === 'I' || item.resourceCode === 'E'">
+        <view class="result_row" v-if="item.resourceCode === 'I' || item.resourceCode === 'E'">
           <view>热点论文</view>
           <view>{{ item.isHot === 1 ? '是' : '否' }}</view>
-        </view> -->
+        </view>
         <view class="result_row" v-if="item.journal">
           <view>期刊</view>
           <view>{{ item.journal }}</view>
