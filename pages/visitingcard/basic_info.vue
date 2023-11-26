@@ -2,7 +2,7 @@
   <view class="header">
     <view v-if="source" class="header_t">
       <view class="header_t_l">
-        <image src="@/static/home/logo@2x.png"></image>
+        <image src="@/static/home/logo@2x.jpg"></image>
       </view>
       <view class="header_t_r">
         <image src="@/static/home/QRcode.png" @click.stop="handleQcode"></image>

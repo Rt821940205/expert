@@ -6,7 +6,7 @@
     <view class="content">
       <view class="content-info">
         <view class="logo">
-          <image src="@/static/home/logo1@2x.png" />
+          <image src="@/static/home/logo1@2x.jpg" />
         </view>
         <view class="user">
           <view class="user__pic">
