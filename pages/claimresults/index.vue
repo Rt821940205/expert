@@ -18,7 +18,7 @@
             @cancel="showYear = false"
             keyName="year"
             confirmText="确定"
-            confirmColor="#316b7a"
+            confirmColor="#557ff7"
           ></u-picker>
         </view>
         <view class="alldis">
@@ -34,7 +34,7 @@
             @cancel="showResourceCode = false"
             keyName="name"
             confirmText="确定"
-            confirmColor="#316b7a"
+            confirmColor="#557ff7"
           ></u-picker>
         </view>
         <view class="all_Claim alldis">
@@ -337,12 +337,7 @@ export default {
       padding-bottom: 20rpx;
       margin-bottom: 20rpx;
       border-bottom: 1px solid;
-      border-image: linear-gradient(
-          270deg,
-          rgba(255, 255, 255, 1),
-          rgba(49, 107, 122, 1)
-        )
-        1 1;
+      border-image: $borderImage;
     }
     .tabs {
       display: flex;
@@ -350,7 +345,7 @@ export default {
       margin-bottom: 60rpx;
       .tabs-item {
         font-size: 30rpx;
-        color: $main-color;
+        color: $base-color-5;
         width: 33%;
         text-align: center;
       }
@@ -362,7 +357,7 @@ export default {
           position: absolute;
           width: 150rpx;
           height: 4rpx;
-          background-color: $main-color;
+          background-color: $base-color-5;
           left: 50%;
           bottom: -20rpx;
           margin-left: -75rpx;
@@ -392,7 +387,7 @@ export default {
         &:nth-child(2) {
           > text:nth-child(2) {
             position: relative;
-            border-bottom: 1px $main-color solid;
+            border-bottom: 1px $base-color-5 solid;
             &::after {
               content: "";
               position: absolute;

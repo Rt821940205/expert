@@ -71,9 +71,9 @@ $uni-font-size-subtitle: 36rpx;
 $uni-color-paragraph: #3f536e; // 文章段落颜色
 $uni-font-size-paragraph: 30rpx;
 
-$base-color: #316b7a;
-$base-color-5: #49a0b6;
-$main-color: #85abb3;
+$base-color: #557ff7;
+$base-color-3: #ced8fa;
+$base-color-5: #afbff7;
 $contrast-color: #ad1528;
 
 $base-tab-height: 50rpx;
@@ -81,13 +81,14 @@ $base-border-color: #979797;
 $base-chart-color: #9b9b9b;
 $base-background-color: rgba(220, 221, 222, 0.26);
 
-$mainGradual: linear-gradient(to top right, $base-color, $main-color);
-$itemGradual: linear-gradient(to top right, #4bc3e2, #ffffff);
+$mainGradual: linear-gradient(to top right, $base-color, $base-color-5);
+$itemGradual: linear-gradient(to bottom right, $base-color-3 0%, white 30%);
+$borderImage: linear-gradient(270deg, #fff, $base-color)1 1;
 
 /* zgd统一样式汇总 */
 $zgd-logo-padding: 44rpx 36rpx 0rpx;
 $zgd-logo-w: 250rpx;
-$zgd-logo-h: 50rpx;
+$zgd-logo-h: 70rpx;
 
 $zgd-arrow-padding: 44rpx 20rpx 0rpx;
 

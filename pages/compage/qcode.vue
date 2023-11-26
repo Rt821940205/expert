@@ -6,7 +6,7 @@
     <view class="content">
       <view class="content-info">
         <view class="logo">
-          <image src="@/static/home/logo1@2x.jpg" />
+          <image src="@/static/schoolBadge.png" />
         </view>
         <view class="user">
           <view class="user__pic">
@@ -55,7 +55,7 @@ export default {
       val: "",
       size: 200,
       unit: "px",
-      background: "#316B7A",
+      background: "#557ff7",
       foreground: "#ffffff",
       pdground: "#ffffff",
     };
@@ -95,7 +95,7 @@ export default {
 }
 .app {
   height: 100%;
-  background: linear-gradient(to bottom, #85abb3, #316b7a);
+  background: linear-gradient(to bottom, #85abb3, #557ff7);
   .header {
     padding: $zgd-arrow-padding;
   }
@@ -141,7 +141,7 @@ export default {
         text-align: center;
 
         ::v-deep .tki-qrcode uni-image {
-          border: 5rpx solid $main-color;
+          border: 5rpx solid $base-color-5;
           padding: 25rpx;
         }
       }
