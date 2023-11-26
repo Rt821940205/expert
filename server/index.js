@@ -74,5 +74,14 @@ export default {
   },
   delUserResource(data) {
     return request.post("/delUserResource", data);
-  }
+  },
+  findUserByName(data) {
+    return request.post("/findUserByName", data);
+  },
+  updatePaperAuthorInfo(data) {
+    return request.post("/updatePaperAuthorInfo", data);
+  },
+  addNewResource(data) {
+    return request.post("/addNewResource", data);
+  },
 };

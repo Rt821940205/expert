@@ -10,34 +10,19 @@
         <view class="alldis">
           <text>选择年份</text>
           <text @click="showYear = true">{{ year }}</text>
-          <u-picker
-            v-if="yearList.length > 0"
-            :show="showYear"
-            :columns="yearList"
-            @confirm="handleYearChange"
-            @cancel="showYear = false"
-            keyName="year"
-            confirmText="确定"
-            confirmColor="#557ff7"
-          ></u-picker>
+          <u-picker v-if="yearList.length > 0" :show="showYear" :columns="yearList" @confirm="handleYearChange"
+            @cancel="showYear = false" keyName="year" confirmText="确定" confirmColor="#557ff7"></u-picker>
         </view>
         <view class="alldis">
           <text>选择类别</text>
           <text @click="showResourceCode = true">{{
             currentResourceName
           }}</text>
-          <u-picker
-            v-if="resourceList.length > 0"
-            :show="showResourceCode"
-            :columns="resourceList"
-            @confirm="handleResourceChange"
-            @cancel="showResourceCode = false"
-            keyName="name"
-            confirmText="确定"
-            confirmColor="#557ff7"
-          ></u-picker>
+          <u-picker v-if="resourceList.length > 0" :show="showResourceCode" :columns="resourceList"
+            @confirm="handleResourceChange" @cancel="showResourceCode = false" keyName="name" confirmText="确定"
+            confirmColor="#557ff7"></u-picker>
         </view>
-        <view class="all_Claim alldis">
+        <!-- <view class="all_Claim alldis">
           <text
             v-for="(item, index) in btnList"
             v-show="item.type == 'claimAll' ? allClaim : !allClaim"
@@ -46,48 +31,25 @@
           >
             {{ item.name }}
           </text>
-        </view>
+        </view> -->
       </view>
       <view v-if="tabIndex == 0">
-        <AchievementListPage
-          ref="child"
-          :achievementList="achievementList"
-          :type="type"
-          @findNewResourceNumByYear="findNewResourceNumByYear"
-          @findAddNewResource="findAddNewResource"
-          @findSetResourceSearch="findSetResourceSearch"
-        />
-        <view v-if="loading" class="swiper-loading"
-          ><u-loading-icon></u-loading-icon
-        ></view>
-        <view v-if="!loading && achievementList.length == 0" class="noListTips"
-          >未检索到符合条件的成果，请重试</view
-        >
+        <AchievementListPage ref="child" :achievementList="achievementList" :type="type"
+          @findNewResourceNumByYear="findNewResourceNumByYear" @findAddNewResource="findAddNewResource"
+          @findSetResourceSearch="findSetResourceSearch" />
+        <view v-if="loading" class="swiper-loading"><u-loading-icon></u-loading-icon></view>
+        <view v-if="!loading && achievementList.length == 0" class="noListTips">未检索到符合条件的成果，请重试</view>
       </view>
       <view v-else-if="tabIndex == 1">
-        <AchievementListPage
-          ref="child"
-          :achievementList="achievementList"
-          :type="type"
-          @findNewResourceNumByYear="findNewResourceNumByYear"
-          @findAddNewResource="findAddNewResource"
-        />
-        <view v-if="loading" class="swiper-loading"
-          ><u-loading-icon></u-loading-icon
-        ></view>
-        <view v-if="!loading && achievementList.length == 0" class="noListTips"
-          >未检索到符合条件的成果，请重试</view
-        >
+        <AchievementListPage ref="child" :achievementList="achievementList" :type="type"
+          @findNewResourceNumByYear="findNewResourceNumByYear" @findAddNewResource="findAddNewResource" />
+        <view v-if="loading" class="swiper-loading"><u-loading-icon></u-loading-icon></view>
+        <view v-if="!loading && achievementList.length == 0" class="noListTips">未检索到符合条件的成果，请重试</view>
       </view>
       <view v-else>
-        <Achievementsearch
-          :achievementList="achievementList"
-          @hadleSearchName="hadleSearchName"
-          @findAddNewResource="findAddNewResource"
-        />
-        <view v-if="loading" class="swiper-loading"
-          ><u-loading-icon></u-loading-icon
-        ></view>
+        <Achievementsearch :achievementList="achievementList" @hadleSearchName="hadleSearchName"
+          @findAddNewResource="findAddNewResource" />
+        <view v-if="loading" class="swiper-loading"><u-loading-icon></u-loading-icon></view>
       </view>
     </view>
   </view>
@@ -139,6 +101,14 @@ export default {
       year: 50,
     });
     this.findNewResourceNumByType({});
+  },
+  created() {
+    uni.$on("refresh", () => {
+      this.refresh();
+    })
+  },
+  onunload() {
+    uni.$off("refresh");
   },
   methods: {
     trim,
@@ -202,23 +172,23 @@ export default {
       const params =
         type === 3
           ? {
-              pageNo,
-              pageSize,
-              searchName,
-              type,
-            }
+            pageNo,
+            pageSize,
+            searchName,
+            type,
+          }
           : {
-              pageNo,
-              pageSize,
-              resourceCode,
-              type,
-              year,
-            };
+            pageNo,
+            pageSize,
+            resourceCode,
+            type,
+            year,
+          };
       try {
         const res = await Api.getNewResourceNumPage(params);
         if (res.code === 1) {
           const { data, totel } = res;
-          const list = data.map(item => ({...item, type: dictionary[item.resourceCode]}))
+          const list = data.map(item => ({ ...item, type: dictionary[item.resourceCode] }))
           this.achievementList = list;
           // let arr = data.map((r) => ({
           //   ...r,
@@ -323,13 +293,16 @@ export default {
 .app {
   .header {
     padding: $zgd-logo-padding;
+
     image {
       width: $zgd-logo-w;
       height: $zgd-logo-h;
     }
   }
+
   .content {
     padding: $zgd-content-padding;
+
     .title {
       color: $base-color;
       font-size: $uni-font-size-title;
@@ -339,19 +312,23 @@ export default {
       border-bottom: 1px solid;
       border-image: $borderImage;
     }
+
     .tabs {
       display: flex;
       justify-content: center;
       margin-bottom: 60rpx;
+
       .tabs-item {
         font-size: 30rpx;
         color: $base-color-5;
         width: 33%;
         text-align: center;
       }
+
       .active {
         color: $base-color;
         position: relative;
+
         &::after {
           content: "";
           position: absolute;
@@ -364,6 +341,7 @@ export default {
         }
       }
     }
+
     .claim_selcet {
       color: $base-color;
       font-size: $uni-font-size-base;
@@ -371,23 +349,28 @@ export default {
       display: flex;
       justify-content: space-between;
       flex-wrap: wrap;
+
       .alldis {
         display: flex;
         align-items: center;
         width: 42%;
         margin-bottom: $uni-spacing-row-base;
-        > text:nth-child(1) {
+
+        >text:nth-child(1) {
           margin-right: 30rpx;
         }
+
         &:nth-child(2) {
           display: flex;
           justify-content: flex-end;
         }
+
         &:nth-child(1),
         &:nth-child(2) {
-          > text:nth-child(2) {
+          >text:nth-child(2) {
             position: relative;
             border-bottom: 1px $base-color-5 solid;
+
             &::after {
               content: "";
               position: absolute;
@@ -402,9 +385,11 @@ export default {
           }
         }
       }
+
       .uni-list-cell-db {
         margin-left: $uni-spacing-col-base;
       }
+
       .all_Claim {
         width: 100%;
         font-size: $uni-font-size-base;
@@ -412,12 +397,14 @@ export default {
         justify-content: space-between;
       }
     }
+
     .swiper-loading {
       position: fixed;
       top: 40%;
       left: 50%;
       margin-left: -24rpx;
     }
+
     .noListTips {
       text-align: center;
       font-size: 14px;

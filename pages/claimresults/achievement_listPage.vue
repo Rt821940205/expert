@@ -6,13 +6,12 @@
         <view class="result_row">
           <view>标题</view>
           <view>{{ item.title }}</view>
-          <view @click="operateFun(index, item.id)" :class="
-            operation == 'claimAll'
-              ? item.isSelcet == false
-                ? 'iconfont icon-fuxuankong'
-                : 'iconfont icon-fuxuan'
-              : ''
-          ">
+          <view @click="operateFun(index, item.id)" :class="operation == 'claimAll'
+            ? item.isSelcet == false
+              ? 'iconfont icon-fuxuankong'
+              : 'iconfont icon-fuxuan'
+            : ''
+            ">
             {{ operation == "claimAll" ? "" : "认领" }}
           </view>
         </view>
@@ -59,7 +58,8 @@
         </view>
         <view class="result_row">
           <view>作者</view>
-          <view>{{ (item.resourceCode === 'J' || item.resourceCode === 'E' || item.resourceCode === 'I' || item.resourceCode === 'P') ? item.creatorAll : item.creator }}</view>
+          <view>{{ (item.resourceCode === 'J' || item.resourceCode === 'E' || item.resourceCode === 'I' ||
+            item.resourceCode === 'P') ? item.creatorAll : item.creator }}</view>
           <view v-if="type == 1" @click="detailAndLooked(item, 'looked')">标为已查看</view>
         </view>
       </view>
@@ -114,9 +114,13 @@ export default {
       this.$emit("findAddNewResource", itemid);
     },
     operateFun(ids, itemid) {
-      this.operation == "claimAll"
-        ? this.claimAllClickSingle(ids)
-        : this.claimResult(itemid);
+
+      uni.navigateTo({
+        url: `/pages/claimresults/achievement_page?id=${itemid}`,
+      });
+      // this.operation == "claimAll"
+      //   ? this.claimAllClickSingle(ids)
+      //   : this.claimResult(itemid);
     },
     handleListStatus(res) {
       if (res === "claimAll" || res === "claimCancal") {

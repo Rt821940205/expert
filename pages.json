@@ -71,6 +71,13 @@
 				"navigationBarTitleText": "",
 				"enablePullDownRefresh": true
 			}
+		},
+		{
+			"path": "pages/claimresults/achievement_page",
+			"style": {
+				"navigationBarTitleText": "",
+				"enablePullDownRefresh": false
+			}
 		}
 	],
 	"globalStyle": {

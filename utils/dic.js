@@ -286,3 +286,43 @@ export const achmentDetailDic = {
 	},
 	],
 }
+
+export const authorSortDic = [
+	{
+		name: '第一作者',
+	},
+	{
+		name: '通讯作者',
+	},
+	{
+		name: '第一及通讯作者',
+	},
+	{
+		name: '共同第一作者',
+	},
+	{
+		name: '共同通讯作者',
+	},
+	{
+		name: '参与作者',
+	},
+	{
+		name: '第二作者',
+	},
+	{
+		name: '指导老师',
+	},
+];
+
+
+export const personTypeDic = [
+	{
+		name: '教师',
+	},
+	{
+		name: '学生',
+	},
+	{
+		name: '校外人员',
+	},
+]
