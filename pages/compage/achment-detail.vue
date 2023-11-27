@@ -59,6 +59,8 @@ export default {
             content: detail[f["index"]],
           }));
           this.list = finalArr;
+        } else {
+          uni.showToast({ title: res.msg, icon: 'none' });
         }
       } catch (e) { }
     },

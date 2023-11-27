@@ -108,9 +108,9 @@ export default {
       }
     },
     goAchmentDetail(item) {
-      const { id, resourceCode } = item;
+      const { id, resource_id, resource_code } = item;
       uni.navigateTo({
-        url: `/pages/compage/achment-detail?id=${id}&code=${resourceCode}`,
+        url: `/pages/compage/achment-detail?id=${resource_id}&code=${resource_code}`,
       });
     },
     resize() {

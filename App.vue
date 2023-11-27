@@ -1,8 +1,8 @@
 <script>
 import Vue from "vue";
-let id = "OkwQ9uydfiCQHgf70n";
-let host = "http://172.16.13.156/h5";
-let sso = "https://oauth.zjut.edu.cn";
+let id = "tF8Nx3xKk0VCmMvkNA";
+let host = "https://paper.zjgsu.edu.cn/h5";
+let sso = "https://uia.zjgsu.edu.cn";
 var getUrlParams = function (name) {
   var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)");
   var r = window.location.search.substr(1).match(reg);
@@ -28,25 +28,25 @@ export default {
     let admin = (this.code = getUrlParams("admin") || options.admin);
     this.options.code = code;
     //sso登录放开下面代码
-    if (!admin) {
-      if (accessToken === "") {
-        if (!options.code) {
-          this.windowTo();
-        } else {
-          try {
-            this.getaccess_token(code);
-          } catch (error) {
-            //重新定向登录地址
-            uni.clearStorageSync();
-            this.windowTo();
-          }
-        }
-      } else {
-        this.getUserId();
-      }
-    } else {
-      this.getaccess_token("112132");
-    }
+    // if (!admin) {
+    //   if (accessToken === "") {
+    //     if (!options.code) {
+    //       this.windowTo();
+    //     } else {
+    //       try {
+    //         this.getaccess_token(code);
+    //       } catch (error) {
+    //         //重新定向登录地址
+    //         uni.clearStorageSync();
+    //         this.windowTo();
+    //       }
+    //     }
+    //   } else {
+    //     this.getUserId();
+    //   }
+    // } else {
+    //   this.getaccess_token("112132");
+    // }
   },
   onShow: function () {
     // console.log('App Show')
@@ -62,7 +62,7 @@ export default {
       window.location.href = href;
     },
     getaccess_token(code) {
-      const url = `http://172.16.13.156/kjdnphp/public/casAuth?code=${code}`;
+      const url = `https://paper.zjgsu.edu.cn/casAuth?code=${code}`;
       uni.request({
         url: url,
         success: (res) => {
@@ -84,7 +84,7 @@ export default {
     },
     getUserId() {
       let token = this.$store.state.home.accessToken;
-      var url = `http://172.16.13.156/kjdnphp/public/casLastStep?token=${token}`;
+      var url = `https://paper.zjgsu.edu.cn/casLastStep?token=${token}`;
       uni.request({
         url: url,
         success: (res) => {

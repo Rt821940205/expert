@@ -33,7 +33,7 @@
           </view>
           <view class="item_header_r" :style="{ opacity: item.isNew ? 1 : 0 }">新！</view>
         </view>
-        <view class="item_footer">查看原文</view>
+        <!-- <view class="item_footer">查看原文</view> -->
       </view>
       <view class="achment-operate">
         <view>
