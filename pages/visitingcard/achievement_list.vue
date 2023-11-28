@@ -26,7 +26,7 @@
             <view class="com_text" v-if="item.isHot === 1 && (item.resourceCode === 'I' || item.resourceCode === 'E')">热点论文</view>
             <view class="com_text" v-if="item.tag === 'Z'">类别：纵向项目</view>
             <view class="com_text" v-if="item.tag === 'H'">类别：横向项目</view>
-            <view class="com_text" v-if="item.totalFunding">资助金额：{{ item.totalFunding }}</view>
+            <view class="com_text" v-if="item.totalFunding">资助金额：{{ item.totalFunding.toFixed(2) + '万元' }}</view>
             <view class="com_text">{{ item.year }}</view>
             <view class="com_text" v-if="item.excellence">{{ item.excellence }}</view>
             <view class="com_text">{{ item.journal }}</view>
