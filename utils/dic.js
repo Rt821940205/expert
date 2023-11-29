@@ -4,7 +4,7 @@ export const dictionary = {
 	C: '会议',
 	D: '学位论文',
 	E: 'EI',
-	I: 'SCI',
+	I: '外文论文',
 	J: '中文期刊',
 	O: '项目',
 	P: '专利',
@@ -113,7 +113,7 @@ export const achmentDetailDic = {
 		'index': 'keyword'
 	},
 	{
-		'name': '中文期刊',
+		'name': '期刊',
 		'index': 'journal'
 	},
 	{
@@ -136,10 +136,10 @@ export const achmentDetailDic = {
 		'name': '卓越期刊分类',
 		'index': 'excellence'
 	},
-	{
-		'name': '工大奖励政策要求',
-		'index': 'zjuttag'
-	},
+	// {
+	// 	'name': '工大奖励政策要求',
+	// 	'index': 'zjuttag'
+	// },
 	{
 		'name': '中科院分区',
 		'index': 'cas'

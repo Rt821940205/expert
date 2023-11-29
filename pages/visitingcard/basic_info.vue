@@ -36,7 +36,7 @@
             </picker>
           </view>
         </view>
-        <view class="com_text">ISNI: {{ basicInfo.userNo }}</view>
+        <view class="com_text">工号: {{ basicInfo.userNo }}</view>
         <view class="com_text">{{ basicInfo.jobTitle }}</view>
         <view class="com_text">{{ basicInfo.subject }}</view>
       </view>

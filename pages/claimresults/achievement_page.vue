@@ -78,12 +78,12 @@ export default {
             resource_id: "",
             detail: {},
             radiolist: [{
-                name: '科学技术'
+                name: '科学技术类'
             },
             {
-                name: '社会学科'
+                name: '社会学科类'
             },],
-            radiovalue: '科学技术',
+            radiovalue: '科学技术类',
             value: '',
             showForm: false,
             showAuthors: false,
@@ -227,7 +227,7 @@ export default {
                     const res = await Api.addNewResource(params1);
                     if (res.code === 1) {
                         uni.showToast({
-                            title: "更新成功",
+                            title: "老师，您好！在您完成论文认领半小时之后，您可登录科研服务系统，核查论文信息是否正确，并提交审核。如有疑问，请联系：刘礼芳，电话：666018。谢谢！",
                             icon: "none"
                         });
                         setTimeout(() => {

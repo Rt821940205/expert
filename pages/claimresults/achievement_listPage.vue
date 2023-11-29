@@ -35,10 +35,10 @@
           <view>卓越期刊分类</view>
           <view>{{ item.excellence }}</view>
         </view>
-        <view class="result_row" v-if="item.zjuttag">
+        <!-- <view class="result_row" v-if="item.zjuttag">
           <view>工大奖励政策要求</view>
           <view>{{ item.zjuttag }}</view>
-        </view>
+        </view> -->
         <view class="result_row" v-if="item.cas">
           <view>中科院分区</view>
           <view>{{ item.cas.toUpperCase() }}</view>
