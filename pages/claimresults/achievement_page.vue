@@ -53,8 +53,8 @@
                     placeholder="请输入内容"></u--input>
             </u-form-item>
             <u-form-item class="author_form_list" @click="showPersonTypeDic = true" label="类型：" labelWidth="150rpx">
-                <u--input v-model="author.person_type" :disabled="authors.length > 0"
-                    class="author_form_input" border="bottom" placeholder="请输入内容"></u--input>
+                <u--input v-model="author.person_type" :disabled="authors.length > 0" class="author_form_input"
+                    border="bottom" placeholder="请输入内容"></u--input>
             </u-form-item>
             <u-form-item class="btn_group">
                 <u-button @click="back">返回</u-button>
@@ -70,6 +70,7 @@
         <u-action-sheet :show="showPersonTypeDic" :actions="personTypeDic" title="请选择" @close="showPersonTypeDic = false"
             @select="personTypeSelect">
         </u-action-sheet>
+        <u-modal :show="showModal" title="操作成功" :content='content' @confirm="confirm"></u-modal>
     </view>
 </template>
 <script>
@@ -103,6 +104,8 @@ export default {
             personTypeDic,
             index: 0,
             disabled: false,
+            showModal: false,
+            content: "老师，您好！在您完成论文认领半小时之后，您可登录科研服务系统，核查论文信息是否正确，并提交审核。如有疑问，请联系：刘礼芳，电话：666018。谢谢！",
         };
     },
     onLoad(option) {
@@ -191,19 +194,19 @@ export default {
             //     uni.$u.toast('校验失败')
             // })
             console.log(this.author.name)
-            if(!this.author.name || this.author.name === '') {
+            if (!this.author.name || this.author.name === '') {
                 uni.showToast({ title: '请输入姓名' });
                 return;
             };
-            if(!this.author.type || this.author.type === '') {
+            if (!this.author.type || this.author.type === '') {
                 uni.showToast({ title: '请选择排序' });
                 return;
             };
-            if(!this.author.account || this.author.account === '') {
+            if (!this.author.account || this.author.account === '') {
                 uni.showToast({ title: '请输入学工号' });
                 return;
             };
-            if(!this.author.person_type || this.author.person_type === '') {
+            if (!this.author.person_type || this.author.person_type === '') {
                 uni.showToast({ title: '请选择类型' });
                 return;
             };
@@ -233,17 +236,7 @@ export default {
                     }
                     const res = await Api.addNewResource(params1);
                     if (res.code === 1) {
-                        uni.showToast({
-                            title: "老师，您好！在您完成论文认领半小时之后，您可登录科研服务系统，核查论文信息是否正确，并提交审核。如有疑问，请联系：刘礼芳，电话：666018。谢谢！",
-                            icon: "none"
-                        });
-                        setTimeout(() => {
-                            this.disabled = false;
-                            uni.$emit('refresh');
-                            uni.navigateBack({
-                                delta: 1,
-                            });
-                        }, 1500);
+                        this.showModal = true;
                     };
                 } else {
                     uni.showToast({
@@ -255,6 +248,13 @@ export default {
             } catch {
                 this.disabled = false;
             }
+        },
+        confirm() {
+            this.disabled = false;
+            uni.$emit('refresh');
+            uni.navigateBack({
+                delta: 1,
+            });
         }
     },
 };
