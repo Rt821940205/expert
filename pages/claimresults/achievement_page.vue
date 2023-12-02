@@ -10,6 +10,9 @@
             <view class="claim_item">
                 期刊：{{ detail.journal }}
             </view>
+            <view class="claim_item" v-if="detail.level">
+                收录：{{ detail.level }}
+            </view>
             <view class="claim_item">
                 时间：{{ detail.year }}
             </view>
@@ -81,7 +84,7 @@ export default {
                 name: '科学技术类'
             },
             {
-                name: '社会学科类'
+                name: '社会科学类'
             },],
             radiovalue: '科学技术类',
             value: '',
@@ -105,8 +108,11 @@ export default {
     onLoad(option) {
         this.resource_id = option.id;
         this.findResourceById(option);
+        console.log(this.$store.state.home.user)
     },
-
+    mounted() {
+        this.radiovalue = this.$store.state.home.user.paperType;
+    },
     methods: {
         init() {
             this.authors = [];
@@ -115,7 +121,7 @@ export default {
         async findResourceById(option) {
             try {
                 const res = await Api.getResourceById(option);
-                const { code, data: { title, resourceCode, journal, year, creatorAll, resultAuthor: { author } } } = res;
+                const { code, data: { title, resourceCode, journal, year, creatorAll, resultAuthor: { author }, level } } = res;
                 if (code === 1) {
                     this.detail = {
                         title: title,
@@ -123,7 +129,8 @@ export default {
                         journal,
                         year,
                         creatorAll,
-                        author
+                        author,
+                        level
                     };
                 }
             } catch (e) { }
