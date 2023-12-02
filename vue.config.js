@@ -3,7 +3,7 @@ module.exports = {
 		proxy: {
 			'/': {
 				target: 'http://dev.heidutech.com:18681',
-				// target: 'http://kjdn.zjut.edu.cn',
+				// target: 'http://www.kjdn.zjut.edu.cn',
 				changeOrigin: true,
 			}
 		},

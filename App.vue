@@ -1,7 +1,7 @@
 <script>
 import Vue from "vue";
 let id = "OkwQ9uydfiCQHgf70n";
-let host = "http://kjdn.zjut.edu.cn/h5";
+let host = "http://www.kjdn.zjut.edu.cn/h5";
 let sso = "https://oauth.zjut.edu.cn";
 var getUrlParams = function (name) {
   var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)");
@@ -62,7 +62,7 @@ export default {
       window.location.href = href;
     },
     getaccess_token(code) {
-      const url = `http://kjdn.zjut.edu.cn/kjdnphp/public/casAuth?code=${code}`;
+      const url = `http://www.kjdn.zjut.edu.cn/kjdnphp/public/casAuth?code=${code}`;
       uni.request({
         url: url,
         success: (res) => {
@@ -84,7 +84,7 @@ export default {
     },
     getUserId() {
       let token = this.$store.state.home.accessToken;
-      var url = `http://kjdn.zjut.edu.cn/kjdnphp/public/casLastStep?token=${token}`;
+      var url = `http://www.kjdn.zjut.edu.cn/kjdnphp/public/casLastStep?token=${token}`;
       uni.request({
         url: url,
         success: (res) => {
