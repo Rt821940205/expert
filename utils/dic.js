@@ -173,12 +173,12 @@ export const achmentDetailDic = {
 		'name': '项目来源',
 		'index': 'projectOrigin'
 	},
+	// {
+	// 	'name': '资助金额',
+	// 	'index': 'zzed'
+	// },
 	{
-		'name': '资助额度',
-		'index': 'zzed'
-	},
-	{
-		'name': '合同金额',
+		'name': '资助金额',
 		'index': 'totalAmount'
 	},
 	{
@@ -275,6 +275,10 @@ export const achmentDetailDic = {
 	{
 		'name': '奖励等级',
 		'content': 'awardWinningLevel'
+	},
+	{
+		'name': '授予单位',
+		'content': 'locic'
 	},
 	{
 		'name': '中科院分区',

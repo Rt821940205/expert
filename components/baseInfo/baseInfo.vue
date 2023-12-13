@@ -1,7 +1,7 @@
 <template>
   <view class="basicInfo">
     <view class="title"
-      >以下信息来自校数据中心，若有误可进行编辑或者联系学校信息办。</view
+      >以下信息来自学校数据中心，随人事系统更新，为更好抓取论文，可手动编辑邮箱</view
     >
     <view class="basicInfo-item">
       <view>姓名</view>

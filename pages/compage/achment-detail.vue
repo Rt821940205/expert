@@ -40,6 +40,7 @@ export default {
             tag: data.tag === 'Z' ? '纵向项目' : '横向项目',
             cas: data?.cas?.toUpperCase(),
             jcr: data?.jcr?.toUpperCase(),
+            totalAmount: parseFloat(data?.totalAmount).toFixed(2) + '万',
             zzed: data.tag === 'H' ?
               data.contractAmount :
               data.tag === 'Z' ?
