@@ -12,24 +12,20 @@
         <view class="item_header">
           <view class="item_header_l">{{ index + 1 }}</view>
           <view class="item_header_c">
-            <view class="header_c_tit">
-              {{ item.title }}
-            </view>
+            <view class="header_c_tit">{{ item.title }}</view>
             <view class="com_text" v-if="item.cas" style="color: #ad1528">{{ item.cas.toUpperCase() }}</view>
             <view class="com_text" v-if="item.jcr" style="color: #ad1528">{{ item.jcr.toUpperCase() }}</view>
-            <view class="com_text">{{ dictionary[item.resourceCode] }}</view>
-            <view class="com_text">{{
-              keyWordTran(item.creatorAll || "")
-            }}</view>
-            <view class="com_text">{{ keyWordTran(item.keyword || "") }}</view>
+            <view class="com_text" v-if="item.resourceCode">{{ '类型：' + dictionary[item.resourceCode] }}</view>
+            <view class="com_text" v-if="item.creatorAll">{{ '作者：' + keyWordTran(item.creatorAll || "") }}</view>
+            <view class="com_text" v-if="item.keyword">{{ '关键词：' + keyWordTran(item.keyword || "") }}</view>
             <view class="com_text" v-if="item.isHigh === 1 && (item.resourceCode === 'I' || item.resourceCode === 'E')">高被引</view>
             <view class="com_text" v-if="item.isHot === 1 && (item.resourceCode === 'I' || item.resourceCode === 'E')">热点论文</view>
             <view class="com_text" v-if="item.tag === 'Z'">类别：纵向项目</view>
             <view class="com_text" v-if="item.tag === 'H'">类别：横向项目</view>
-            <view class="com_text" v-if="item.totalFunding">资助金额：{{ item.totalFunding.toFixed(2) + '万元' }}</view>
-            <view class="com_text">{{ item.year }}</view>
+            <view class="com_text" v-if="item.totalFunding">资助金额：{{ parseFloat(item.totalFunding).toFixed(2) + '万元' }}</view>
+            <view class="com_text" v-if="item.year">{{ '年份：' + item.year }}</view>
             <view class="com_text" v-if="item.excellence">{{ item.excellence }}</view>
-            <view class="com_text">{{ item.journal }}</view>
+            <view class="com_text" v-if="item.journal">{{ '期刊：' + item.journal }}</view>
           </view>
           <view class="item_header_r" :style="{ opacity: item.isNew ? 1 : 0 }">新！</view>
         </view>
@@ -209,7 +205,7 @@ export default {
             line-clamp: 2;
             -webkit-box-orient: vertical;
             font-size: 20rpx;
-            margin-top: 14rpx;
+            line-height: 32rpx;
           }
         }
 
