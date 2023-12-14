@@ -28,13 +28,13 @@
           <view>热点论文</view>
           <view>{{ item.isHot === 1 ? '是' : '否' }}</view>
         </view>
-        <view class="result_row" v-if="item.resourceCode === 'A'">
+        <!-- <view class="result_row" v-if="item.resourceCode === 'A'">
           <view>授予单位</view>
           <view>{{ item.locic }}</view>
-        </view>
+        </view> -->
         <view class="result_row" v-if="item.resourceCode === 'A'">
           <view>获奖等级</view>
-          <view>{{ item.winningAward + item.winningAwardLevel }}</view>
+          <view>{{ item.winningAward + item.awardWinningLevel }}</view>
         </view>
         <view class="result_row" v-if="item.journal">
           <view>期刊</view>

@@ -258,35 +258,23 @@ export const achmentDetailDic = {
 	],
 	'A': [{
 		'name': '成果名称',
-		'content': 'patentName'
+		'index': 'achievementName'
 	},
 	{
-		'name': '参与人',
-		'content': 'allCompletedPeople'
+		'name': '获奖人员',
+		'index': 'allCompletedPeople'
 	},
 	{
 		'name': '获奖类型',
-		'content': 'awardType'
+		'index': 'winningAward'
 	},
 	{
 		'name': '获奖年度',
-		'content': 'awardWinningYear'
+		'index': 'awardWinningYear'
 	},
 	{
 		'name': '奖励等级',
-		'content': 'awardWinningLevel'
-	},
-	{
-		'name': '授予单位',
-		'content': 'locic'
-	},
-	{
-		'name': '中科院分区',
-		'index': 'cas'
-	},
-	{
-		'name': 'JCR体系',
-		'index': 'jcr'
+		'index': 'awardWinningLevel'
 	},
 	],
 }
