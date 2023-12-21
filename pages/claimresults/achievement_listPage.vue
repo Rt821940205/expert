@@ -36,13 +36,17 @@
           <view>获奖等级</view>
           <view>{{ item.winningAward + item.awardWinningLevel }}</view>
         </view>
-        <view class="result_row" v-if="item.journal">
+        <view class="result_row" v-if="item.journal && (item.resourceCode === 'J' || item.resourceCode === 'I' || item.resourceCode === 'E')">
           <view>期刊</view>
           <view>{{ item.journal }}</view>
         </view>
-        <view class="result_row" v-if="item.excellence">
-          <view>卓越期刊分类</view>
+        <view class="result_row" v-if="item.excellence && (item.resourceCode === 'J' || item.resourceCode === 'I' || item.resourceCode === 'E')">
+          <view>科技期刊分类</view>
           <view>{{ item.excellence }}</view>
+        </view>
+        <view class="result_row" v-if="item.conferenceName && (item.resourceCode === 'J' || item.resourceCode === 'I' || item.resourceCode === 'E')">
+          <view>会议名称</view>
+          <view>{{ item.conferenceName }}</view>
         </view>
         <view class="result_row" v-if="item.zjuttag">
           <view>工大奖励政策要求</view>
