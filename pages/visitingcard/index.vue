@@ -34,8 +34,8 @@ export default {
     return {
       baseList: [],
       loading: true,
-      // show: false, //soo登录
-      show: true, //账号登录
+      show: false, //soo登录
+      // show: true, //账号登录
       title: "请输入工号",
       userInfo: {
         userNo: "",

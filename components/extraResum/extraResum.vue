@@ -14,7 +14,7 @@
         <view>{{ item.agency }}</view>
       </view>
       <view class="extraInfo-item">
-        <view>学历</view>
+        <view>学历/职位</view>
         <view>{{ item.education }}</view>
       </view>
       <view class="extraInfo-item">
@@ -64,7 +64,7 @@
             />
           </view>
         </u-form-item>
-        <u-form-item label="学历" prop="education">
+        <u-form-item label="学历/职位" prop="education">
           <view class="form-item">
             <picker
               :value="form.education"
@@ -151,7 +151,7 @@ export default {
         },
         education: {
           required: true,
-          message: "请选择学历",
+          message: "请选择学历/职位",
           validator: (rule, value, callback) => !value == 0,
           trigger: ["change", "blur"],
         },

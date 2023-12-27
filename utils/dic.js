@@ -58,6 +58,10 @@ export const achmentDetailDic = {
 		'name': 'JCR体系',
 		'index': 'jcr'
 	},
+	{
+		'name': '页码',
+		'index': 'page'
+	},
 	],
 	'W': [{
 		'name': '标题',
@@ -147,6 +151,10 @@ export const achmentDetailDic = {
 	{
 		'name': 'JCR体系',
 		'index': 'jcr'
+	},
+	{
+		'name': '页码',
+		'index': 'page'
 	},
 	],
 	'O': [{
