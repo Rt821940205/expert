@@ -74,8 +74,8 @@ export default {
     async confirm() {
       if (this.newUserName) {
         //英文名字不能为中文
-        const isEnglish = /[^A-Za-z]/g.test(this.newUserName);
-        if (isEnglish) {
+        const isEnglish = /[a-zA-Z!@#$%^&*(),.?":{}|<>]/g.test(this.newUserName);
+        if (!isEnglish) {
           return uni.showToast({
             title: "请输入英文",
             icon: "none",
