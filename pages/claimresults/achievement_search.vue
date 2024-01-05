@@ -17,6 +17,7 @@
 import seachInput from "@/components/seachInput/index.vue";
 import resultItem from "@/components/resultItem/index.vue";
 import AchievementListPage from "./achievement_listPage";
+import Api from "@/server/index.js";
 
 export default {
   components: { seachInput, resultItem, AchievementListPage },
@@ -29,12 +30,21 @@ export default {
     },
   },
   data() {
-    return {};
+    return {
+      pageNo: 1,
+    };
   },
   created() {},
   methods: {
     handleSearch(val) {
       this.$emit("hadleSearchName", val);
+    },
+    refresh() {
+      this.pageNo = 1;
+      this.findNewResourceNumPage();
+    },
+    findAddNewResource(data) {
+      this.$emit("findAddNewResource", data);
     },
   },
 };
