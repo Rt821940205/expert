@@ -1,7 +1,7 @@
 <template>
   <view class="container">
     <!-- 账号登录 -->
-    <u-modal :show="show" :title="title" @confirm="confirm">
+    <!-- <u-modal :show="show" :title="title" @confirm="confirm">
       <view>
         <u-form :model="userInfo">
           <u-form-item borderBottom>
@@ -9,7 +9,7 @@
           </u-form-item>
         </u-form>
       </view>
-    </u-modal>
+    </u-modal> -->
     <view v-if="!show">
       <BasicInfo :basicInfo="userInfo" :eUserName="eUserName" :researchDirection="researchDirection"
         @update:ename="eNamesChange" />
