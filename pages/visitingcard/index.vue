@@ -33,7 +33,7 @@ export default {
   data() {
     return {
       baseList: [],
-      // loading: true,
+      loading: true,
       show: false, //soo登录
       // show: true, //账号登录
       title: "请输入工号",
