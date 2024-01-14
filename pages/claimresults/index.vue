@@ -86,7 +86,7 @@ export default {
       achievementList: [],
       loading: false,
       pageNo: 1,
-      pageSize: 100,
+      pageSize: 200,
       year: "",
       resourceCode: "",
       searchName: "",

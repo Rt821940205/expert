@@ -10,7 +10,7 @@ export const dictionary = {
 	P: '专利',
 	Q: '其他',
 	R: '报告',
-	S: '标准',
+	S: 'SSCI',
 	T: '团队',
 	U: 'SCOPUS',
 	W: 'WOS',
@@ -283,6 +283,51 @@ export const achmentDetailDic = {
 	{
 		'name': '奖励等级',
 		'index': 'awardWinningLevel'
+	},
+	],
+	'S': [{
+		'name': '标题',
+		'index': 'title'
+	},
+	{
+		'name': '姓名',
+		'index': 'creatorAll'
+	},
+	{
+		'name': '关键词',
+		'index': 'keyword'
+	},
+	{
+		'name': '期刊',
+		'index': 'journal'
+	},
+	{
+		'name': '年份',
+		'index': 'year'
+	},
+	{
+		'name': '类型',
+		'index': 'type'
+	},
+	{
+		'name': '卷',
+		'index': 'volume'
+	},
+	{
+		'name': '期',
+		'index': 'issue'
+	},
+	{
+		'name': '中科院分区',
+		'index': 'cas'
+	},
+	{
+		'name': 'JCR体系',
+		'index': 'jcr'
+	},
+	{
+		'name': '页码',
+		'index': 'page'
 	},
 	],
 }
