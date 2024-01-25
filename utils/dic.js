@@ -167,11 +167,11 @@ export const achmentDetailDic = {
 	},
 	{
 		'name': '主持人',
-		'index': 'participant'
+		'index': 'principal'
 	},
 	{
 		'name': '项目编号',
-		'index': 'projectNo'
+		'index': 'schoolNo'
 	},
 	{
 		'name': '项目基金',
@@ -179,7 +179,7 @@ export const achmentDetailDic = {
 	},
 	{
 		'name': '项目来源',
-		'index': 'projectOrigin'
+		'index': 'requester'
 	},
 	// {
 	// 	'name': '资助金额',
@@ -197,14 +197,14 @@ export const achmentDetailDic = {
 		'name': '类别',
 		'index': 'tag'
 	},
-	{
-		'name': '中科院分区',
-		'index': 'cas'
-	},
-	{
-		'name': 'JCR体系',
-		'index': 'jcr'
-	},
+	// {
+	// 	'name': '中科院分区',
+	// 	'index': 'cas'
+	// },
+	// {
+	// 	'name': 'JCR体系',
+	// 	'index': 'jcr'
+	// },
 	],
 	'P': [{
 		'name': '专利名称',
