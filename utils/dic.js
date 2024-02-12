@@ -187,7 +187,15 @@ export const achmentDetailDic = {
 	// },
 	{
 		'name': '资助金额',
-		'index': 'totalAmount'
+		'index': 'contractAmount'
+	},
+	{
+		'name': '合同金额',
+		'index': 'contractAmount'
+	},
+	{
+		'name': '总到款',
+		'index': 'total'
 	},
 	{
 		'name': '年份',

@@ -31,21 +31,13 @@
       <u--form :model="form" :rules="rules" ref="form1" :borderBottom="false">
         <u-form-item label="时间" prop="yearTimes">
           <view class="form-item">
-            <picker
-              :value="form.yearFrom"
-              :range="years"
-              @change="yearFromChange"
-            >
+            <picker :value="form.yearFrom" :range="years" @change="yearFromChange">
               <view>
                 {{ years[form.yearFrom] }}
               </view>
             </picker>
             <view class="split"> - </view>
-            <picker
-              :value="form.yearTo"
-              :range="[...years.slice(0, 1), '至今', ...years.slice(1)]"
-              @change="yearToChange"
-            >
+            <picker :value="form.yearTo" :range="[...years.slice(0, 1), '至今', ...years.slice(1)]" @change="yearToChange">
               <view>
                 {{
                   [...years.slice(0, 1), "至今", ...years.slice(1)][form.yearTo]
@@ -56,21 +48,12 @@
         </u-form-item>
         <u-form-item label="机构" prop="agency">
           <view class="form-item">
-            <u--input
-              v-model="form.agency"
-              placeholder="请输一级机构"
-              class="search-input"
-              clearable
-            />
+            <u--input v-model="form.agency" placeholder="请输一级机构" class="search-input" clearable />
           </view>
         </u-form-item>
         <u-form-item label="学历/职位" prop="education">
           <view class="form-item">
-            <picker
-              :value="form.education"
-              :range="leavels"
-              @change="educationChange"
-            >
+            <picker :value="form.education" :range="leavels" @change="educationChange">
               <view>
                 {{ leavels[form.education] }}
               </view>
@@ -79,25 +62,14 @@
         </u-form-item>
         <u-form-item label="邮箱" prop="email">
           <view class="form-item">
-            <u--input
-              v-model="form.email"
-              placeholder="请输入邮箱"
-              class="search-input"
-              clearable
-            />
+            <u--input v-model="form.email" placeholder="请输入邮箱" class="search-input" clearable />
           </view>
         </u-form-item>
       </u--form>
     </view>
 
     <view class="bottom">
-      <u-icon
-        v-if="isShowCard"
-        name="plus"
-        size="18"
-        color="#316B7A"
-        @click="add"
-      />
+      <u-icon v-if="isShowCard" name="plus" size="18" color="#316B7A" @click="add" />
       <view v-else @click.stop="save"> 确定 </view>
     </view>
   </view>
@@ -117,7 +89,7 @@ export default {
       isShowCard: true,
       years,
       index: 0,
-      leavels: ["选择", "本科", "硕士", "博士"],
+      leavels: ["选择", "本科", "硕士", "博士", '一级律师', '一级播音员', '中专助理讲师', '中专讲师', '中专高级讲师', '中学一级教师', '中学二级教师', '中学高级教师', '中级', '主任医师', '主治医师', '主管护师', '主管药师', '二级编剧', '会计员', '会计师', '副主任医师', '副主任药师', '副研究员', '副研究馆员', '助理会计师', '助理实验师', '助理工程师', '助理政工师, 政工员', '助理研究员', '助理经济师', '助理统计师', '助理馆员', '医师', '实验员', '实验师', '审计师', '小学一级教师', '小学教师', '小学高级教师', '工程师', '工程技术人员', '幼儿园高级教师', '思政讲师', '护士', '播音指导', '政工师', '教管副研究员', '教管研究员', '检验技师', '正高级', '正高级实验师', '正高级工程师', '研究员', '研究实习员', '研究馆员', '经济员', '经济师', '统计师', '编审', '编辑', '馆员', '高校副教授', '高校助教', '高校思政副教授', '高校教师', '高校教授', '高校讲师', '高级会计师', '高级实验师', '高级工程师', '高级政工师', '高级经济师', '高级编辑', '高级记者'],
       form: {
         yearFrom: 0,
         yearTo: 0,

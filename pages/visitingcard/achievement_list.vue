@@ -26,7 +26,9 @@
               热点论文</view>
             <view class="com_text" v-if="item.tag === 'Z'">类别：纵向项目</view>
             <view class="com_text" v-if="item.tag === 'H'">类别：横向项目</view>
-            <view class="com_text" v-if="item.resourceCode === 'O' && item.totalAmount">资助金额：{{
+            <view class="com_text" v-if="item.tag === 'H' && item.contractAmount">合同金额：{{ item.contractAmount }}</view>
+            <view class="com_text" v-if="item.tag === 'H' && item.total">总到款：{{ item.total }}</view>
+            <view class="com_text" v-if="item.resourceCode === 'O' && item.totalAmount && item.tag !== 'Z'">资助金额：{{
               parseFloat(item.totalAmount).toFixed(2) + '万元' }}</view>
             <view class="com_text" v-if="item.resourceCode !== 'O' && item.totalFunding">资助金额：{{
               parseFloat(item.totalFunding).toFixed(2) + '万元' }}</view>

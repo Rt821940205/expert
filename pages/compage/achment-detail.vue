@@ -41,10 +41,10 @@ export default {
             cas: data?.cas?.toUpperCase(),
             jcr: data?.jcr?.toUpperCase(),
             totalAmount: parseFloat(data?.totalAmount).toFixed(2) + '万',
-            zzed: data.tag === 'H' ?
-              data.contractAmount :
-              data.tag === 'Z' ?
-                data.totalFunding : ''
+            // zzed: data.tag === 'H' ?
+            //   data.contractAmount :
+            //   data.tag === 'Z' ?
+            //     data.totalFunding : ''
           };
           const metchCode = (option.code === "I" || option.code === "E" || option.code === "U") ? "I" : option.code;
           const initArr = Array.from(achmentDetailDic[metchCode]);
